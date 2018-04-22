@@ -13,12 +13,16 @@ namespace fct
 {
   using String = std::string;
   using SS = std::stringstream;
+  using Double = double;
+  using Int = int;
+  using Char = char;
 
   template <typename T>
   using Vec = std::vector<T>;
 
-  template <typename S, typename T>
-  using Tup = std::tuple<S, T>;
+  // template <typename S, typename T>
+  template <typename ...Ts>
+  using Tup = std::tuple<Ts...>;
 
   long double pi = 3.141592653589793238462643383279502884;
   long double e  = 2.718281828459045235360287471352662497;
