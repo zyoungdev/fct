@@ -30,14 +30,14 @@ namespace fct
 
   // print :: a -> void
   template <typename T>
-  auto print( T const& val, char end = '\n' ) -> void
+  auto print( T const& val, Char end = '\n' ) -> void
   {
     std::cout << val << end;
   }
 
   // print :: [a] -> void
   template <typename T>
-  auto print( Vec<T> const& val, char end = '\n' ) -> void
+  auto print( Vec<T> const& val, Char end = '\n' ) -> void
   {
     std::cout << "[ ";
     for ( auto const& v : val )
@@ -47,7 +47,7 @@ namespace fct
 
   // print :: [[a]] -> void
   template <typename T>
-  auto print( Vec<Vec<T>> const& xxs, char end = '\n' ) -> void
+  auto print( Vec<Vec<T>> const& xxs, Char end = '\n' ) -> void
   {
     std::cout << "[ ";
     for ( auto const& xs : xxs )
@@ -300,7 +300,7 @@ namespace fct
   template <typename T>
   auto elem( T const& el, Vec<T> const& xs ) -> bool
   {
-    return std::any_of( xs.begin(), xs.end(), [&el]( auto const& x ){ return el == x; } );
+    return any( [&el]( auto const& x ){ return el == x; }, xs );
   }
 
   // notElem :: a -> [b] -> bool
@@ -551,7 +551,7 @@ namespace fct
   }
 
   // putChar :: Char -> void
-  auto putChar( char const& ch ) -> void
+  auto putChar( Char const& ch ) -> void
   {
     std::cout << ch;
   }
@@ -569,9 +569,9 @@ namespace fct
   }
 
   // getChar :: Char
-  auto getChar() -> char
+  auto getChar() -> Char
   {
-    char out;
+    Char out;
     std::cin >> out;
     return out;
   }
@@ -589,7 +589,7 @@ namespace fct
   {
     std::ifstream file( filePath, std::ios_base::in );
 
-    return String{ std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>() };
+    return String{ std::istreambuf_iterator<Char>(file), std::istreambuf_iterator<Char>() };
   }
 
   // readLn :: String -> String
