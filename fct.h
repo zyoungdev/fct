@@ -13,7 +13,8 @@ namespace fct
 {
   using String = std::string;
   using SS = std::stringstream;
-  using Double = double;
+  using Float = float;
+  using Double = long double;
   using Int = int;
   using Char = char;
 
@@ -24,8 +25,8 @@ namespace fct
   template <typename ...Ts>
   using Tup = std::tuple<Ts...>;
 
-  long double pi = 3.141592653589793238462643383279502884;
-  long double e  = 2.718281828459045235360287471352662497;
+  Double pi = 3.141592653589793238462643383279502884;
+  Double e  = 2.718281828459045235360287471352662497;
 
   // print :: a -> void
   template <typename T>
@@ -131,7 +132,7 @@ namespace fct
   template <typename T, typename F>
   auto dropWhile( F predicate, Vec<T> const& xs ) -> Vec<T>
   {
-    int i = 0;
+    Int i = 0;
     for ( auto const& x : xs )
       if ( predicate( x ) )
         i++;
@@ -220,7 +221,7 @@ namespace fct
 
   // abs :: Num -> Int
   template <typename T>
-  auto signum( T const& x ) -> int
+  auto signum( T const& x ) -> Int
   {
     if ( x < 0 )
       return -1;
@@ -240,30 +241,30 @@ namespace fct
     return std::make_tuple( q, r );
   }
 
-  // exp :: Num -> double
+  // exp :: Num -> Double
   template <typename T>
-  auto exp( T const& x ) -> long double
+  auto exp( T const& x ) -> Double
   {
     return std::pow( e, x );
   }
 
-  // log :: Num -> double
+  // log :: Num -> Double
   template <typename T>
-  auto log( T const& x ) -> long double
+  auto log( T const& x ) -> Double
   {
     return std::log( x );
   }
 
   // logBase :: a -> a -> a
   template <typename T>
-  auto logBase( T const& base, T const& x ) -> long double
+  auto logBase( T const& base, T const& x ) -> Double
   {
     return std::log( x ) / std::log( base );
   }
 
-  // sqrt :: Num -> double
+  // sqrt :: Num -> Double
   template <typename T>
-  auto sqrt( T const& x ) -> long double
+  auto sqrt( T const& x ) -> Double
   {
     return std::sqrt( x );
   }
@@ -472,28 +473,28 @@ namespace fct
 
   // replicate :: Int -> a - [a]
   template <typename T>
-  auto replicate( int num, T const& val ) -> Vec<T>
+  auto replicate( Int num, T const& val ) -> Vec<T>
   {
     return Vec<T>( num, val );
   }
 
   // take :: Int -> [a] -> [a]
   template <typename T>
-  auto take( int num, Vec<T> const& xs ) -> Vec<T>
+  auto take( Int num, Vec<T> const& xs ) -> Vec<T>
   {
     return Vec<T>{ xs.begin(), xs.begin() + num };
   }
 
   // drop :: Int -> [a] -> [a]
   template <typename T>
-  auto drop( int num, Vec<T> const& xs ) -> Vec<T>
+  auto drop( Int num, Vec<T> const& xs ) -> Vec<T>
   {
     return Vec<T>{ xs.begin() + num, xs.end() };
   }
 
   // splitAt :: Int -> [a] -> ( [a], [a] )
   template <typename T>
-  auto splitAt( int index, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
+  auto splitAt( Int index, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
     Vec<T> left{ xs.begin(), xs.begin() + index };
     Vec<T> right{ xs.begin() + index, xs.end() };
@@ -654,7 +655,7 @@ namespace fct
     return out;
   }
 
-  // intersperse :: a -> [a] -> [a]
+  // Intersperse :: a -> [a] -> [a]
   template <typename T>
   auto intersperse( T const& y, Vec<T> const& xs ) -> Vec<T>
   {
@@ -671,7 +672,7 @@ namespace fct
     return out;
   }
 
-  // intercalate :: [a] -> [[a]] -> [a]
+  // Intercalate :: [a] -> [[a]] -> [a]
   template <typename T>
   auto intercalate( Vec<T> const& xs, Vec<Vec<T>> const& xxs ) -> Vec<T>
   {
@@ -698,7 +699,7 @@ namespace fct
 
   // iterate :: (a -> a) -> a -> [a]
   template <typename T, typename F>
-  auto iterate( int num, F func, T const& x ) -> Vec<T>
+  auto iterate( Int num, F func, T const& x ) -> Vec<T>
   {
     Vec<T> out{};
     for ( uint i = 0; i < num; i++ )
@@ -711,7 +712,7 @@ namespace fct
   template <typename T, typename F>
   auto span( F predicate, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
-    int i = 0;
+    Int i = 0;
     for ( auto const& x : xs )
       if ( predicate( x ) )
         i++;
@@ -725,7 +726,7 @@ namespace fct
   template <typename T, typename F>
   auto break_of( F predicate, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
-    int i = 0;
+    Int i = 0;
     for ( auto const& x : xs )
       if ( ! predicate( x ) )
         i++;
