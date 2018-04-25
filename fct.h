@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <sstream>
 #include <fstream>
+#include <optional>
 
 namespace fct
 {
@@ -19,6 +20,9 @@ namespace fct
   using Char = char;
 
   template <typename T>
+  using Opt = std::optional<T>;
+
+  template <typename T>
   using Vec = std::vector<T>;
 
   // template <typename S, typename T>
@@ -28,24 +32,40 @@ namespace fct
   Double pi = 3.141592653589793238462643383279502884;
   Double e  = 2.718281828459045235360287471352662497;
 
-  // print :: a -> void
+  template <typename T>
+  auto print( Opt<T> const& val, Char end = '\n' ) -> void
+  {
+    if ( val )
+      std::cout << val.value() << end;
+    else
+      std::cout << "Nothing" << end;
+  }
+
+  // print :: T -> void
   template <typename T>
   auto print( T const& val, Char end = '\n' ) -> void
   {
     std::cout << val << end;
   }
 
-  // print :: [a] -> void
+  // print :: [T] -> void
   template <typename T>
-  auto print( Vec<T> const& val, Char end = '\n' ) -> void
+  auto print( Vec<T> const& xs, Char end = '\n' ) -> void
   {
-    std::cout << "[ ";
-    for ( auto const& v : val )
-      std::cout << v << ' ';
-    std::cout << "]" << end;
+    if ( xs.empty() )
+    {
+      std::cout << "[]" << end;
+      return;
+    }
+
+    std::cout << "[";
+    auto i = xs.begin();
+    for ( ; i < xs.end() - 1; i++ )
+      std::cout << *i << ',';
+    std::cout << *i << "]" << end;
   }
 
-  // print :: [[a]] -> void
+  // print :: [[T]] -> void
   template <typename T>
   auto print( Vec<Vec<T>> const& xxs, Char end = '\n' ) -> void
   {
@@ -62,7 +82,7 @@ namespace fct
     std::cout << "]" << end;
   }
 
-  // fmap :: ( a -> b ) -> [a] -> [b]
+  // fmap :: ( S -> T ) -> [S] -> [T]
   template <typename S, typename T, typename F>
   auto fmap( F fct, Vec<S> const& xs ) -> Vec<T>
   {
@@ -75,7 +95,7 @@ namespace fct
     return out;
   }
 
-  // transpose :: [[a]] -> [[a]]
+  // transpose :: [[T]] -> [[T]]
   template <typename T>
   auto transpose( Vec<Vec<T>> const& xxs ) -> Vec<Vec<T>>
   {
@@ -98,7 +118,7 @@ namespace fct
     return out;
   }
 
-  // filter :: ( a -> bool ) -> [a]
+  // filter :: ( T -> bool ) -> [T]
   template <typename T, typename F>
   auto filter( F predicate, Vec<T> const& xs ) -> Vec<T>
   {
@@ -112,7 +132,7 @@ namespace fct
     return out;
   }
 
-  // takeWhile :: ( a -> bool ) -> [a] -> [a]
+  // takeWhile :: ( T -> bool ) -> [T] -> [T]
   template <typename T, typename F>
   auto takeWhile( F predicate, Vec<T> const& xs ) -> Vec<T>
   {
@@ -128,7 +148,7 @@ namespace fct
     return out;
   }
 
-  // dropWhile :: ( a -> bool ) -> [a] -> [a]
+  // dropWhile :: ( T -> bool ) -> [T] -> [T]
   template <typename T, typename F>
   auto dropWhile( F predicate, Vec<T> const& xs ) -> Vec<T>
   {
@@ -142,35 +162,41 @@ namespace fct
     return Vec<T>{ xs.begin() + i, xs.end() };
   }
 
-  // head :: [a] -> a
+  // head :: [T] -> Opt<T>
   template <typename T>
-  auto head( Vec<T> const& xs ) -> T
+  auto head( Vec<T> const& xs ) -> Opt<T>
   {
-    return xs.at( 0 );
+    if ( xs.empty() )
+      return Opt<T>{};
+
+    return Opt<T>{ xs.at( 0 ) };
   }
 
-  // tail :: [a] -> [a]
+  // tail :: [T] -> [T]
   template <typename T>
   auto tail( Vec<T> const& xs ) -> Vec<T>
   {
-    return xs.at( 0 );
+    return Vec<T>{ xs.begin() + 1, xs.end() };
   }
 
-  // init :: [a] -> [a]
+  // init :: [T] -> [T]
   template <typename T>
   auto init( Vec<T> const& xs ) -> Vec<T>
   {
     return Vec<T>{ xs.begin(), xs.end() - 1 };
   }
 
-  // last :: [a] -> a
+  // last :: [T] -> Opt<T>
   template <typename T>
-  auto last( Vec<T> const& xs ) -> T
+  auto last( Vec<T> const& xs ) -> Opt<T>
   {
-    return xs[ xs.size() - 1 ];
+    if ( xs.empty() )
+      return Opt<T>{};
+
+    return Opt<T>{ *(xs.end() - 1) };
   }
 
-  // subsets :: [a] -> [[a]]
+  // subsets :: [T] -> [[T]]
   template <typename T>
   auto subsets( Vec<T> const& xs ) -> Vec<Vec<T>>
   {
@@ -231,7 +257,7 @@ namespace fct
     return 0;
   }
 
-  // quotRem :: (Integral a) => a -> a -> ( a, a )
+  // quotRem :: (Integral a) => T -> T -> ( a, a )
   template <typename T>
   auto quotRem( T const& x, T const& y ) -> Tup<T, T>
   {
@@ -255,7 +281,7 @@ namespace fct
     return std::log( x );
   }
 
-  // logBase :: a -> a -> a
+  // logBase :: T -> T -> T
   template <typename T>
   auto logBase( T const& base, T const& x ) -> Double
   {
@@ -269,7 +295,7 @@ namespace fct
     return std::sqrt( x );
   }
 
-  // gcd :: a -> a -> a
+  // gcd :: T -> T -> T
   template <typename T>
   auto gcd( T const& x, T const& y ) -> T
   {
@@ -283,7 +309,7 @@ namespace fct
     return j;
   }
 
-  // lcm :: a -> a -> a
+  // lcm :: T -> T -> T
   template <typename T>
   auto lcm( T const& x, T const& y ) -> T
   {
@@ -296,50 +322,59 @@ namespace fct
     return 1;
   }
 
-  // elem :: a -> [b] -> bool
+  // elem :: T -> [b] -> bool
   template <typename T>
   auto elem( T const& el, Vec<T> const& xs ) -> bool
   {
     return any( [&el]( auto const& x ){ return el == x; }, xs );
   }
 
-  // notElem :: a -> [b] -> bool
+  // notElem :: T -> [b] -> bool
   template <typename T>
   auto notElem( T const& el, Vec<T> const& xs ) -> bool
   {
     return ! elem( el, xs );
   }
 
-  // maximum :: [a] -> a
+  // maximum :: [T] -> Opt<T>
   template <typename T>
-  auto maximum( Vec<T> const& xs ) -> T
+  auto maximum( Vec<T> const& xs ) -> Opt<T>
   {
+    if ( xs.empty() )
+      return Opt<T>{};
+
     T out = xs.at( 0 );
 
     for ( auto const& x : xs )
       if ( x > out )
         out = x;
 
-    return out;
+    return Opt<T>{ out };
   }
 
-  // minimum :: [a] -> a
+  // minimum :: [T] -> Opt<T>
   template <typename T>
-  auto minimum( Vec<T> const& xs ) -> T
+  auto minimum( Vec<T> const& xs ) -> Opt<T>
   {
+    if ( xs.empty() )
+      return Opt<T>{};
+
     T out = xs.at( 0 );
 
     for ( auto const& x : xs )
       if ( x < out )
         out = x;
 
-    return out;
+    return Opt<T>{ out };
   }
 
-  // sum :: [a] -> a
+  // sum :: [T] -> T
   template <typename T>
   auto sum( Vec<T> const& xs ) -> T
   {
+    if ( xs.empty() )
+      return 0;
+
     T out = xs.at( 0 );
     for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
       out += *i;
@@ -347,10 +382,13 @@ namespace fct
     return out;
   }
 
-  // product :: [a] -> a
+  // product :: [T] -> T
   template <typename T>
   auto product( Vec<T> const& xs ) -> T
   {
+    if ( xs.empty() )
+      return 1;
+
     T out = xs.at( 0 );
     for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
       out *= *i;
@@ -358,14 +396,14 @@ namespace fct
     return out;
   }
 
-  // id :: a -> a
+  // id :: T -> T
   template <typename T>
   auto id( T const& x ) -> T
   {
     return x;
   }
 
-  // constant :: a -> b -> a
+  // constant :: S -> T -> S
   template <typename S, typename T>
   auto constant( S const& x, T const& y ) -> S
   {
@@ -376,14 +414,14 @@ namespace fct
     return x;
   }
 
-  // flip :: ( a -> b -> c ) -> a -> b -> c
+  // flip :: ( S -> T -> U ) -> T -> S -> U
   template <typename S, typename T, typename U, typename F>
   auto flip( F func, S const& x, T const& y ) -> U
   {
     return func( y, x );
   }
 
-  // until :: ( a -> bool ) -> ( a -> a ) -> a -> a
+  // until :: ( T -> bool ) -> ( T -> T ) -> T -> T
   template <typename T, typename P, typename F>
   auto until( P predicate, F func, T const& x ) -> T
   {
@@ -394,21 +432,21 @@ namespace fct
     return out;
   }
 
-  // null :: [a] -> bool
+  // null :: [T] -> bool
   template <typename T>
   auto null( Vec<T> const& xs ) -> bool
   {
     return xs.empty();
   }
 
-  // length :: [a] -> Num
+  // length :: [T] -> Num
   template <typename S, typename T = size_t>
   auto length( Vec<S> const& xs ) -> T
   {
     return xs.size();
   }
 
-  // reverse :: [a] -> [a]
+  // reverse :: [T] -> [T]
   template <typename T>
   auto reverse( Vec<T> const& xs ) -> Vec<T>
   {
@@ -417,10 +455,13 @@ namespace fct
     return out;
   }
 
-  // conjunction :: [a] -> bool
+  // conjunction :: [T] -> bool
   template <typename T>
   auto conjunction( Vec<T> const& xs ) -> bool
   {
+    if ( xs.empty() )
+      return false;
+
     bool out = xs.at( 0 );
     for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
       out = out && *i;
@@ -428,10 +469,13 @@ namespace fct
     return out;
   }
 
-  // disjunction :: [a] -> bool
+  // disjunction :: [T] -> bool
   template <typename T>
   auto disjunction( Vec<T> const& xs ) -> bool
   {
+    if ( xs.empty() )
+      return false;
+
     bool out = xs.at( 0 );
     for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
       out = out || *i;
@@ -439,21 +483,21 @@ namespace fct
     return out;
   }
 
-  // any :: ( a -> bool ) -> [a] -> bool
+  // any :: ( T -> bool ) -> [T] -> bool
   template <typename T, typename F>
   auto any( F predicate, Vec<T> const& xs ) -> bool
   {
     return std::any_of( xs.begin(), xs.end(), predicate );
   }
 
-  // all :: ( a -> bool ) -> [a] -> bool
+  // all :: ( T -> bool ) -> [T] -> bool
   template <typename T, typename F>
   auto all( F predicate, Vec<T> const& xs ) -> bool
   {
     return std::all_of( xs.begin(), xs.end(), predicate );
   }
 
-  // concat :: [[a]] -> [a]
+  // concat :: [[T]] -> [T]
   template <typename T>
   auto concat( Vec<Vec<T>> const& xxs ) -> Vec<T>
   {
@@ -471,28 +515,28 @@ namespace fct
     return out;
   }
 
-  // replicate :: Int -> a - [a]
+  // replicate :: Int -> T - [T]
   template <typename T>
   auto replicate( Int num, T const& val ) -> Vec<T>
   {
     return Vec<T>( num, val );
   }
 
-  // take :: Int -> [a] -> [a]
+  // take :: Int -> [T] -> [T]
   template <typename T>
   auto take( Int num, Vec<T> const& xs ) -> Vec<T>
   {
     return Vec<T>{ xs.begin(), xs.begin() + num };
   }
 
-  // drop :: Int -> [a] -> [a]
+  // drop :: Int -> [T] -> [T]
   template <typename T>
   auto drop( Int num, Vec<T> const& xs ) -> Vec<T>
   {
     return Vec<T>{ xs.begin() + num, xs.end() };
   }
 
-  // splitAt :: Int -> [a] -> ( [a], [a] )
+  // splitAt :: Int -> [T] -> ( [T], [T] )
   template <typename T>
   auto splitAt( Int index, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
@@ -546,8 +590,6 @@ namespace fct
       out += x + " ";
 
     return out;
-
-    return xs.at(0);
   }
 
   // putChar :: Char -> void
@@ -615,14 +657,14 @@ namespace fct
     file << str;
   }
 
-  // show :: a -> String
+  // show :: T -> String
   template <typename T>
   auto show( T const& x ) -> String
   {
     return std::to_string( x );
   }
 
-  // intersect :: [a] -> [a] -> [a]
+  // intersect :: [T] -> [T] -> [T]
   template <typename T>
   auto intersect( Vec<T> const& xs, Vec<T> const& ys ) -> Vec<T>
   {
@@ -637,7 +679,7 @@ namespace fct
     return out;
   }
 
-  // union :: [a] -> [a] -> [a]
+  // union :: [T] -> [T] -> [T]
   template <typename T>
   auto union_of( Vec<T> const& xs, Vec<T> const& ys ) -> Vec<T>
   {
@@ -655,7 +697,7 @@ namespace fct
     return out;
   }
 
-  // Intersperse :: a -> [a] -> [a]
+  // Intersperse :: T -> [T] -> [T]
   template <typename T>
   auto intersperse( T const& y, Vec<T> const& xs ) -> Vec<T>
   {
@@ -672,14 +714,14 @@ namespace fct
     return out;
   }
 
-  // Intercalate :: [a] -> [[a]] -> [a]
+  // Intercalate :: [T] -> [[T]] -> [T]
   template <typename T>
   auto intercalate( Vec<T> const& xs, Vec<Vec<T>> const& xxs ) -> Vec<T>
   {
     return concat( intersperse( xs, xxs ) );
   }
 
-  // permutations :: [a] -> [[a]]
+  // permutations :: [T] -> [[T]]
   template <typename T>
   auto permutations( Vec<T> const& xs ) -> Vec<Vec<T>>
   {
@@ -697,7 +739,7 @@ namespace fct
     return out;
   }
 
-  // iterate :: (a -> a) -> a -> [a]
+  // iterate :: (T -> T) -> T -> [T]
   template <typename T, typename F>
   auto iterate( Int num, F func, T const& x ) -> Vec<T>
   {
@@ -708,7 +750,7 @@ namespace fct
     return out;
   }
 
-  // span :: (a -> Bool) -> [a] -> ([a], [a])
+  // span :: (T -> Bool) -> [T] -> ([T], [T])
   template <typename T, typename F>
   auto span( F predicate, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
@@ -722,7 +764,7 @@ namespace fct
     return std::make_tuple( Vec<T>{ xs.begin(), xs.begin() + i }, Vec<T>{ xs.begin() + i, xs.end() } );
   }
 
-  // break_of :: (a -> Bool) -> [a] -> ([a], [a])
+  // break_of :: (T -> Bool) -> [T] -> ([T], [T])
   template <typename T, typename F>
   auto break_of( F predicate, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
@@ -736,7 +778,7 @@ namespace fct
     return std::make_tuple( Vec<T>{ xs.begin(), xs.begin() + i }, Vec<T>{ xs.begin() + i, xs.end() } );
   }
 
-  // group :: [a] -> [[a]]
+  // group :: [T] -> [[T]]
   template <typename T>
   auto group( Vec<T> const& xs ) -> Vec<Vec<T>>
   {
@@ -762,7 +804,7 @@ namespace fct
     return out;
   }
 
-  // inits :: [a] -> [[a]]
+  // inits :: [T] -> [[T]]
   template <typename T>
   auto inits( Vec<T> const& xs ) -> Vec<Vec<T>>
   {
@@ -777,7 +819,7 @@ namespace fct
     return out;
   }
 
-  // tails :: [a] -> [[a]]
+  // tails :: [T] -> [[T]]
   template <typename T>
   auto tails( Vec<T> const& xs ) -> Vec<Vec<T>>
   {
@@ -792,7 +834,7 @@ namespace fct
     return out;
   }
 
-  // isPrefixOf :: [a] -> [a] -> Bool
+  // isPrefixOf :: [T] -> [T] -> Bool
   template <typename T>
   auto isPrefixOf( Vec<T> const& xs, Vec<T> const& ys ) -> bool
   {
@@ -800,7 +842,7 @@ namespace fct
     return elem( xs, ys_inits );
   }
 
-  // isSuffixOf :: [a] -> [a] -> Bool
+  // isSuffixOf :: [T] -> [T] -> Bool
   template <typename T>
   auto isSuffixOf( Vec<T> const& xs, Vec<T> const& ys ) -> bool
   {
@@ -810,7 +852,7 @@ namespace fct
     return elem( xs_rev, ys_rev_tails );
   }
 
-  // isInfixOf :: [a] -> [a] -> Bool
+  // isInfixOf :: [T] -> [T] -> Bool
   template <typename T>
   auto isInfixOf( Vec<T> const& xs, Vec<T> const& ys ) -> bool
   {
@@ -826,7 +868,7 @@ namespace fct
     return false;
   }
 
-  // partition :: ( a -> bool ) -> [a] -> ( [a], [a] )
+  // partition :: ( T -> bool ) -> [T] -> ( [T], [T] )
   template <typename T, typename F>
   auto partition( F predicate, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
@@ -842,7 +884,7 @@ namespace fct
     return std::make_tuple( left, right );
   }
 
-  // nub :: [a] -> [a]
+  // nub :: [T] -> [T]
   template <typename T>
   auto nub( Vec<T> const& xs ) -> Vec<T>
   {
@@ -852,6 +894,14 @@ namespace fct
       if ( ! elem( x, out ) )
         out.push_back( x );
 
+    return out;
+  }
+
+  template <typename T>
+  auto sort( Vec<T> const& xs ) -> Vec<T>
+  {
+    Vec<T> out{ xs.begin(), xs.end() };
+    std::sort( out.begin(), out.end() );
     return out;
   }
 }
