@@ -327,7 +327,7 @@ namespace fct
     return any( [&el]( auto const& x ){ return el == x; }, xs );
   }
 
-  // notElem :: T -> [b] -> bool
+  // notElem :: T -> [T] -> bool
   template <typename T>
   auto notElem( T const& el, Vec<T> const& xs ) -> bool
   {
