@@ -448,9 +448,7 @@ namespace fct
   template <typename T>
   auto reverse( Vec<T> const& xs ) -> Vec<T>
   {
-    Vec<T> out = xs;
-    std::reverse( out.begin(), out.end() );
-    return out;
+    return Vec<T>{ xs.rbegin(), xs.rend() };
   }
 
   // conjunction :: [T] -> bool
