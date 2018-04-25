@@ -94,3 +94,55 @@ TEST_CASE( "dropWhile :: ( T -> bool ) -> [T] -> [T]", "[dropWhile]" )
 
   REQUIRE( b_dw == Vec<int>{} );
 }
+
+TEST_CASE( "subsets :: [T] -> [[T]]", "[subsets]" )
+{
+  Vec<int> a = { 1,2,3 };
+  auto a_ss = subsets( a );
+
+  REQUIRE( a_ss == Vec<Vec<int>>{ {},{1},{2},{1,2},{3},{1,3},{2,3},{1,2,3} } );
+
+  Vec<int> b{};
+  auto b_ss = subsets( b );
+
+  REQUIRE( b_ss == Vec<Vec<int>>{ Vec<int>{} } );
+}
+
+TEST_CASE( "even :: Num -> bool", "[even]" )
+{
+  int a = 2;
+  long b = 2;
+
+  REQUIRE( even( a ) == true );
+  REQUIRE( even( a + 1 ) == false );
+  REQUIRE( even( b ) == true );
+  REQUIRE( even( b + 1 ) == false );
+
+  REQUIRE( even( 0 ) == true );
+}
+
+TEST_CASE( "odd :: Num -> bool", "[odd]" )
+{
+  int a = 1;
+  long b = 1;
+
+  REQUIRE( odd( a ) == true );
+  REQUIRE( odd( a + 1 ) == false );
+  REQUIRE( odd( b ) == true );
+  REQUIRE( odd( b + 1 ) == false );
+
+  REQUIRE( odd( 0 ) == false );
+}
+
+TEST_CASE( "abs :: Num -> Num", "[abs]" )
+{
+  int a = 1;
+  int b = -1;
+  int c = 0;
+  int d = -0;
+
+  REQUIRE( abs( a ) == 1 );
+  REQUIRE( abs( b ) == 1 );
+  REQUIRE( abs( c ) == 0 );
+  REQUIRE( abs( d ) == 0 );
+}
