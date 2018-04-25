@@ -146,3 +146,25 @@ TEST_CASE( "abs :: Num -> Num", "[abs]" )
   REQUIRE( abs( c ) == 0 );
   REQUIRE( abs( d ) == 0 );
 }
+
+TEST_CASE( "quotRem :: (Integral a) => T -> T -> ( a, a )", "[quotRem]" )
+{
+  int a = 3;
+  int b = 2;
+  int c = 0;
+
+  REQUIRE( quotRem( a, b ) == Tup<int, int>( 1, 1 ) );
+  REQUIRE( quotRem( b, a ) == Tup<int, int>( 0, 2 ) );
+  REQUIRE( quotRem( c, a ) == Tup<int, int>( 0, 0 ) );
+}
+
+TEST_CASE( "gcd :: T -> T -> T", "[gcd]" )
+{
+  REQUIRE( gcd( 0, 0 ) == 0 );
+
+  REQUIRE( gcd( 12, 24 ) == 12 );
+  REQUIRE( gcd( 24, 12 ) == 12 );
+
+  REQUIRE( gcd( 17, 3 ) == 1 );
+  REQUIRE( gcd( 3, 17 ) == 1 );
+}
