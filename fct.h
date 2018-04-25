@@ -456,7 +456,7 @@ namespace fct
   auto conjunction( Vec<T> const& xs ) -> bool
   {
     if ( xs.empty() )
-      return false;
+      return true;
 
     bool out = xs.at( 0 );
     for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
