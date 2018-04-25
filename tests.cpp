@@ -168,3 +168,202 @@ TEST_CASE( "gcd :: T -> T -> T", "[gcd]" )
   REQUIRE( gcd( 17, 3 ) == 1 );
   REQUIRE( gcd( 3, 17 ) == 1 );
 }
+
+TEST_CASE( "elem :: T -> [T] -> bool", "[elem]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( elem( 1, a ) == true );
+  REQUIRE( elem( 9, a ) == false );
+
+  Vec<int> b{};
+
+  REQUIRE( elem( 1, b ) == false );
+}
+
+TEST_CASE( "notElem :: T -> [T] -> bool", "[notElem]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( notElem( 1, a ) == false );
+  REQUIRE( notElem( 9, a ) == true );
+
+  Vec<int> b{};
+
+  REQUIRE( notElem( 1, b ) == true );
+}
+
+TEST_CASE( "maximum :: [T] -> Opt<T>", "[maximum]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( maximum( a ).value() == 3 );
+
+  Vec<int> b{};
+  REQUIRE( maximum( b ).has_value() == false );
+}
+
+TEST_CASE( "minimum :: [T] -> Opt<T>", "[minimum]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( minimum( a ).value() == 1 );
+
+  Vec<int> b{};
+  REQUIRE( minimum( b ).has_value() == false );
+}
+
+TEST_CASE( "sum :: [T] -> T", "[sum]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( sum( a ) == 6 );
+
+  Vec<int> b{};
+
+  REQUIRE( sum( b ) == 0 );
+}
+
+TEST_CASE( "product :: [T] -> T", "[product]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( product( a ) == 6 );
+
+  Vec<int> b{};
+
+  REQUIRE( product( b ) == 1 );
+}
+
+TEST_CASE( "id :: T -> T", "[id]" )
+{
+  REQUIRE( id( 0 ) == 0 );
+  REQUIRE( id( 1 ) == 1 );
+}
+
+TEST_CASE( "constant :: S -> T -> S", "[constant]" )
+{
+  REQUIRE( constant( 1, 9 ) == 1 );
+  REQUIRE( constant( 'x', 1 ) == 'x' );
+}
+
+TEST_CASE( "flip :: ( S -> T -> U ) -> T -> S -> U", "[flip]" )
+{
+  auto f = []( auto& x, auto& y ){ return y / x; };
+
+  REQUIRE( flip<int, int, int>( f, 3, 2 ) == 1 );
+  REQUIRE( flip<int, int, int>( f, 2, 3 ) == 0 );
+}
+
+TEST_CASE( "until :: ( T -> bool ) -> ( T -> T ) -> T -> T", "[until]" )
+{
+  auto p = []( auto& x ){ return x > 10; };
+  auto f = []( auto& x ){ return x + x; };
+
+  REQUIRE( until( p, f, 1 ) == 16 );
+}
+
+TEST_CASE( "null :: [T] -> bool", "[null]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( null( a ) == false );
+
+  Vec<int> b{};
+
+  REQUIRE( null( b ) == true );
+}
+
+TEST_CASE( "length :: [T] -> Num", "[length]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( length( a ) == 3 );
+
+  Vec<int> b{};
+
+  REQUIRE( length( b ) == 0 );
+}
+
+TEST_CASE( "reverse :: [T] -> [T]", "[reverse]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  REQUIRE( reverse( a ) == Vec<int>{ 3,2,1 } );
+
+  Vec<int> b{};
+
+  REQUIRE( reverse( b ) == Vec<int>{} );
+}
+
+TEST_CASE( "conjunction :: [T] -> bool", "[conjunction]" )
+{
+  Vec<bool> a = { true, true, true };
+
+  REQUIRE( conjunction( a ) == true );
+
+  Vec<bool> b = { false, false, false };
+
+  REQUIRE( conjunction( b ) == false );
+
+  Vec<bool> c = { true, false, true };
+
+  REQUIRE( conjunction( c ) == false );
+
+  Vec<bool> d{};
+
+  REQUIRE( conjunction( d ) == true );
+}
+
+TEST_CASE( "disjunction :: [T] -> bool", "[disjunction]" )
+{
+  Vec<bool> a = { true, true, true };
+
+  REQUIRE( disjunction( a ) == true );
+
+  Vec<bool> b = { false, false, false };
+
+  REQUIRE( disjunction( b ) == false );
+
+  Vec<bool> c = { true, false, true };
+
+  REQUIRE( disjunction( c ) == true );
+
+  Vec<bool> d{};
+
+  REQUIRE( disjunction( d ) == false );
+}
+
+TEST_CASE( "any :: ( T -> bool ) -> [T] -> bool", "[any]" )
+{
+  Vec<int> a = { 1,2,3 };
+
+  auto p_even = []( auto& x ){ return even( x ); };
+
+  REQUIRE( any( p_even, a ) == true );
+
+  Vec<int> b = { 1,3,5 };
+
+  REQUIRE( any( p_even, b ) == false );
+
+  Vec<int> c{};
+
+  REQUIRE( any( p_even, c ) == false );
+}
+
+TEST_CASE( "all :: ( T -> bool ) -> [T] -> bool", "[all]" )
+{
+  Vec<int> a = { 2,4,6 };
+
+  auto p_even = []( auto& x ){ return even( x ); };
+
+  REQUIRE( all( p_even, a ) == true );
+
+  Vec<int> b = { 2,3,4 };
+
+  REQUIRE( all( p_even, b ) == false );
+
+  Vec<int> c{};
+
+  REQUIRE( all( p_even, c ) == true );
+}
