@@ -240,9 +240,7 @@ namespace fct
   template <typename T>
   auto abs( T const& x ) -> T
   {
-    if ( x < 0 )
-      return -x;
-    return x;
+    return x < 0 ? -x : x;
   }
 
   // abs :: Num -> Int
