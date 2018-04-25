@@ -299,8 +299,8 @@ namespace fct
   {
     T end = x <= y ? x : y;
 
-    T j = 1;
-    for ( T i = j ; i <= end; i++ )
+    T j = 0;
+    for ( T i = 1 ; i <= end; i++ )
       if ( abs( x ) % i == 0 && abs( y ) % i == 0 )
         j = i;
 
