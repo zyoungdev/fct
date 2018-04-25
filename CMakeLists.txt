@@ -14,8 +14,16 @@ set(
 )
 set (
     TEST_FILES
+    tests.cpp
+)
+set (
+    MAIN_FILES
     main.cpp
 )
+
+set(CATCH_INCLUDE_DIR /usr/include/catch)
+add_library(Catch INTERFACE)
+target_include_directories(Catch INTERFACE ${CATCH_INCLUDE_DIR})
 
 add_library( fct STATIC ${LIBRARY_FILES} )
 set_target_properties(fct PROPERTIES LINKER_LANGUAGE CXX)
@@ -23,4 +31,7 @@ set_target_properties(fct PROPERTIES LINKER_LANGUAGE CXX)
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}" )
 
 add_executable(fct_test ${TEST_FILES})
-target_link_libraries( fct_test fct )
+target_link_libraries( fct_test fct Catch )
+
+add_executable(fct_main ${MAIN_FILES})
+target_link_libraries( fct_main fct )
