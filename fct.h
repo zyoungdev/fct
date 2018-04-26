@@ -548,6 +548,9 @@ namespace fct
   template <typename T>
   auto splitAt( UInt index, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
+    if ( index >= xs.size() )
+      return std::make_tuple( Vec<T>{ begin( xs ), end( xs ) }, Vec<T>{} );
+
     Vec<T> left{ begin( xs ), begin( xs ) + index };
     Vec<T> right{ begin( xs ) + index, end( xs ) };
 
