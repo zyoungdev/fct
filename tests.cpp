@@ -6,111 +6,111 @@ using namespace fct;
 
 TEST_CASE( "head :: [T] -> Opt<T>", "[head]")
 {
-  Vec<int> a = { 1, 2, 3 };
+  Vec<Int> a = { 1, 2, 3 };
   REQUIRE( head( a ).value() == 1 );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   REQUIRE( head( b ).has_value() == false );
 }
 
 TEST_CASE( "last :: [T] -> Opt<T>", "[last]")
 {
-  Vec<int> a = { 1, 2, 3 };
+  Vec<Int> a = { 1, 2, 3 };
   REQUIRE( last( a ).value() == 3 );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   REQUIRE( last( b ).has_value() == false );
 }
 
 TEST_CASE( "fmap :: ( S -> T ) -> [S] -> [T]", "[fmap]" )
 {
-  Vec<int> a = { 1, 2, 3 };
-  auto a_sq = fmap<int, int>( []( auto& x ){ return x * x; }, a );
+  Vec<Int> a = { 1, 2, 3 };
+  auto a_sq = fmap<Int, Int>( []( auto& x ){ return x * x; }, a );
 
-  REQUIRE( a_sq == Vec<int>{1,4,9} );
+  REQUIRE( a_sq == Vec<Int>{1,4,9} );
 
-  Vec<int> b{};
-  auto b_sq = fmap<int, int>( []( auto& x ){ return x * x; }, b );
+  Vec<Int> b{};
+  auto b_sq = fmap<Int, Int>( []( auto& x ){ return x * x; }, b );
 
-  REQUIRE( b_sq == Vec<int>{} );
+  REQUIRE( b_sq == Vec<Int>{} );
 
-  auto a_ch = fmap<int, char>( []( auto& x ){ return 'a' + x; }, a );
+  auto a_ch = fmap<Int, char>( []( auto& x ){ return 'a' + x; }, a );
   REQUIRE( a_ch == Vec<char>{'b','c','d'} );
 }
 
 TEST_CASE( "transpose :: [[T]] -> [[T]]", "[transpose]" )
 {
-  Vec<Vec<int>> a = { {1,2,3},{4,5,6},{7,8,9} };
+  Vec<Vec<Int>> a = { {1,2,3},{4,5,6},{7,8,9} };
   auto a_tr = transpose( a );
 
-  REQUIRE( a_tr == Vec<Vec<int>>{{1,4,7},{2,5,8},{3,6,9}} );
+  REQUIRE( a_tr == Vec<Vec<Int>>{{1,4,7},{2,5,8},{3,6,9}} );
 
-  Vec<Vec<int>> b{};
+  Vec<Vec<Int>> b{};
   auto b_tr = transpose( b );
 
-  REQUIRE( b_tr == Vec<Vec<int>>{} );
+  REQUIRE( b_tr == Vec<Vec<Int>>{} );
 
-  Vec<Vec<int>> c = { {1,2,3},{4,5},{7} };
+  Vec<Vec<Int>> c = { {1,2,3},{4,5},{7} };
   auto c_tr = transpose( c );
 
-  REQUIRE( c_tr == Vec<Vec<int>>{{1,4,7},{2,5},{3}} );
+  REQUIRE( c_tr == Vec<Vec<Int>>{{1,4,7},{2,5},{3}} );
 }
 
 TEST_CASE( "filter :: ( T -> bool ) -> [T]", "[filter]" )
 {
-  Vec<int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
   auto a_filt = filter( []( auto& x ){ return x > 5; }, a );
 
-  REQUIRE( a_filt == Vec<int>{ 6,7,8,9 } );
+  REQUIRE( a_filt == Vec<Int>{ 6,7,8,9 } );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   auto b_filt = filter( []( auto& x ){ return x > 5; }, b );
 
-  REQUIRE( b_filt == Vec<int>{} );
+  REQUIRE( b_filt == Vec<Int>{} );
 }
 
 TEST_CASE( "takeWhile :: ( T -> bool ) -> [T] -> [T]", "[takeWhile]" )
 {
-  Vec<int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
   auto a_tw = takeWhile( []( auto& x ){ return x < 5; }, a );
 
-  REQUIRE( a_tw == Vec<int>{ 1,2,3,4 } );
+  REQUIRE( a_tw == Vec<Int>{ 1,2,3,4 } );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   auto b_tw = takeWhile( []( auto& x ){ return x < 5; }, b );
 
-  REQUIRE( b_tw == Vec<int>{} );
+  REQUIRE( b_tw == Vec<Int>{} );
 }
 
 TEST_CASE( "dropWhile :: ( T -> bool ) -> [T] -> [T]", "[dropWhile]" )
 {
-  Vec<int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
   auto a_dw = dropWhile( []( auto& x ){ return x < 5; }, a );
 
-  REQUIRE( a_dw == Vec<int>{ 5,6,7,8,9 } );
+  REQUIRE( a_dw == Vec<Int>{ 5,6,7,8,9 } );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   auto b_dw = dropWhile( []( auto& x ){ return x < 5; }, b );
 
-  REQUIRE( b_dw == Vec<int>{} );
+  REQUIRE( b_dw == Vec<Int>{} );
 }
 
 TEST_CASE( "subsets :: [T] -> [[T]]", "[subsets]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
   auto a_ss = subsets( a );
 
-  REQUIRE( a_ss == Vec<Vec<int>>{ {},{1},{2},{1,2},{3},{1,3},{2,3},{1,2,3} } );
+  REQUIRE( a_ss == Vec<Vec<Int>>{ {},{1},{2},{1,2},{3},{1,3},{2,3},{1,2,3} } );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   auto b_ss = subsets( b );
 
-  REQUIRE( b_ss == Vec<Vec<int>>{ Vec<int>{} } );
+  REQUIRE( b_ss == Vec<Vec<Int>>{ Vec<Int>{} } );
 }
 
 TEST_CASE( "even :: Num -> bool", "[even]" )
 {
-  int a = 2;
+  Int a = 2;
   long b = 2;
 
   REQUIRE( even( a ) == true );
@@ -123,7 +123,7 @@ TEST_CASE( "even :: Num -> bool", "[even]" )
 
 TEST_CASE( "odd :: Num -> bool", "[odd]" )
 {
-  int a = 1;
+  Int a = 1;
   long b = 1;
 
   REQUIRE( odd( a ) == true );
@@ -136,10 +136,10 @@ TEST_CASE( "odd :: Num -> bool", "[odd]" )
 
 TEST_CASE( "abs :: Num -> Num", "[abs]" )
 {
-  int a = 1;
-  int b = -1;
-  int c = 0;
-  int d = -0;
+  Int a = 1;
+  Int b = -1;
+  Int c = 0;
+  Int d = -0;
 
   REQUIRE( abs( a ) == 1 );
   REQUIRE( abs( b ) == 1 );
@@ -149,13 +149,13 @@ TEST_CASE( "abs :: Num -> Num", "[abs]" )
 
 TEST_CASE( "quotRem :: (Integral a) => T -> T -> ( a, a )", "[quotRem]" )
 {
-  int a = 3;
-  int b = 2;
-  int c = 0;
+  Int a = 3;
+  Int b = 2;
+  Int c = 0;
 
-  REQUIRE( quotRem( a, b ) == Tup<int, int>( 1, 1 ) );
-  REQUIRE( quotRem( b, a ) == Tup<int, int>( 0, 2 ) );
-  REQUIRE( quotRem( c, a ) == Tup<int, int>( 0, 0 ) );
+  REQUIRE( quotRem( a, b ) == Tup<Int, Int>( 1, 1 ) );
+  REQUIRE( quotRem( b, a ) == Tup<Int, Int>( 0, 2 ) );
+  REQUIRE( quotRem( c, a ) == Tup<Int, Int>( 0, 0 ) );
 }
 
 TEST_CASE( "gcd :: T -> T -> T", "[gcd]" )
@@ -171,66 +171,66 @@ TEST_CASE( "gcd :: T -> T -> T", "[gcd]" )
 
 TEST_CASE( "elem :: T -> [T] -> bool", "[elem]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( elem( 1, a ) == true );
   REQUIRE( elem( 9, a ) == false );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
   REQUIRE( elem( 1, b ) == false );
 }
 
 TEST_CASE( "notElem :: T -> [T] -> bool", "[notElem]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( notElem( 1, a ) == false );
   REQUIRE( notElem( 9, a ) == true );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
   REQUIRE( notElem( 1, b ) == true );
 }
 
 TEST_CASE( "maximum :: [T] -> Opt<T>", "[maximum]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( maximum( a ).value() == 3 );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   REQUIRE( maximum( b ).has_value() == false );
 }
 
 TEST_CASE( "minimum :: [T] -> Opt<T>", "[minimum]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( minimum( a ).value() == 1 );
 
-  Vec<int> b{};
+  Vec<Int> b{};
   REQUIRE( minimum( b ).has_value() == false );
 }
 
 TEST_CASE( "sum :: [T] -> T", "[sum]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( sum( a ) == 6 );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
   REQUIRE( sum( b ) == 0 );
 }
 
 TEST_CASE( "product :: [T] -> T", "[product]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( product( a ) == 6 );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
   REQUIRE( product( b ) == 1 );
 }
@@ -251,8 +251,8 @@ TEST_CASE( "flip :: ( S -> T -> U ) -> T -> S -> U", "[flip]" )
 {
   auto f = []( auto& x, auto& y ){ return y / x; };
 
-  REQUIRE( flip<int, int, int>( f, 3, 2 ) == 1 );
-  REQUIRE( flip<int, int, int>( f, 2, 3 ) == 0 );
+  REQUIRE( flip<Int, Int, Int>( f, 3, 2 ) == 1 );
+  REQUIRE( flip<Int, Int, Int>( f, 2, 3 ) == 0 );
 }
 
 TEST_CASE( "until :: ( T -> bool ) -> ( T -> T ) -> T -> T", "[until]" )
@@ -265,35 +265,35 @@ TEST_CASE( "until :: ( T -> bool ) -> ( T -> T ) -> T -> T", "[until]" )
 
 TEST_CASE( "null :: [T] -> bool", "[null]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( null( a ) == false );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
   REQUIRE( null( b ) == true );
 }
 
 TEST_CASE( "length :: [T] -> Num", "[length]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   REQUIRE( length( a ) == 3 );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
   REQUIRE( length( b ) == 0 );
 }
 
 TEST_CASE( "reverse :: [T] -> [T]", "[reverse]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
-  REQUIRE( reverse( a ) == Vec<int>{ 3,2,1 } );
+  REQUIRE( reverse( a ) == Vec<Int>{ 3,2,1 } );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
-  REQUIRE( reverse( b ) == Vec<int>{} );
+  REQUIRE( reverse( b ) == Vec<Int>{} );
 }
 
 TEST_CASE( "conjunction :: [T] -> bool", "[conjunction]" )
@@ -336,80 +336,80 @@ TEST_CASE( "disjunction :: [T] -> bool", "[disjunction]" )
 
 TEST_CASE( "any :: ( T -> bool ) -> [T] -> bool", "[any]" )
 {
-  Vec<int> a = { 1,2,3 };
+  Vec<Int> a = { 1,2,3 };
 
   auto p_even = []( auto& x ){ return even( x ); };
 
   REQUIRE( any( p_even, a ) == true );
 
-  Vec<int> b = { 1,3,5 };
+  Vec<Int> b = { 1,3,5 };
 
   REQUIRE( any( p_even, b ) == false );
 
-  Vec<int> c{};
+  Vec<Int> c{};
 
   REQUIRE( any( p_even, c ) == false );
 }
 
 TEST_CASE( "all :: ( T -> bool ) -> [T] -> bool", "[all]" )
 {
-  Vec<int> a = { 2,4,6 };
+  Vec<Int> a = { 2,4,6 };
 
   auto p_even = []( auto& x ){ return even( x ); };
 
   REQUIRE( all( p_even, a ) == true );
 
-  Vec<int> b = { 2,3,4 };
+  Vec<Int> b = { 2,3,4 };
 
   REQUIRE( all( p_even, b ) == false );
 
-  Vec<int> c{};
+  Vec<Int> c{};
 
   REQUIRE( all( p_even, c ) == true );
 }
 
 TEST_CASE( "concat :: [[T]] -> [T]", "[concat]" )
 {
-  Vec<Vec<int>> a = { {1,2,3},{4,5,6},{7,8,9} };
+  Vec<Vec<Int>> a = { {1,2,3},{4,5,6},{7,8,9} };
 
-  REQUIRE( concat( a ) == Vec<int>{ 1,2,3,4,5,6,7,8,9 } );
+  REQUIRE( concat( a ) == Vec<Int>{ 1,2,3,4,5,6,7,8,9 } );
 
-  Vec<Vec<int>> b{};
+  Vec<Vec<Int>> b{};
 
-  REQUIRE( concat( b ) == Vec<int>{} );
+  REQUIRE( concat( b ) == Vec<Int>{} );
 }
 
 TEST_CASE( "replicate :: UInt -> T - [T]", "[replicate]" )
 {
   REQUIRE( replicate( 3, 'x' ) == Vec<Char>{ 'x','x','x' } );
 
-  REQUIRE( replicate( 3, 1 ) == Vec<int>{ 1,1,1 } );
+  REQUIRE( replicate( 3, 1 ) == Vec<Int>{ 1,1,1 } );
 
-  REQUIRE( replicate( 0, 1 ) == Vec<int>{} );
+  REQUIRE( replicate( 0, 1 ) == Vec<Int>{} );
 }
 
 TEST_CASE( "take :: UInt -> [T] -> [T]", "[take]" )
 {
-  Vec<int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
 
-  REQUIRE( take( 3, a ) == Vec<int>{ 1,2,3 } );
+  REQUIRE( take( 3, a ) == Vec<Int>{ 1,2,3 } );
 
-  REQUIRE( take( 0, a ) == Vec<int>{} );
+  REQUIRE( take( 0, a ) == Vec<Int>{} );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
-  REQUIRE( take( 3, b ) == Vec<int>{} );
+  REQUIRE( take( 3, b ) == Vec<Int>{} );
 }
 
 TEST_CASE( "drop :: UInt -> [T] -> [T]", "[drop]" )
 {
-  Vec<int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
 
-  REQUIRE( drop( 3, a ) == Vec<int>{ 4,5,6,7,8,9 } );
+  REQUIRE( drop( 3, a ) == Vec<Int>{ 4,5,6,7,8,9 } );
 
-  REQUIRE( drop( 0, a ) == Vec<int>{ 1,2,3,4,5,6,7,8,9 } );
+  REQUIRE( drop( 0, a ) == Vec<Int>{ 1,2,3,4,5,6,7,8,9 } );
 
-  Vec<int> b{};
+  Vec<Int> b{};
 
-  REQUIRE( drop( 3, b ) == Vec<int>{} );
+  REQUIRE( drop( 3, b ) == Vec<Int>{} );
 }
