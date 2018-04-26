@@ -9,6 +9,7 @@
 #include <sstream>
 #include <fstream>
 #include <optional>
+#include <iterator>
 
 namespace fct
 {
@@ -28,6 +29,12 @@ namespace fct
   // template <typename S, typename T>
   template <typename ...Ts>
   using Tup = std::tuple<Ts...>;
+
+  using std::begin;
+  using std::end;
+  using std::rbegin;
+  using std::rend;
+  using std::advance;
 
   Double pi = 3.141592653589793238462643383279502884;
   Double e  = 2.718281828459045235360287471352662497;
@@ -59,8 +66,8 @@ namespace fct
     }
 
     std::cout << "[";
-    auto i = xs.begin();
-    for ( ; i < xs.end() - 1; i++ )
+    auto i = begin( xs );
+    for ( ; i < end( xs ) - 1; advance( i, 1 ) )
       std::cout << *i << ',';
     std::cout << *i << "]" << end;
   }
@@ -159,7 +166,7 @@ namespace fct
       else
         break;
 
-    return Vec<T>{ xs.begin() + i, xs.end() };
+    return Vec<T>{ begin( xs ) + i, end( xs ) };
   }
 
   // head :: [T] -> Opt<T>
@@ -176,14 +183,14 @@ namespace fct
   template <typename T>
   auto tail( Vec<T> const& xs ) -> Vec<T>
   {
-    return Vec<T>{ xs.begin() + 1, xs.end() };
+    return Vec<T>{ begin( xs ) + 1, end( xs ) };
   }
 
   // init :: [T] -> [T]
   template <typename T>
   auto init( Vec<T> const& xs ) -> Vec<T>
   {
-    return Vec<T>{ xs.begin(), xs.end() - 1 };
+    return Vec<T>{ begin( xs ), end( xs ) - 1 };
   }
 
   // last :: [T] -> Opt<T>
@@ -193,7 +200,7 @@ namespace fct
     if ( xs.empty() )
       return Opt<T>{};
 
-    return Opt<T>{ *(xs.end() - 1) };
+    return Opt<T>{ *( end( xs ) - 1 ) };
   }
 
   // subsets :: [T] -> [[T]]
@@ -209,14 +216,14 @@ namespace fct
     for ( auto const& x : xs )
     {
       // Create copy of current subsets
-      Vec<Vec<T>> new_subsets{ out.begin(), out.end() };
+      Vec<Vec<T>> new_subsets{ begin( out ), end( out ) };
 
       // Add element to every new subset
       for ( Vec<T>& s : new_subsets )
         s.push_back( x );
 
       // Add new subsets to output
-      out.insert( out.end(), new_subsets.begin(), new_subsets.end() );
+      out.insert( end( out ), begin( new_subsets ), end( new_subsets ) );
     }
 
     return out;
@@ -374,7 +381,7 @@ namespace fct
       return 0;
 
     T out = xs.at( 0 );
-    for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
+    for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out += *i;
 
     return out;
@@ -388,7 +395,7 @@ namespace fct
       return 1;
 
     T out = xs.at( 0 );
-    for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
+    for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out *= *i;
 
     return out;
@@ -448,7 +455,7 @@ namespace fct
   template <typename T>
   auto reverse( Vec<T> const& xs ) -> Vec<T>
   {
-    return Vec<T>{ xs.rbegin(), xs.rend() };
+    return Vec<T>{ rbegin( xs ), rend( xs ) };
   }
 
   // conjunction :: [T] -> bool
@@ -459,7 +466,7 @@ namespace fct
       return true;
 
     bool out = xs.at( 0 );
-    for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
+    for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out = out && *i;
 
     return out;
@@ -473,7 +480,7 @@ namespace fct
       return false;
 
     bool out = xs.at( 0 );
-    for ( auto i = xs.begin() + 1; i < xs.end(); i++ )
+    for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out = out || *i;
 
     return out;
@@ -483,14 +490,14 @@ namespace fct
   template <typename T, typename F>
   auto any( F predicate, Vec<T> const& xs ) -> bool
   {
-    return std::any_of( xs.begin(), xs.end(), predicate );
+    return std::any_of( begin( xs ), end( xs ), predicate );
   }
 
   // all :: ( T -> bool ) -> [T] -> bool
   template <typename T, typename F>
   auto all( F predicate, Vec<T> const& xs ) -> bool
   {
-    return std::all_of( xs.begin(), xs.end(), predicate );
+    return std::all_of( begin( xs ), end( xs ), predicate );
   }
 
   // concat :: [[T]] -> [T]
@@ -506,7 +513,7 @@ namespace fct
     out.reserve( i );
 
     for ( auto const& xs : xxs )
-      out.insert( out.end(), xs.begin(), xs.end() );
+      out.insert( end( out ), begin( xs ), end( xs ) );
 
     return out;
   }
@@ -522,22 +529,22 @@ namespace fct
   template <typename T>
   auto take( Int num, Vec<T> const& xs ) -> Vec<T>
   {
-    return Vec<T>{ xs.begin(), xs.begin() + num };
+    return Vec<T>{ begin( xs ), begin( xs ) + num };
   }
 
   // drop :: Int -> [T] -> [T]
   template <typename T>
   auto drop( Int num, Vec<T> const& xs ) -> Vec<T>
   {
-    return Vec<T>{ xs.begin() + num, xs.end() };
+    return Vec<T>{ begin( xs ) + num, end( xs ) };
   }
 
   // splitAt :: Int -> [T] -> ( [T], [T] )
   template <typename T>
   auto splitAt( Int index, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
-    Vec<T> left{ xs.begin(), xs.begin() + index };
-    Vec<T> right{ xs.begin() + index, xs.end() };
+    Vec<T> left{ begin( xs ), begin( xs ) + index };
+    Vec<T> right{ begin( xs ) + index, end( xs ) };
 
     return std::make_tuple( left, right );
   }
@@ -699,8 +706,8 @@ namespace fct
   {
     Vec<T> out{};
 
-    auto i = xs.begin();
-    for ( ; i < xs.end() - 1; i++ )
+    auto i = begin( xs );
+    for ( ; i < end( xs ) - 1; advance( i, 1 ) )
     {
       out.push_back( *i );
       out.push_back( y );
@@ -724,13 +731,13 @@ namespace fct
     Vec<Vec<T>> out{};
     Vec<T> mut_xs = xs;
 
-    std::sort( mut_xs.begin(), mut_xs.end() );
+    std::sort( begin( mut_xs ), end( mut_xs ) );
 
     do
     {
       out.push_back( mut_xs );
     }
-    while ( std::next_permutation( mut_xs.begin(), mut_xs.end() ) );
+    while ( std::next_permutation( begin( mut_xs ), end( mut_xs ) ) );
 
     return out;
   }
@@ -757,7 +764,7 @@ namespace fct
       else
         break;
 
-    return std::make_tuple( Vec<T>{ xs.begin(), xs.begin() + i }, Vec<T>{ xs.begin() + i, xs.end() } );
+    return std::make_tuple( Vec<T>{ begin( xs ), begin( xs ) + i }, Vec<T>{ begin( xs ) + i, end( xs ) } );
   }
 
   // break_of :: (T -> Bool) -> [T] -> ([T], [T])
@@ -771,7 +778,7 @@ namespace fct
       else
         break;
 
-    return std::make_tuple( Vec<T>{ xs.begin(), xs.begin() + i }, Vec<T>{ xs.begin() + i, xs.end() } );
+    return std::make_tuple( Vec<T>{ begin( xs ), begin( xs ) + i }, Vec<T>{ begin( xs ) + i, end( xs ) } );
   }
 
   // group :: [T] -> [[T]]
@@ -780,14 +787,14 @@ namespace fct
   {
     Vec<Vec<T>> out{};
 
-    auto a = xs.begin();
+    auto a = begin( xs );
     auto b = a;
 
-    while ( b < xs.end() )
+    while ( b < end( xs ) )
     {
       if ( *b == *a )
       {
-        b++;
+        advance( b, 1 );
       }
       else
       {
@@ -806,11 +813,11 @@ namespace fct
   {
     Vec<Vec<T>> out{};
 
-    auto i = xs.begin();
+    auto i = begin( xs );
 
-    for ( ; i < xs.end(); i++ )
-      out.push_back( Vec<T>{ xs.begin(), i } );
-    out.push_back( Vec<T>{ xs.begin(), i } );
+    for ( ; i < end( xs ); advance( i, 1 ) )
+      out.push_back( Vec<T>{ begin( xs ), i } );
+    out.push_back( Vec<T>{ begin( xs ), i } );
 
     return out;
   }
@@ -821,11 +828,11 @@ namespace fct
   {
     Vec<Vec<T>> out{};
 
-    auto i = xs.end();
+    auto i = end( xs );
 
-    for ( ; i < xs.begin(); i-- )
-      out.push_back( Vec<T>{ xs.begin(), i } );
-    out.push_back( Vec<T>{ xs.begin(), i } );
+    for ( ; i < begin( xs ); i-- )
+      out.push_back( Vec<T>{ begin( xs ), i } );
+    out.push_back( Vec<T>{ begin( xs ), i } );
 
     return out;
   }
@@ -852,12 +859,12 @@ namespace fct
   template <typename T>
   auto isInfixOf( Vec<T> const& xs, Vec<T> const& ys ) -> bool
   {
-    auto a = ys.begin();
-    auto b = ys.begin() + xs.size();
+    auto a = begin( ys );
+    auto b = begin( ys ) + xs.size();
 
-    Vec<T> test{ xs.begin(), xs.end() };
+    Vec<T> test{ begin( xs ), end( xs ) };
 
-    for ( ; b < ys.end(); a++, b++ )
+    for ( ; b < end( ys ); advance( a, 1 ), advance( b, 1 ) )
       if ( test == Vec<T>{ a, b } )
         return true;
 
@@ -896,8 +903,8 @@ namespace fct
   template <typename T>
   auto sort( Vec<T> const& xs ) -> Vec<T>
   {
-    Vec<T> out{ xs.begin(), xs.end() };
-    std::sort( out.begin(), out.end() );
+    Vec<T> out{ begin( xs ), end( xs ) };
+    std::sort( begin( out ), end( out ) );
     return out;
   }
 }
