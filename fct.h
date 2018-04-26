@@ -526,16 +526,16 @@ namespace fct
     return Vec<T>( num, val );
   }
 
-  // take :: Int -> [T] -> [T]
+  // take :: UInt -> [T] -> [T]
   template <typename T>
-  auto take( Int num, Vec<T> const& xs ) -> Vec<T>
+  auto take( UInt num, Vec<T> const& xs ) -> Vec<T>
   {
     return Vec<T>{ begin( xs ), begin( xs ) + num };
   }
 
-  // drop :: Int -> [T] -> [T]
+  // drop :: UInt -> [T] -> [T]
   template <typename T>
-  auto drop( Int num, Vec<T> const& xs ) -> Vec<T>
+  auto drop( UInt num, Vec<T> const& xs ) -> Vec<T>
   {
     return Vec<T>{ begin( xs ) + num, end( xs ) };
   }
