@@ -18,6 +18,7 @@ namespace fct
   using Float = float;
   using Double = long double;
   using Int = int;
+  using UInt = unsigned int;
   using Char = char;
 
   template <typename T>
@@ -518,9 +519,9 @@ namespace fct
     return out;
   }
 
-  // replicate :: Int -> T - [T]
+  // replicate :: UInt -> T - [T]
   template <typename T>
-  auto replicate( Int num, T const& val ) -> Vec<T>
+  auto replicate( UInt num, T const& val ) -> Vec<T>
   {
     return Vec<T>( num, val );
   }
