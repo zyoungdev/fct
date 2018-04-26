@@ -413,3 +413,57 @@ TEST_CASE( "drop :: UInt -> [T] -> [T]", "[drop]" )
 
   REQUIRE( drop( 3, b ) == Vec<Int>{} );
 }
+
+TEST_CASE( "splitAt :: UInt -> [T] -> ( [T], [T] )", "[splitAt]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+
+  REQUIRE( splitAt( 4, a ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{ 1,2,3,4 }, Vec<Int>{ 5,6,7,8,9 } } );
+
+  REQUIRE( splitAt( 0, a ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{}, Vec<Int>{ 1,2,3,4,5,6,7,8,9 } } );
+
+  Vec<Int> b = { 1,2,3 };
+
+  REQUIRE( splitAt( 9, b ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{ 1,2,3 }, Vec<Int>{} } );
+
+  Vec<Int> c{};
+
+  REQUIRE( splitAt( 9, c ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{}, Vec<Int>{} } );
+}
+
+TEST_CASE( "lines :: String -> [String]", "[lines]" )
+{
+  String a = "This\nis\na\nString\n";
+
+  REQUIRE( lines( a ) == Vec<String>{ "This", "is", "a", "String" } );
+
+  String b = "";
+
+  REQUIRE( lines( b ) == Vec<String>{} );
+
+  String c = "This\n\nis\n\na\n\nString\n\n";
+
+  REQUIRE( lines( c ) == Vec<String>{ "This", "", "is", "", "a", "", "String", "" } );
+}
+
+TEST_CASE( "words :: String -> [String]", "[words]" )
+{
+  String a = "This is a String";
+
+  REQUIRE( words( a ) == Vec<String>{ "This", "is", "a", "String" } );
+
+  String b = "";
+
+  REQUIRE( words( b ) == Vec<String>{} );
+}
+
+TEST_CASE( "unlines :: [String] -> String", "[unlines]" )
+{
+  Vec<String> a = { "This", "is", "a", "String" };
+
+  REQUIRE( unlines( a ) == String{ "This\nis\na\nString\n" } );
+
+  Vec<String> b{};
+
+  REQUIRE( unlines( b ) == String{} );
+}
