@@ -530,6 +530,8 @@ namespace fct
   template <typename T>
   auto take( UInt num, Vec<T> const& xs ) -> Vec<T>
   {
+    if ( xs.empty() )
+      return Vec<T>{};
     return Vec<T>{ begin( xs ), begin( xs ) + num };
   }
 
@@ -537,6 +539,8 @@ namespace fct
   template <typename T>
   auto drop( UInt num, Vec<T> const& xs ) -> Vec<T>
   {
+    if ( xs.empty() )
+      return Vec<T>{};
     return Vec<T>{ begin( xs ) + num, end( xs ) };
   }
 
