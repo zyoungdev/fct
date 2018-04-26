@@ -367,3 +367,49 @@ TEST_CASE( "all :: ( T -> bool ) -> [T] -> bool", "[all]" )
 
   REQUIRE( all( p_even, c ) == true );
 }
+
+TEST_CASE( "concat :: [[T]] -> [T]", "[concat]" )
+{
+  Vec<Vec<int>> a = { {1,2,3},{4,5,6},{7,8,9} };
+
+  REQUIRE( concat( a ) == Vec<int>{ 1,2,3,4,5,6,7,8,9 } );
+
+  Vec<Vec<int>> b{};
+
+  REQUIRE( concat( b ) == Vec<int>{} );
+}
+
+TEST_CASE( "replicate :: UInt -> T - [T]", "[replicate]" )
+{
+  REQUIRE( replicate( 3, 'x' ) == Vec<Char>{ 'x','x','x' } );
+
+  REQUIRE( replicate( 3, 1 ) == Vec<int>{ 1,1,1 } );
+
+  REQUIRE( replicate( 0, 1 ) == Vec<int>{} );
+}
+
+TEST_CASE( "take :: UInt -> [T] -> [T]", "[take]" )
+{
+  Vec<int> a = { 1,2,3,4,5,6,7,8,9 };
+
+  REQUIRE( take( 3, a ) == Vec<int>{ 1,2,3 } );
+
+  REQUIRE( take( 0, a ) == Vec<int>{} );
+
+  Vec<int> b{};
+
+  REQUIRE( take( 3, b ) == Vec<int>{} );
+}
+
+TEST_CASE( "drop :: UInt -> [T] -> [T]", "[drop]" )
+{
+  Vec<int> a = { 1,2,3,4,5,6,7,8,9 };
+
+  REQUIRE( drop( 3, a ) == Vec<int>{ 4,5,6,7,8,9 } );
+
+  REQUIRE( drop( 0, a ) == Vec<int>{ 1,2,3,4,5,6,7,8,9 } );
+
+  Vec<int> b{};
+
+  REQUIRE( drop( 3, b ) == Vec<int>{} );
+}
