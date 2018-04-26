@@ -544,9 +544,9 @@ namespace fct
     return Vec<T>{ begin( xs ) + num, end( xs ) };
   }
 
-  // splitAt :: Int -> [T] -> ( [T], [T] )
+  // splitAt :: UInt -> [T] -> ( [T], [T] )
   template <typename T>
-  auto splitAt( Int index, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
+  auto splitAt( UInt index, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
     Vec<T> left{ begin( xs ), begin( xs ) + index };
     Vec<T> right{ begin( xs ) + index, end( xs ) };
