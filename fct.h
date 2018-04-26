@@ -15,6 +15,7 @@ namespace fct
 {
   using String = std::string;
   using SS = std::stringstream;
+  using Bool = bool;
   using Float = float;
   using Double = long double;
   using Int = int;
