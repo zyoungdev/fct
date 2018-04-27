@@ -487,3 +487,15 @@ TEST_CASE( "unlines :: [String] -> String", "[unlines]" )
 
   REQUIRE( unlines( b ) == String{} );
 }
+
+TEST_CASE( "unwords :: [String] -> String", "[unwords]" )
+{
+  Vec<String> a = { "This","is","a","String" };
+
+  REQUIRE( unwords( a ) == String{ "This is a String" } );
+
+  Vec<String> b{};
+
+  REQUIRE( unwords( b ) == String{} );
+}
+
