@@ -663,3 +663,14 @@ TEST_CASE( "group :: [T] -> [[T]]", "[group]" )
   Vec<Char> b{};
   REQUIRE( group( b ) == Vec<Vec<Char>>{} );
 }
+
+TEST_CASE( "inits :: [T] -> [[T]]", "[inits]" )
+{
+  Vec<Int> a = { 1,2,3 };
+
+  REQUIRE( inits( a ) == Vec<Vec<Int>>{ {},{1},{1,2},{1,2,3} } );
+
+  Vec<Int> b{};
+
+  REQUIRE( inits( b ) == Vec<Vec<Int>>{ Vec<Int>{} } );
+}
