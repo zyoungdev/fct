@@ -104,6 +104,19 @@ namespace fct
     return out;
   }
 
+  // fmap :: ( Char -> Char ) -> String -> Vec<Char>
+  template <typename F>
+  auto fmap( F fct, String const& xs ) -> String
+  {
+    String out{};
+    out.reserve( xs.size() );
+
+    for ( auto const& x : xs )
+      out.push_back( fct( x ) );
+
+    return out;
+  }
+
   // transpose :: [[T]] -> [[T]]
   template <typename T>
   auto transpose( Vec<Vec<T>> const& xxs ) -> Vec<Vec<T>>
