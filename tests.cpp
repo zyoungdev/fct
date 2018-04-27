@@ -618,3 +618,13 @@ TEST_CASE( "permutations :: [T] -> [[T]]", "[permutations]" )
 
   REQUIRE( permutations( b ) == Vec<Vec<Int>>{ Vec<Int>{} } );
 }
+
+TEST_CASE( "iterate :: (T -> T) -> T -> [T]", "[iterate]" )
+{
+  Int a = 2;
+  auto f = []( auto& x ){ return x * x; };
+
+  REQUIRE( iterate( 3, f, a ) == Vec<Int>{ 4,4,4 } );
+
+  REQUIRE( iterate( 0, f, a ) == Vec<Int>{} );
+}
