@@ -792,9 +792,11 @@ namespace fct
 
   // iterate :: (T -> T) -> T -> [T]
   template <typename T, typename F>
-  auto iterate( Int num, F func, T const& x ) -> Vec<T>
+  auto iterate( UInt num, F func, T const& x ) -> Vec<T>
   {
     Vec<T> out{};
+    out.reserve( num );
+
     for ( uint i = 0; i < num; i++ )
       out.push_back( func( x ) );
 
