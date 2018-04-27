@@ -4,6 +4,8 @@
 #include "fct.h"
 using namespace fct;
 
+// #define DEBUG_IO
+
 TEST_CASE( "FCT Composition", "[fct]" )
 {
   Vec<Int> a = { 1,2,3,4 };
@@ -499,3 +501,64 @@ TEST_CASE( "unwords :: [String] -> String", "[unwords]" )
   REQUIRE( unwords( b ) == String{} );
 }
 
+#ifdef DEBUG_IO
+TEST_CASE( "putChar :: Char -> void", "[putChar]" )
+{
+  Char a = 'a';
+  print( "# Should print a: " );
+  putChar( a );
+  print("");
+}
+
+TEST_CASE( "putStr :: String -> void", "[putStr]" )
+{
+  String a = "magic";
+  print( "# Should print magic: " );
+  putStr( a );
+  print("");
+}
+
+TEST_CASE( "putStrLn :: String -> void", "[putStrLn]" )
+{
+  String a = "magic";
+  print( "# Should print magic: " );
+  putStr( a );
+  print("");
+}
+
+TEST_CASE( "getChar :: Char", "[getChar]" )
+{
+  print( "Please type a character: ", ' ' );
+  auto a = getChar();
+  print( "You typed: " + String{ a } );
+}
+
+TEST_CASE( "getLine :: String", "[getLine]" )
+{
+  print( "Please type a line: ", ' ' );
+  auto a = getLine();
+  print( "You typed: " + a );
+}
+
+TEST_CASE( "readFile :: String -> String, writeFile :: String -> String -> void", "[readFile][writeFile]" )
+{
+  print( "Please name file to read/write in /tmp/: ", ' ' );
+  auto a = getLine();
+  print( a );
+  a = String{ "/tmp/" + a };
+
+  writeFile( a, "DATA" );
+  print( "wrote DATA to " + a );
+
+  print( "Reading: " + a );
+  auto b = readFile( a );
+
+  print( "Appending DATA to: " + a );
+  appendFile( a, b );
+
+  print( "Reading: " + a );
+  b = readFile( a );
+
+  print( a + ": " + b );
+}
+#endif

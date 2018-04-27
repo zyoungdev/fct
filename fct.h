@@ -743,6 +743,9 @@ namespace fct
   template <typename T>
   auto intersperse( T const& y, Vec<T> const& xs ) -> Vec<T>
   {
+    if ( xs.empty() )
+      return Vec<T>{};
+
     Vec<T> out{};
 
     auto a = begin( xs );
