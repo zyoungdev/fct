@@ -562,3 +562,41 @@ TEST_CASE( "readFile :: String -> String, writeFile :: String -> String -> void"
   print( a + ": " + b );
 }
 #endif
+
+TEST_CASE( "show :: T -> String", "[show]" )
+{
+  REQUIRE( show( 1 ) == String{ '1' } );
+  REQUIRE( show( 1.999999 ) == String{ "1.999999" } );
+}
+
+TEST_CASE( "union :: [T] -> [T] -> [T]", "[union]" )
+{
+  Vec<Int> a = { 1,2,3 };
+  Vec<Int> b = { 4,5,6 };
+
+  REQUIRE( union_of( a, b ) == Vec<Int>{ 1,2,3,4,5,6 } );
+
+  REQUIRE( union_of( Vec<Int>{}, Vec<Int>{} ) == Vec<Int>{} );
+}
+
+TEST_CASE( "intersperse :: T -> [T] -> [T]", "[intersperse]" )
+{
+  Int a = 1;
+  Vec<Int> b = { 1,2,3 };
+
+  REQUIRE( intersperse( a, b ) == Vec<Int>{ 1,1,2,1,3 } );
+
+  Vec<Int> c{};
+
+  REQUIRE( intersperse( a, c ) == Vec<Int>{} );
+}
+
+TEST_CASE( "intercalate :: [T] -> [[T]] -> [T]", "[intercalate]" )
+{
+  Vec<Int> a = { 0,0,0 };
+  Vec<Vec<Int>> b = { {1,2,3},{4,5,6},{7,8,9} };
+
+  REQUIRE( intercalate( a, b ) == Vec<Int>{ 1,2,3,0,0,0,4,5,6,0,0,0,7,8,9 } );
+
+  REQUIRE( intercalate( Vec<Int>{}, b ) == Vec<Int>{ 1,2,3,4,5,6,7,8,9 } );
+}
