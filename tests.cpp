@@ -640,3 +640,26 @@ TEST_CASE( "span :: (T -> Bool) -> [T] -> ([T], [T])", "[span]" )
 
   REQUIRE( span( f, b ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{}, Vec<Int>{} } );
 }
+
+TEST_CASE( "break_when :: (T -> Bool) -> [T] -> ([T], [T])", "[break_when]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+  auto f = []( auto& x ){ return x > 5; };
+
+  REQUIRE( break_when( f, a ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{ 1,2,3,4,5 }, Vec<Int>{ 6,7,8,9 } } );
+
+  Vec<Int> b{};
+
+  REQUIRE( break_when( f, b ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{}, Vec<Int>{} } );
+}
+
+TEST_CASE( "group :: [T] -> [[T]]", "[group]" )
+{
+  String a = "mississippi";
+  Vec<Char> aa{ begin( a ), end( a ) };
+
+  REQUIRE( group( aa ) == Vec<Vec<Char>>{ {'m'},{'i'},{'s','s'},{'i'},{'s','s'},{'i'},{'p','p'},{'i'} } );
+
+  Vec<Char> b{};
+  REQUIRE( group( b ) == Vec<Vec<Char>>{} );
+}
