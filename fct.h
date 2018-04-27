@@ -608,9 +608,16 @@ namespace fct
   // unwords :: [String] -> String
   auto unwords( Vec<String> const& xs ) -> String
   {
+    if ( xs.empty() )
+      return String{};
+
     String out = "";
-    for ( auto const& x : xs )
-      out += x + " ";
+    auto a = begin( xs );
+    auto last = end( xs ) - 1;
+
+    for ( ; a < last; advance( a, 1 ) )
+      out += *a + " ";
+    out += *last;
 
     return out;
   }
