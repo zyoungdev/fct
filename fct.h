@@ -835,6 +835,9 @@ namespace fct
   template <typename T>
   auto group( Vec<T> const& xs ) -> Vec<Vec<T>>
   {
+    if ( xs.empty() )
+      return Vec<Vec<T>>{};
+
     Vec<Vec<T>> out{};
 
     auto a = begin( xs );
