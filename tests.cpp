@@ -4,6 +4,26 @@
 #include "fct.h"
 using namespace fct;
 
+TEST_CASE( "FCT Composition", "[fct]" )
+{
+  Vec<Int> a = { 1,2,3,4 };
+  auto b = fmap<Int, Bool>( even, a );
+
+  REQUIRE( b == Vec<Bool>{ false, true, false, true } );
+
+  auto c = filter<Int>( []( auto& x ){ return x > 3; }, a );
+
+  REQUIRE( c == Vec<Int>{ 4 } );
+
+  auto s = String{ "this is lowercase" };
+
+  REQUIRE( fmap( toUpper, s ) == String{ "THIS IS LOWERCASE" } );
+
+  auto ss = Vec<Char>{'t','h','i','s',' ','i','s',' ','l','o','w','e','r','c','a','s','e'};
+
+  REQUIRE( fmap<Char, Char>( toUpper, ss ) == Vec<Char>{'T','H','I','S',' ','I','S',' ','L','O','W','E','R','C','A','S','E'} );
+}
+
 TEST_CASE( "head :: [T] -> Opt<T>", "[head]")
 {
   Vec<Int> a = { 1, 2, 3 };
