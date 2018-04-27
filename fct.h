@@ -745,13 +745,13 @@ namespace fct
   {
     Vec<T> out{};
 
-    auto i = begin( xs );
-    for ( ; i < end( xs ) - 1; advance( i, 1 ) )
+    auto a = begin( xs );
+    for ( ; a < end( xs ) - 1; advance( a, 1 ) )
     {
-      out.push_back( *i );
+      out.push_back( *a );
       out.push_back( y );
     }
-    out.push_back( *i );
+    out.push_back( *a );
 
     return out;
   }
