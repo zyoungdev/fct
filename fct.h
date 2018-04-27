@@ -775,6 +775,12 @@ namespace fct
 
     std::sort( begin( mut_xs ), end( mut_xs ) );
 
+    // Factorial of xs.size() == # of permutations
+    UInt size = 1;
+    for (UInt i = xs.size(); i > 0; i--)
+      size *= i;
+    mut_xs.reserve( size );
+
     do
     {
       out.push_back( mut_xs );
