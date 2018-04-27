@@ -42,28 +42,28 @@ namespace fct
   Double e  = 2.718281828459045235360287471352662497;
 
   template <typename T>
-  auto print( Opt<T> const& val, Char end = '\n' ) -> void
+  auto print( Opt<T> const& val, Char lastChar = '\n' ) -> void
   {
     if ( val )
-      std::cout << val.value() << end;
+      std::cout << val.value() << lastChar;
     else
-      std::cout << "Nothing" << end;
+      std::cout << "Nothing" << lastChar;
   }
 
   // print :: T -> void
   template <typename T>
-  auto print( T const& val, Char end = '\n' ) -> void
+  auto print( T const& val, Char lastChar = '\n' ) -> void
   {
-    std::cout << val << end;
+    std::cout << val << lastChar;
   }
 
   // print :: [T] -> void
   template <typename T>
-  auto print( Vec<T> const& xs, Char end = '\n' ) -> void
+  auto print( Vec<T> const& xs, Char lastChar = '\n' ) -> void
   {
     if ( xs.empty() )
     {
-      std::cout << "[]" << end;
+      std::cout << "[]" << lastChar;
       return;
     }
 
@@ -71,12 +71,12 @@ namespace fct
     auto i = begin( xs );
     for ( ; i < end( xs ) - 1; advance( i, 1 ) )
       std::cout << *i << ',';
-    std::cout << *i << "]" << end;
+    std::cout << *i << "]" << lastChar;
   }
 
   // print :: [[T]] -> void
   template <typename T>
-  auto print( Vec<Vec<T>> const& xxs, Char end = '\n' ) -> void
+  auto print( Vec<Vec<T>> const& xxs, Char lastChar = '\n' ) -> void
   {
     std::cout << "[ ";
     for ( auto const& xs : xxs )
