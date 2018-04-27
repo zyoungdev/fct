@@ -817,9 +817,9 @@ namespace fct
     return std::make_tuple( Vec<T>{ begin( xs ), begin( xs ) + i }, Vec<T>{ begin( xs ) + i, end( xs ) } );
   }
 
-  // break_of :: (T -> Bool) -> [T] -> ([T], [T])
+  // break_when :: (T -> Bool) -> [T] -> ([T], [T])
   template <typename T, typename F>
-  auto break_of( F predicate, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
+  auto break_when( F predicate, Vec<T> const& xs ) -> Tup<Vec<T>, Vec<T>>
   {
     Int i = 0;
     for ( auto const& x : xs )
