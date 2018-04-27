@@ -244,18 +244,16 @@ namespace fct
     return out;
   }
 
-  // even :: Num -> bool
-  template <typename T>
-  auto even( T const& val ) -> bool
+  // odd :: Int -> bool
+  auto odd( Int const& val ) -> bool
   {
-    return ! ( val & 1 );
+    return val & 1;
   }
 
-  // odd :: Num -> bool
-  template <typename T>
-  auto odd( T const& val ) -> bool
+  // even :: Int -> bool
+  auto even( Int const& val ) -> bool
   {
-    return ! even( val );
+    return ! odd( val );
   }
 
   // abs :: Num -> Num
