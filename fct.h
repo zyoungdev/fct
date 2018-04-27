@@ -88,7 +88,19 @@ namespace fct
       }
       std::cout << "] ";
     }
-    std::cout << "]" << end;
+    std::cout << "]" << lastChar;
+  }
+
+  // toUpper :: Char -> Char
+  auto toUpper( Char const& x ) -> Char
+  {
+    return x == 0x20 ? 0x20 : x - 0x20;
+  }
+
+  // toLower :: Char -> Char
+  auto toLower( Char const& x ) -> Char
+  {
+    return x == 0x20 ? 0x20 : x + 0x20;
   }
 
   // fmap :: ( S -> T ) -> [S] -> [T]
