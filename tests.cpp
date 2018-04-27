@@ -628,3 +628,15 @@ TEST_CASE( "iterate :: (T -> T) -> T -> [T]", "[iterate]" )
 
   REQUIRE( iterate( 0, f, a ) == Vec<Int>{} );
 }
+
+TEST_CASE( "span :: (T -> Bool) -> [T] -> ([T], [T])", "[span]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+  auto f = []( auto& x ){ return x < 5; };
+
+  REQUIRE( span( f, a ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{ 1,2,3,4 }, Vec<Int>{ 5,6,7,8,9 } } );
+
+  Vec<Int> b{};
+
+  REQUIRE( span( f, b ) == Tup<Vec<Int>, Vec<Int>>{ Vec<Int>{}, Vec<Int>{} } );
+}
