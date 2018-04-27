@@ -711,11 +711,11 @@ namespace fct
   auto intersect( Vec<T> const& xs, Vec<T> const& ys ) -> Vec<T>
   {
     Vec<T> out{};
-    Vec<T> const* smaller = xs.size() <= ys.size() ? &xs : &ys;
-    Vec<T> const* larger = xs.size() > ys.size() ? &xs : &ys;
+    auto const& smaller = xs.size() <= ys.size() ? xs : ys;
+    auto const& larger = xs.size() > ys.size() ? xs : ys;
 
-    for ( auto const& s : *smaller )
-      if ( elem( s, *larger ) )
+    for ( auto const& s : smaller )
+      if ( elem( s, larger ) )
         out.push_back( s );
 
     return out;
