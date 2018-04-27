@@ -739,7 +739,7 @@ namespace fct
     return out;
   }
 
-  // Intersperse :: T -> [T] -> [T]
+  // intersperse :: T -> [T] -> [T]
   template <typename T>
   auto intersperse( T const& y, Vec<T> const& xs ) -> Vec<T>
   {
@@ -756,7 +756,7 @@ namespace fct
     return out;
   }
 
-  // Intercalate :: [T] -> [[T]] -> [T]
+  // intercalate :: [T] -> [[T]] -> [T]
   template <typename T>
   auto intercalate( Vec<T> const& xs, Vec<Vec<T>> const& xxs ) -> Vec<T>
   {
