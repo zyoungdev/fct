@@ -599,4 +599,11 @@ TEST_CASE( "intercalate :: [T] -> [[T]] -> [T]", "[intercalate]" )
   REQUIRE( intercalate( a, b ) == Vec<Int>{ 1,2,3,0,0,0,4,5,6,0,0,0,7,8,9 } );
 
   REQUIRE( intercalate( Vec<Int>{}, b ) == Vec<Int>{ 1,2,3,4,5,6,7,8,9 } );
+
+  Vec<Vec<Int>> c{};
+
+  REQUIRE( intercalate( a, c ) == Vec<Int>{} );
+
+  REQUIRE( intercalate( Vec<Int>{}, c ) == Vec<Int>{} );
+
 }
