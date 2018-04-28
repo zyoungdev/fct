@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.10.3)
 project(fct)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++1z -fmax-errors=1 -Wall -Weffc++")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -std=c++1z -fmax-errors=1 -Wall -Weffc++")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++1z -fmax-errors=1 -Wall -Weffc++")
-set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_RELEASE} -Os -std=c++1z -fmax-errors=1 -Wall -Weffc++")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -std=c++1z -fmax-errors=1 -Wall -Weffc++ -Wextra -Werror")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -std=c++1z -fmax-errors=1 -Wall -Weffc++ -Wextra -Werror")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -std=c++1z -fmax-errors=1 -Wall -Weffc++ -Wextra -Werror")
+set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_RELEASE} -Os -std=c++1z -fmax-errors=1 -Wall -Weffc++ -Wextra -Werror")
 
 add_definitions(-DDEBUG_EXTRA)
 
