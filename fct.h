@@ -902,10 +902,8 @@ namespace fct
   template <typename T>
   auto isSuffixOf( Vec<T> const& xs, Vec<T> const& ys ) -> bool
   {
-    auto ys_rev_tails = tails( reverse( ys ) );
-    auto xs_rev = reverse( xs );
-
-    return elem( xs_rev, ys_rev_tails );
+    auto ys_tails = tails( ys );
+    return elem( xs, ys_tails );
   }
 
   // isInfixOf :: [T] -> [T] -> Bool
