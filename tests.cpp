@@ -733,3 +733,22 @@ TEST_CASE( "isSuffixOf :: [T] -> [T] -> Bool", "[isSuffixOf]" )
 
   REQUIRE( isSuffixOf( dd, dd ) == true );
 }
+
+TEST_CASE( "isInfixOf :: [T] -> [T] -> Bool", "[isInfixOf]" )
+{
+  String a = "This is a String";
+  Vec<Char> aa{ begin( a ), end( a ) };
+
+  String b = "is";
+  Vec<Char> bb{ begin( b ), end( b ) };
+
+  REQUIRE( isInfixOf( bb, aa ) == true );
+
+  Vec<Char> dd{};
+
+  REQUIRE( isInfixOf( dd, aa ) == true );
+
+  REQUIRE( isInfixOf( bb, dd ) == false );
+
+  REQUIRE( isInfixOf( dd, dd ) == true );
+}
