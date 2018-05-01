@@ -674,3 +674,14 @@ TEST_CASE( "inits :: [T] -> [[T]]", "[inits]" )
 
   REQUIRE( inits( b ) == Vec<Vec<Int>>{ Vec<Int>{} } );
 }
+
+TEST_CASE( "tails :: [T] -> [[T]]", "[tails]" )
+{
+  Vec<Int> a = { 1,2,3 };
+
+  REQUIRE( tails( a ) == Vec<Vec<Int>>{ {1,2,3},{2,3},{3},{} } );
+
+  Vec<Int> b{};
+
+  REQUIRE( tails( b ) == Vec<Vec<Int>>{ Vec<Int>{} } );
+}
