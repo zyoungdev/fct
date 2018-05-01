@@ -881,11 +881,11 @@ namespace fct
   {
     Vec<Vec<T>> out{};
 
-    auto i = end( xs );
+    auto a = begin( xs );
 
-    for ( ; i < begin( xs ); i-- )
-      out.push_back( Vec<T>{ begin( xs ), i } );
-    out.push_back( Vec<T>{ begin( xs ), i } );
+    for ( ; a < end( xs ); advance( a, 1 ) )
+      out.push_back( Vec<T>{ a, end( xs ) } );
+    out.push_back( Vec<T>{} );
 
     return out;
   }
