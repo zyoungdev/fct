@@ -685,3 +685,27 @@ TEST_CASE( "tails :: [T] -> [[T]]", "[tails]" )
 
   REQUIRE( tails( b ) == Vec<Vec<Int>>{ Vec<Int>{} } );
 }
+
+TEST_CASE( "isPrefixOf :: [T] -> [T] -> Bool", "[isPrefixOf]" )
+{
+  String a = "This is a String";
+  Vec<Char> aa{ begin( a ), end( a ) };
+
+  String b = "This";
+  Vec<Char> bb{ begin( b ), end( b ) };
+
+  REQUIRE( isPrefixOf( bb, aa ) == true );
+
+  String c = "is";
+  Vec<Char> cc{ begin( c ), end( c ) };
+
+  REQUIRE( isPrefixOf( cc, aa ) == false );
+
+  Vec<Char> dd{};
+
+  REQUIRE( isPrefixOf( dd, aa ) == true );
+
+  REQUIRE( isPrefixOf( bb, dd ) == false );
+
+  REQUIRE( isPrefixOf( dd, dd ) == true );
+}
