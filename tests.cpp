@@ -709,3 +709,27 @@ TEST_CASE( "isPrefixOf :: [T] -> [T] -> Bool", "[isPrefixOf]" )
 
   REQUIRE( isPrefixOf( dd, dd ) == true );
 }
+
+TEST_CASE( "isSuffixOf :: [T] -> [T] -> Bool", "[isSuffixOf]" )
+{
+  String a = "This is a String";
+  Vec<Char> aa{ begin( a ), end( a ) };
+
+  String b = "String";
+  Vec<Char> bb{ begin( b ), end( b ) };
+
+  REQUIRE( isSuffixOf( bb, aa ) == true );
+
+  String c = "is";
+  Vec<Char> cc{ begin( c ), end( c ) };
+
+  REQUIRE( isSuffixOf( cc, aa ) == false );
+
+  Vec<Char> dd{};
+
+  REQUIRE( isSuffixOf( dd, aa ) == true );
+
+  REQUIRE( isSuffixOf( bb, dd ) == false );
+
+  REQUIRE( isSuffixOf( dd, dd ) == true );
+}
