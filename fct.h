@@ -910,6 +910,9 @@ namespace fct
   template <typename T>
   auto isInfixOf( Vec<T> const& xs, Vec<T> const& ys ) -> bool
   {
+    if ( xs.empty() )
+      return true;
+
     auto a = begin( ys );
     auto b = begin( ys ) + xs.size();
 
