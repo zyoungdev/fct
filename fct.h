@@ -954,6 +954,7 @@ namespace fct
     return out;
   }
 
+  // sort :: [T] -> [T]
   template <typename T>
   auto sort( Vec<T> const& xs ) -> Vec<T>
   {
