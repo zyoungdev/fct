@@ -780,3 +780,18 @@ TEST_CASE( "nub :: [T] -> [T]", "[nub]" )
 
   REQUIRE( nub( b ) == Vec<Int>{} );
 }
+
+TEST_CASE( "sort :: [T] -> [T]", "[sort]" )
+{
+  Vec<Int> a = { 3,2,1 };
+
+  REQUIRE( sort( a ) == Vec<Int>{ 1,2,3 } );
+
+  Vec<Vec<Int>> b = { {9,8,7},{6,5,4},{3,2,1} };
+
+  REQUIRE( sort( b ) == Vec<Vec<Int>>{ {3,2,1},{6,5,4},{9,8,7} } );
+
+  Vec<Int> c{};
+
+  REQUIRE( sort( c ) == Vec<Int>{} );
+}
