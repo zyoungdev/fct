@@ -752,3 +752,20 @@ TEST_CASE( "isInfixOf :: [T] -> [T] -> Bool", "[isInfixOf]" )
 
   REQUIRE( isInfixOf( dd, dd ) == true );
 }
+
+TEST_CASE( "partition :: ( T -> bool ) -> [T] -> ( [T], [T] )", "partition" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9,0 };
+
+  REQUIRE( partition( even, a ) == Tup<Vec<Int>,Vec<Int>>{ Vec<Int>{2,4,6,8,0},Vec<Int>{1,3,5,7,9} } );
+
+  Vec<Int> b = { 1,3,5,7,9 };
+
+  REQUIRE( partition( even, b ) == Tup<Vec<Int>,Vec<Int>>{ Vec<Int>{},Vec<Int>{1,3,5,7,9} } );
+
+  REQUIRE( partition( odd, b ) == Tup<Vec<Int>,Vec<Int>>{ Vec<Int>{1,3,5,7,9},Vec<Int>{} } );
+
+  Vec<Int> d = {};
+
+  REQUIRE( partition( even, d ) == Tup<Vec<Int>,Vec<Int>>{ Vec<Int>{},Vec<Int>{} } );
+}
