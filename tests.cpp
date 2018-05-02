@@ -769,3 +769,14 @@ TEST_CASE( "partition :: ( T -> bool ) -> [T] -> ( [T], [T] )", "partition" )
 
   REQUIRE( partition( even, d ) == Tup<Vec<Int>,Vec<Int>>{ Vec<Int>{},Vec<Int>{} } );
 }
+
+TEST_CASE( "nub :: [T] -> [T]", "[nub]" )
+{
+  Vec<Int> a = { 1,1,2,2,3,3 };
+
+  REQUIRE( nub( a ) == Vec<Int>{ 1,2,3 } );
+
+  Vec<Int> b{};
+
+  REQUIRE( nub( b ) == Vec<Int>{} );
+}
