@@ -982,6 +982,26 @@ namespace fct
 
     return out;
   }
+
+  // zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]
+  template <typename S, typename T, typename U, typename F>
+  auto zipWith( F func, Vec<S> const& xs, Vec<T> const& ys ) -> Vec<U>
+  {
+    Vec<U> out{};
+    out.reserve( xs.size() <= ys.size() ? xs.size() : ys.size() );
+
+    auto x = begin( xs );
+    auto y = begin( ys );
+
+    while ( x < end( xs ) && y < end( ys ) )
+    {
+      out.push_back( func( *x, *y ) );
+      advance( x, 1 );
+      advance( y, 1 );
+    }
+
+    return out;
+  }
 }
 
 #endif
