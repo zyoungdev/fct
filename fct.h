@@ -21,6 +21,8 @@ namespace fct
   using Int = int;
   using UInt = unsigned int;
   using Char = char;
+  using Long = long long;
+  using ULong = unsigned long long;
 
   template <typename T>
   using Opt = std::optional<T>;
