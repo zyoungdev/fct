@@ -962,6 +962,25 @@ namespace fct
     std::sort( begin( out ), end( out ) );
     return out;
   }
+
+  // zip :: [S] -> [T] -> [(S, T)]
+  template <typename S, typename T>
+  auto zip( Vec<S> const& xs, Vec<T> const& ys ) -> Vec<Tup<S,T>>
+  {
+    Vec<Tup<S,T>> out{};
+
+    auto x = begin( xs );
+    auto y = begin( ys );
+
+    while ( x < end( xs ) && y < end( ys ) )
+    {
+      out.push_back( Tup<S,T>{ *x, *y } );
+      advance( x, 1 );
+      advance( y, 1 );
+    }
+
+    return out;
+  }
 }
 
 #endif
