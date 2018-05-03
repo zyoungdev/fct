@@ -809,3 +809,19 @@ TEST_CASE( "zip :: [S] -> [T] -> [(S, T)]", "zip" )
 
   REQUIRE( zip( c, c ) == Vec<Tup<Int,Int>>{} );
 }
+
+TEST_CASE( "zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<Char> b = { 'a','b','c','d','e' };
+
+  auto f = []( auto& x, auto& y ){
+    return String{ y } + show( x );
+  };
+
+  REQUIRE( zipWith<Int, Char, String>( f, a, b ) == Vec<String>{ "a1","b2","c3","d4","e5" } );
+
+  Vec<Int> c{};
+
+  REQUIRE( zipWith<Int, Char, String>( f, c, b ) == Vec<String>{} );
+}
