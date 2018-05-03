@@ -2,6 +2,7 @@
 #include "catch.hpp"
 
 #include "fct.h"
+
 using namespace fct;
 
 // #define DEBUG_IO
