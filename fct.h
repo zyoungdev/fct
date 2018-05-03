@@ -968,6 +968,7 @@ namespace fct
   auto zip( Vec<S> const& xs, Vec<T> const& ys ) -> Vec<Tup<S,T>>
   {
     Vec<Tup<S,T>> out{};
+    out.reserve( xs.size() <= ys.size() ? xs.size() : ys.size() );
 
     auto x = begin( xs );
     auto y = begin( ys );
