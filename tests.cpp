@@ -9,7 +9,7 @@ using namespace fct;
 TEST_CASE( "FCT Composition", "[fct]" )
 {
   Vec<Int> a = { 1,2,3,4 };
-  auto b = fmap<Int, Bool>( even, a );
+  auto b = fmap<Bool>( even, a );
 
   REQUIRE( b == Vec<Bool>{ false, true, false, true } );
 
@@ -23,7 +23,7 @@ TEST_CASE( "FCT Composition", "[fct]" )
 
   auto ss = Vec<Char>{'t','h','i','s',' ','i','s',' ','l','o','w','e','r','c','a','s','e'};
 
-  REQUIRE( fmap<Char, Char>( toUpper, ss ) == Vec<Char>{'T','H','I','S',' ','I','S',' ','L','O','W','E','R','C','A','S','E'} );
+  REQUIRE( fmap<Char>( toUpper, ss ) == Vec<Char>{'T','H','I','S',' ','I','S',' ','L','O','W','E','R','C','A','S','E'} );
 }
 
 TEST_CASE( "head :: [T] -> Opt<T>", "[head]")
@@ -47,17 +47,17 @@ TEST_CASE( "last :: [T] -> Opt<T>", "[last]")
 TEST_CASE( "fmap :: ( S -> T ) -> [S] -> [T]", "[fmap]" )
 {
   Vec<Int> a = { 1, 2, 3 };
-  auto a_sq = fmap<Int, Int>( []( auto& x ){ return x * x; }, a );
+  auto a_sq = fmap<Int>( []( auto& x ){ return x * x; }, a );
 
   REQUIRE( a_sq == Vec<Int>{1,4,9} );
 
   Vec<Int> b{};
-  auto b_sq = fmap<Int, Int>( []( auto& x ){ return x * x; }, b );
+  auto b_sq = fmap<Int>( []( auto& x ){ return x * x; }, b );
 
   REQUIRE( b_sq == Vec<Int>{} );
 
-  auto a_ch = fmap<Int, char>( []( auto& x ){ return 'a' + x; }, a );
-  REQUIRE( a_ch == Vec<char>{'b','c','d'} );
+  auto a_ch = fmap<Char>( []( auto& x ){ return 'a' + x; }, a );
+  REQUIRE( a_ch == Vec<Char>{'b','c','d'} );
 }
 
 TEST_CASE( "transpose :: [[T]] -> [[T]]", "[transpose]" )
@@ -273,8 +273,8 @@ TEST_CASE( "flip :: ( S -> T -> U ) -> T -> S -> U", "[flip]" )
 {
   auto f = []( auto& x, auto& y ){ return y / x; };
 
-  REQUIRE( flip<Int, Int, Int>( f, 3, 2 ) == 1 );
-  REQUIRE( flip<Int, Int, Int>( f, 2, 3 ) == 0 );
+  REQUIRE( flip<Int>( f, 3, 2 ) == 1 );
+  REQUIRE( flip<Int>( f, 2, 3 ) == 0 );
 }
 
 TEST_CASE( "until :: ( T -> bool ) -> ( T -> T ) -> T -> T", "[until]" )
@@ -819,9 +819,9 @@ TEST_CASE( "zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith]" )
     return String{ y } + show( x );
   };
 
-  REQUIRE( zipWith<Int, Char, String>( f, a, b ) == Vec<String>{ "a1","b2","c3","d4","e5" } );
+  REQUIRE( zipWith<String>( f, a, b ) == Vec<String>{ "a1","b2","c3","d4","e5" } );
 
   Vec<Int> c{};
 
-  REQUIRE( zipWith<Int, Char, String>( f, c, b ) == Vec<String>{} );
+  REQUIRE( zipWith<String>( f, c, b ) == Vec<String>{} );
 }

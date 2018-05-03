@@ -104,7 +104,7 @@ namespace fct
   }
 
   // fmap :: ( S -> T ) -> [S] -> [T]
-  template <typename S, typename T, typename F>
+  template <typename T, typename S, typename F>
   auto fmap( F fct, Vec<S> const& xs ) -> Vec<T>
   {
     Vec<T> out{};
@@ -445,7 +445,7 @@ namespace fct
   }
 
   // flip :: ( S -> T -> U ) -> T -> S -> U
-  template <typename S, typename T, typename U, typename F>
+  template <typename U, typename S, typename T, typename F>
   auto flip( F func, S const& x, T const& y ) -> U
   {
     return func( y, x );
@@ -984,7 +984,7 @@ namespace fct
   }
 
   // zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]
-  template <typename S, typename T, typename U, typename F>
+  template <typename U, typename S, typename T, typename F>
   auto zipWith( F func, Vec<S> const& xs, Vec<T> const& ys ) -> Vec<U>
   {
     Vec<U> out{};
