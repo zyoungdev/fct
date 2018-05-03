@@ -40,8 +40,8 @@ namespace fct
   using std::rend;
   using std::advance;
 
-  Double pi = 3.141592653589793238462643383279502884;
-  Double e  = 2.718281828459045235360287471352662497;
+  constexpr Double pi = 3.141592653589793238462643383279502884;
+  constexpr Double e  = 2.718281828459045235360287471352662497;
 
   template <typename T>
   auto print( Opt<T> const& val, Char lastChar = '\n' ) -> void
