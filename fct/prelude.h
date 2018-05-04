@@ -869,21 +869,21 @@ namespace fct
 
   // ceiling :: Num -> Int
   template <typename Num>
-  auto ceiling( Num const& x )
+  auto ceiling( Num const& x ) -> Int
   {
     return std::ceil( x );
   }
 
   // floor :: Num -> Int
   template <typename Num>
-  auto floor( Num const& x )
+  auto floor( Num const& x ) -> Int
   {
     return std::floor( x );
   }
 
   // round :: Num -> Int
   template <typename Num>
-  auto round( Num const& x )
+  auto round( Num const& x ) -> Int
   {
     return std::round( x );
   }
