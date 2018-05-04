@@ -45,6 +45,20 @@ TEST_CASE( "last :: [T] -> Opt<T>", "[last]")
   REQUIRE( last( b ).has_value() == false );
 }
 
+TEST_CASE( "fst :: (S,T) -> S", "[fst]" )
+{
+  Tup<Int,Char> a = {1,'a'};
+
+  REQUIRE( fst( a ) == 1 );
+}
+
+TEST_CASE( "snd :: (S,T) -> S", "[snd]" )
+{
+  Tup<Int,Char> a = {1,'a'};
+
+  REQUIRE( snd( a ) == 'a' );
+}
+
 TEST_CASE( "fmap :: ( S -> T ) -> [S] -> [T]", "[fmap]" )
 {
   Vec<Int> a = { 1, 2, 3 };
