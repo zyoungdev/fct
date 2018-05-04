@@ -826,3 +826,16 @@ TEST_CASE( "zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith]" )
 
   REQUIRE( zipWith<String>( f, c, b ) == Vec<String>{} );
 }
+
+TEST_CASE( "foldl :: (T -> S -> T) -> T -> [S] -> T", "[foldl]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+
+  auto f = []( auto& x, auto& y ){ return x + y; };
+
+  REQUIRE( foldl( f, 0, a ) == 45 );
+
+  Vec<Int> b{};
+
+  REQUIRE( foldl( f, 0, b ) == 0 );
+}
