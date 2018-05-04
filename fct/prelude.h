@@ -325,6 +325,20 @@ namespace fct
     return ! elem( el, xs );
   }
 
+  // max :: T -> T -> T
+  template <typename T>
+  auto max( T const& x, T const& y ) -> T
+  {
+    return x >= y ? x : y;
+  }
+
+  // min :: T -> T -> T
+  template <typename T>
+  auto min( T const& x, T const& y ) -> T
+  {
+    return x <= y ? x : y;
+  }
+
   // maximum :: [T] -> Opt<T>
   template <typename T, template <typename> typename Cont>
   auto maximum( Cont<T> const& xs ) -> Opt<T>
