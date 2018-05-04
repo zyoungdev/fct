@@ -720,6 +720,25 @@ namespace fct
 
     return out;
   }
+
+  // scanl :: (T -> S -> T) -> T -> [S] -> T
+  template <typename S, typename T, typename F, template <typename> typename Cont>
+  auto scanl( F func, T const& y, Cont<S> const& xs ) -> Cont<T>
+  {
+    Cont<T> out{};
+    out.reserve( xs.size() );
+
+    T init = y;
+    out.push_back( init );
+
+    for ( auto const& x : xs )
+    {
+      init = func( init, x );
+      out.push_back( init );
+    }
+
+    return out;
+  }
 }
 
 #endif
