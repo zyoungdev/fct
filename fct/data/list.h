@@ -198,7 +198,7 @@ namespace fct
 
   // isPrefixOf :: [T] -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto isPrefixOf( Cont<T> const& xs, Cont<T> const& ys ) -> bool
+  auto isPrefixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
   {
     auto ys_inits = inits( ys );
     return elem( xs, ys_inits );
@@ -206,7 +206,7 @@ namespace fct
 
   // isSuffixOf :: [T] -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto isSuffixOf( Cont<T> const& xs, Cont<T> const& ys ) -> bool
+  auto isSuffixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
   {
     auto ys_tails = tails( ys );
     return elem( xs, ys_tails );
@@ -214,7 +214,7 @@ namespace fct
 
   // isInfixOf :: [T] -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto isInfixOf( Cont<T> const& xs, Cont<T> const& ys ) -> bool
+  auto isInfixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
   {
     if ( xs.empty() )
       return true;
@@ -231,7 +231,7 @@ namespace fct
     return false;
   }
 
-  // partition :: ( T -> bool ) -> [T] -> ( [T], [T] )
+  // partition :: ( T -> Bool ) -> [T] -> ( [T], [T] )
   template <typename T, typename F, template <typename> typename Cont>
   auto partition( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
   {

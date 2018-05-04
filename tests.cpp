@@ -79,7 +79,7 @@ TEST_CASE( "transpose :: [[T]] -> [[T]]", "[transpose]" )
   REQUIRE( c_tr == Vec<Vec<Int>>{{1,4,7},{2,5},{3}} );
 }
 
-TEST_CASE( "filter :: ( T -> bool ) -> [T]", "[filter]" )
+TEST_CASE( "filter :: ( T -> Bool ) -> [T]", "[filter]" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
   auto a_filt = filter( []( auto& x ){ return x > 5; }, a );
@@ -92,7 +92,7 @@ TEST_CASE( "filter :: ( T -> bool ) -> [T]", "[filter]" )
   REQUIRE( b_filt == Vec<Int>{} );
 }
 
-TEST_CASE( "takeWhile :: ( T -> bool ) -> [T] -> [T]", "[takeWhile]" )
+TEST_CASE( "takeWhile :: ( T -> Bool ) -> [T] -> [T]", "[takeWhile]" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
   auto a_tw = takeWhile( []( auto& x ){ return x < 5; }, a );
@@ -105,7 +105,7 @@ TEST_CASE( "takeWhile :: ( T -> bool ) -> [T] -> [T]", "[takeWhile]" )
   REQUIRE( b_tw == Vec<Int>{} );
 }
 
-TEST_CASE( "dropWhile :: ( T -> bool ) -> [T] -> [T]", "[dropWhile]" )
+TEST_CASE( "dropWhile :: ( T -> Bool ) -> [T] -> [T]", "[dropWhile]" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
   auto a_dw = dropWhile( []( auto& x ){ return x < 5; }, a );
@@ -131,7 +131,7 @@ TEST_CASE( "subsequences :: [T] -> [[T]]", "[subsequences]" )
   REQUIRE( b_ss == Vec<Vec<Int>>{ Vec<Int>{} } );
 }
 
-TEST_CASE( "even :: Num -> bool", "[even]" )
+TEST_CASE( "even :: Num -> Bool", "[even]" )
 {
   Int a = 2;
   long b = 2;
@@ -144,7 +144,7 @@ TEST_CASE( "even :: Num -> bool", "[even]" )
   REQUIRE( even( 0 ) == true );
 }
 
-TEST_CASE( "odd :: Num -> bool", "[odd]" )
+TEST_CASE( "odd :: Num -> Bool", "[odd]" )
 {
   Int a = 1;
   long b = 1;
@@ -201,7 +201,7 @@ TEST_CASE( "gcd :: Num -> Num -> Num", "[gcd]" )
   REQUIRE( gcd( 3, 17 ) == 1 );
 }
 
-TEST_CASE( "elem :: T -> [T] -> bool", "[elem]" )
+TEST_CASE( "elem :: T -> [T] -> Bool", "[elem]" )
 {
   Vec<Int> a = { 1,2,3 };
 
@@ -213,7 +213,7 @@ TEST_CASE( "elem :: T -> [T] -> bool", "[elem]" )
   REQUIRE( elem( 1, b ) == false );
 }
 
-TEST_CASE( "notElem :: T -> [T] -> bool", "[notElem]" )
+TEST_CASE( "notElem :: T -> [T] -> Bool", "[notElem]" )
 {
   Vec<Int> a = { 1,2,3 };
 
@@ -287,7 +287,7 @@ TEST_CASE( "flip :: ( S -> T -> U ) -> T -> S -> U", "[flip]" )
   REQUIRE( flip<Int>( f, 2, 3 ) == 0 );
 }
 
-TEST_CASE( "until :: ( T -> bool ) -> ( T -> T ) -> T -> T", "[until]" )
+TEST_CASE( "until :: ( T -> Bool ) -> ( T -> T ) -> T -> T", "[until]" )
 {
   auto p = []( auto& x ){ return x > 10; };
   auto f = []( auto& x ){ return x + x; };
@@ -295,7 +295,7 @@ TEST_CASE( "until :: ( T -> bool ) -> ( T -> T ) -> T -> T", "[until]" )
   REQUIRE( until( p, f, 1 ) == 16 );
 }
 
-TEST_CASE( "null :: [T] -> bool", "[null]" )
+TEST_CASE( "null :: [T] -> Bool", "[null]" )
 {
   Vec<Int> a = { 1,2,3 };
 
@@ -328,45 +328,45 @@ TEST_CASE( "reverse :: [T] -> [T]", "[reverse]" )
   REQUIRE( reverse( b ) == Vec<Int>{} );
 }
 
-TEST_CASE( "conjunction :: [T] -> bool", "[conjunction]" )
+TEST_CASE( "conjunction :: [T] -> Bool", "[conjunction]" )
 {
-  Vec<bool> a = { true, true, true };
+  Vec<Bool> a = { true, true, true };
 
   REQUIRE( conjunction( a ) == true );
 
-  Vec<bool> b = { false, false, false };
+  Vec<Bool> b = { false, false, false };
 
   REQUIRE( conjunction( b ) == false );
 
-  Vec<bool> c = { true, false, true };
+  Vec<Bool> c = { true, false, true };
 
   REQUIRE( conjunction( c ) == false );
 
-  Vec<bool> d{};
+  Vec<Bool> d{};
 
   REQUIRE( conjunction( d ) == true );
 }
 
-TEST_CASE( "disjunction :: [T] -> bool", "[disjunction]" )
+TEST_CASE( "disjunction :: [T] -> Bool", "[disjunction]" )
 {
-  Vec<bool> a = { true, true, true };
+  Vec<Bool> a = { true, true, true };
 
   REQUIRE( disjunction( a ) == true );
 
-  Vec<bool> b = { false, false, false };
+  Vec<Bool> b = { false, false, false };
 
   REQUIRE( disjunction( b ) == false );
 
-  Vec<bool> c = { true, false, true };
+  Vec<Bool> c = { true, false, true };
 
   REQUIRE( disjunction( c ) == true );
 
-  Vec<bool> d{};
+  Vec<Bool> d{};
 
   REQUIRE( disjunction( d ) == false );
 }
 
-TEST_CASE( "any :: ( T -> bool ) -> [T] -> bool", "[any]" )
+TEST_CASE( "any :: ( T -> Bool ) -> [T] -> Bool", "[any]" )
 {
   Vec<Int> a = { 1,2,3 };
 
@@ -383,7 +383,7 @@ TEST_CASE( "any :: ( T -> bool ) -> [T] -> bool", "[any]" )
   REQUIRE( any( p_even, c ) == false );
 }
 
-TEST_CASE( "all :: ( T -> bool ) -> [T] -> bool", "[all]" )
+TEST_CASE( "all :: ( T -> Bool ) -> [T] -> Bool", "[all]" )
 {
   Vec<Int> a = { 2,4,6 };
 
@@ -763,7 +763,7 @@ TEST_CASE( "isInfixOf :: [T] -> [T] -> Bool", "[isInfixOf]" )
   REQUIRE( isInfixOf( dd, dd ) == true );
 }
 
-TEST_CASE( "partition :: ( T -> bool ) -> [T] -> ( [T], [T] )", "partition" )
+TEST_CASE( "partition :: ( T -> Bool ) -> [T] -> ( [T], [T] )", "partition" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9,0 };
 

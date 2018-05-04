@@ -97,7 +97,7 @@ namespace fct
     return out;
   }
 
-  // filter :: ( T -> bool ) -> [T]
+  // filter :: ( T -> Bool ) -> [T]
   template <typename T, typename F, template <typename> typename Cont>
   auto filter( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
@@ -111,7 +111,7 @@ namespace fct
     return out;
   }
 
-  // takeWhile :: ( T -> bool ) -> [T] -> [T]
+  // takeWhile :: ( T -> Bool ) -> [T] -> [T]
   template <typename T, typename F, template <typename> typename Cont>
   auto takeWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
@@ -127,7 +127,7 @@ namespace fct
     return out;
   }
 
-  // dropWhile :: ( T -> bool ) -> [T] -> [T]
+  // dropWhile :: ( T -> Bool ) -> [T] -> [T]
   template <typename T, typename F, template <typename> typename Cont>
   auto dropWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
@@ -175,14 +175,14 @@ namespace fct
     return Opt<T>{ *( end( xs ) - 1 ) };
   }
 
-  // odd :: Int -> bool
-  auto odd( Int const& val ) -> bool
+  // odd :: Int -> Bool
+  auto odd( Int const& val ) -> Bool
   {
     return val & 1;
   }
 
-  // even :: Int -> bool
-  auto even( Int const& val ) -> bool
+  // even :: Int -> Bool
+  auto even( Int const& val ) -> Bool
   {
     return ! odd( val );
   }
@@ -278,16 +278,16 @@ namespace fct
     return 1;
   }
 
-  // elem :: T -> [b] -> bool
+  // elem :: T -> [b] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto elem( T const& el, Cont<T> const& xs ) -> bool
+  auto elem( T const& el, Cont<T> const& xs ) -> Bool
   {
     return any( [&el]( auto const& x ){ return el == x; }, xs );
   }
 
-  // notElem :: T -> [T] -> bool
+  // notElem :: T -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto notElem( T const& el, Cont<T> const& xs ) -> bool
+  auto notElem( T const& el, Cont<T> const& xs ) -> Bool
   {
     return ! elem( el, xs );
   }
@@ -377,7 +377,7 @@ namespace fct
     return func( y, x );
   }
 
-  // until :: ( T -> bool ) -> ( T -> T ) -> T -> T
+  // until :: ( T -> Bool ) -> ( T -> T ) -> T -> T
   template <typename T, typename P, typename F>
   auto until( P predicate, F func, T const& x ) -> T
   {
@@ -388,9 +388,9 @@ namespace fct
     return out;
   }
 
-  // null :: [T] -> bool
+  // null :: [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto null( Cont<T> const& xs ) -> bool
+  auto null( Cont<T> const& xs ) -> Bool
   {
     return xs.empty();
   }
@@ -410,44 +410,44 @@ namespace fct
   }
 
   // Haskell and
-  // conjunction :: [T] -> bool
+  // conjunction :: [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto conjunction( Cont<T> const& xs ) -> bool
+  auto conjunction( Cont<T> const& xs ) -> Bool
   {
     if ( xs.empty() )
       return true;
 
-    bool out = xs.at( 0 );
+    Bool out = xs.at( 0 );
     for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out = out && *i;
 
     return out;
   }
 
-  // disjunction :: [T] -> bool
+  // disjunction :: [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto disjunction( Cont<T> const& xs ) -> bool
+  auto disjunction( Cont<T> const& xs ) -> Bool
   {
     if ( xs.empty() )
       return false;
 
-    bool out = xs.at( 0 );
+    Bool out = xs.at( 0 );
     for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out = out || *i;
 
     return out;
   }
 
-  // any :: ( T -> bool ) -> [T] -> bool
+  // any :: ( T -> Bool ) -> [T] -> Bool
   template <typename T, typename F, template <typename> typename Cont>
-  auto any( F predicate, Cont<T> const& xs ) -> bool
+  auto any( F predicate, Cont<T> const& xs ) -> Bool
   {
     return std::any_of( begin( xs ), end( xs ), predicate );
   }
 
-  // all :: ( T -> bool ) -> [T] -> bool
+  // all :: ( T -> Bool ) -> [T] -> Bool
   template <typename T, typename F, template <typename> typename Cont>
-  auto all( F predicate, Cont<T> const& xs ) -> bool
+  auto all( F predicate, Cont<T> const& xs ) -> Bool
   {
     return std::all_of( begin( xs ), end( xs ), predicate );
   }
