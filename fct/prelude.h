@@ -760,6 +760,27 @@ namespace fct
 
     return out;
   }
+
+  // ceiling :: Num -> Int
+  template <typename Num>
+  auto ceiling( Num const& x )
+  {
+    return std::ceil( x );
+  }
+
+  // floor :: Num -> Int
+  template <typename Num>
+  auto floor( Num const& x )
+  {
+    return std::floor( x );
+  }
+
+  // round :: Num -> Int
+  template <typename Num>
+  auto round( Num const& x )
+  {
+    return std::round( x );
+  }
 }
 
 #endif
