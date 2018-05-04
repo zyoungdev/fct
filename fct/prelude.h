@@ -708,6 +708,18 @@ namespace fct
 
     return out;
   }
+
+  // foldl :: (T -> S -> T) -> T -> [S] -> T
+  template <typename S, typename T, typename F, template <typename> typename Cont>
+  auto foldl( F func, T const& y, Cont<S> const& xs ) -> T
+  {
+    T out = y;
+
+    for ( auto const& x : xs )
+      out = func( out, x );
+
+    return out;
+  }
 }
 
 #endif
