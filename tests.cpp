@@ -875,3 +875,38 @@ TEST_CASE( "scanl :: (T -> S -> T) -> T -> [S] -> T", "[scanl]" )
 
   REQUIRE( scanl( f, 0, b ) == Vec<Int>{ 0 } );
 }
+
+TEST_CASE( "ceiling :: Num -> Int", "[ceiling]" )
+{
+  REQUIRE( ceiling( 2.3 ) == 3 );
+
+  REQUIRE( ceiling( 1.7 ) == 2 );
+
+  REQUIRE( ceiling( 0 ) == 0 );
+
+  REQUIRE( ceiling( 1 ) == 1 );
+}
+
+TEST_CASE( "floor :: Num -> Int", "[floor]" )
+{
+  REQUIRE( floor( 2.3 ) == 2 );
+
+  REQUIRE( floor( 1.7 ) == 1 );
+
+  REQUIRE( floor( 0 ) == 0 );
+
+  REQUIRE( floor( 1 ) == 1 );
+}
+
+TEST_CASE( "round :: Num -> Int", "[round]" )
+{
+  REQUIRE( round( 2.3 ) == 2 );
+
+  REQUIRE( round( 2.5 ) == 3 );
+
+  REQUIRE( round( 1.7 ) == 2 );
+
+  REQUIRE( round( 0 ) == 0 );
+
+  REQUIRE( round( 1 ) == 1 );
+}
