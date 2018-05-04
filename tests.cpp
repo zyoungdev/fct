@@ -255,6 +255,20 @@ TEST_CASE( "notElem :: T -> [T] -> Bool", "[notElem]" )
   REQUIRE( notElem( 1, b ) == true );
 }
 
+TEST_CASE( "max :: T -> T -> T", "[max]" )
+{
+  REQUIRE( max( 1, 2 ) == 2 );
+
+  REQUIRE( max( 2, 1 ) == 2 );
+}
+
+TEST_CASE( "min :: T -> T -> T", "[min]" )
+{
+  REQUIRE( min( 1, 2 ) == 1 );
+
+  REQUIRE( min( 2, 1 ) == 1 );
+}
+
 TEST_CASE( "maximum :: [T] -> Opt<T>", "[maximum]" )
 {
   Vec<Int> a = { 1,2,3 };
