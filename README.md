@@ -38,7 +38,7 @@ print( b );
 
 As this code snippet demonstrates, you can compose functions without affecting the original objects as every function defines its inputs as constant.
 
-Here is the the same thing hand written in C++ without the <algorithm> library.
+Here is the the same thing hand written in C++ without the `<algorithm>` library.
 
 ```C++
 auto as = std::vector<double>{ 1.1,7.7,3.3,9.9,5.5 };
@@ -66,22 +66,22 @@ print( cs );
 
 ## Installation
 
-* (Optional) Install Catch2 using your distribution's package manager or download it manually and install it to ```/usr/lib/catch```
-* ```$ cd ~```
-* ```git clone https://github.com/zyisrad/fct```
-* ```$ mkdir fct_build; cd fct_build```
-* ```$ cmake -DCMAKE_BUILD_TYPE=debug ~/fct```
-* ```make fct_test && ./fct_test```
+* (Optional) Install Catch2 using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
+* `$ cd ~`
+* `git clone https://github.com/zyisrad/fct`
+* `$ mkdir fct_build; cd fct_build`
+* `$ cmake -DCMAKE_BUILD_TYPE=debug ~/fct`
+* `make fct_test && ./fct_test`
 
 ## Caveats
 
 * Heavily templated so compilation is slow and binary is large
 * Composing functions is not as nice as Haskell, requires making intermediary lambda functions
-* Functions that take a [T] as input need to have the push_back method available (vector, dequeue, list)
-* Functions that may return Nothing will return std::optional<T>
+* Functions that take a `[T]` as input need to have the `push_back` method available (vector, dequeue, list)
+* Functions that may return Nothing will return `std::optional<T>`
 * Heavily experimental
 * It may work, it may explode the universe
 
 ## Troubleshooting
-* If you get a compilation error that contains "<unresolved overloaded function type>", you need to specify either the output or the input type as a template argument. In the previous example ```max<Int>``` is specifying ```Int``` as a template argument for the input type and ```fmap<Int>``` is specifying ```Int``` as a template argument for the output type.
-* If you can't get Catch2 working, copy and paste code snippets from ```tests.cpp``` into ```main()```
+* If you get a compilation error that contains `<unresolved overloaded function type>`, you need to specify either the output or the input type as a template argument. In the previous example `max<Int>` is specifying `Int` as a template argument for the input type and `fmap<Int>` is specifying `Int` as a template argument for the output type.
+* If you can't get Catch2 working, copy and paste code snippets from `tests.cpp` into `main()`
