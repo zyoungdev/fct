@@ -1,45 +1,11 @@
 #ifndef functional_algorithms_prelude_header
 #define functional_algorithms_prelude_header
 
-#include <vector>
-#include <iostream>
-#include <cmath>
-#include <tuple>
-#include <algorithm>
-#include <sstream>
-#include <fstream>
-#include <optional>
-#include <iterator>
+#include "fct/include.h"
+#include "fct/using.h"
 
 namespace fct
 {
-  using String = std::string;
-  using SS = std::stringstream;
-  using Bool = bool;
-  using Float = float;
-  using Double = long double;
-  using Int = int;
-  using UInt = unsigned int;
-  using Char = char;
-  using Long = long long;
-  using ULong = unsigned long long;
-
-  template <typename T>
-  using Opt = std::optional<T>;
-
-  template <typename T>
-  using Vec = std::vector<T>;
-
-  // template <typename S, typename T>
-  template <typename ...Ts>
-  using Tup = std::tuple<Ts...>;
-
-  using std::begin;
-  using std::end;
-  using std::rbegin;
-  using std::rend;
-  using std::advance;
-
   constexpr Double pi = 3.141592653589793238462643383279502884;
   constexpr Double e  = 2.718281828459045235360287471352662497;
 

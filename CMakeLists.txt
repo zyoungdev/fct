@@ -13,9 +13,10 @@ INCLUDE_DIRECTORIES( "${CMAKE_SOURCE_DIR}" )
 
 set(
     LIBRARY_FILES
-    fct.h
+    fct/using.h
     fct/prelude.h
     fct/data/list.h
+    fct.h
 )
 set (
     TEST_FILES
