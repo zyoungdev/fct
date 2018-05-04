@@ -910,3 +910,16 @@ TEST_CASE( "round :: Num -> Int", "[round]" )
 
   REQUIRE( round( 1 ) == 1 );
 }
+
+TEST_CASE( "lookup :: S -> [(S,T)] -> Opt<T>", "[lookup]" )
+{
+  Vec<Tup<Char,Int>> a = { {'a',1},{'b',2},{'c',3} };
+
+  REQUIRE( lookup( 'a', a ) == Opt<Int>{ 1 } );
+
+  REQUIRE( lookup( 'd', a ) == Opt<Int>{} );
+
+  Vec<Tup<Char,Int>> b{};
+
+  REQUIRE( lookup( 'a', b ) == Opt<Int>{} );
+}
