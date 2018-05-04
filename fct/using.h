@@ -13,6 +13,7 @@ namespace fct
   using Char = char;
   using Long = long long;
   using ULong = unsigned long long;
+  using Size_t = std::size_t;
 
   template <typename T>
   using Opt = std::optional<T>;

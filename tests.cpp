@@ -306,7 +306,7 @@ TEST_CASE( "null :: [T] -> bool", "[null]" )
   REQUIRE( null( b ) == true );
 }
 
-TEST_CASE( "length :: [T] -> size_t", "[length]" )
+TEST_CASE( "length :: [T] -> Size_t", "[length]" )
 {
   Vec<Int> a = { 1,2,3 };
 

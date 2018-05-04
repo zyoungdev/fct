@@ -395,7 +395,7 @@ namespace fct
     return xs.empty();
   }
 
-  // length :: [T] -> size_t
+  // length :: [T] -> Size_t
   template <typename S, template <typename> typename Cont>
   auto length( Cont<S> const& xs ) -> size_t
   {
