@@ -715,8 +715,8 @@ namespace fct
   auto zip3( Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<Tup<S,T,U>>
   {
     Cont<Tup<S,T,U>> out{};
-    Size_t min = minimum( Vec<Size_t>{ xs.size(), ys.size(), zs.size() } ).value();
 
+    Size_t min = minimum( Cont<Size_t>{ xs.size(), ys.size(), zs.size() } ).value();
     out.reserve( min );
 
     auto x = begin( xs );
@@ -749,6 +749,30 @@ namespace fct
       out.push_back( func( *x, *y ) );
       advance( x, 1 );
       advance( y, 1 );
+    }
+
+    return out;
+  }
+
+  // zipWith3 :: ( S -> T -> U -> V ) -> [S] -> [T] -> [U] -> [V]
+  template <typename V, typename U, typename S, typename T, typename F, template <typename> typename Cont>
+  auto zipWith3( F func, Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<V>
+  {
+    Cont<V> out{};
+
+    Size_t min = minimum( Cont<Size_t>{ xs.size(), ys.size(), zs.size() } ).value();
+    out.reserve( min );
+
+    auto x = begin( xs );
+    auto y = begin( ys );
+    auto z = begin( zs );
+
+    while ( x < end( xs ) && y < end( ys ) && z < end( zs ) )
+    {
+      out.push_back( func( *x, *y, *z ) );
+      advance( x, 1 );
+      advance( y, 1 );
+      advance( z, 1 );
     }
 
     return out;
