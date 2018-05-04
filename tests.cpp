@@ -839,3 +839,16 @@ TEST_CASE( "foldl :: (T -> S -> T) -> T -> [S] -> T", "[foldl]" )
 
   REQUIRE( foldl( f, 0, b ) == 0 );
 }
+
+TEST_CASE( "scanl :: (T -> S -> T) -> T -> [S] -> T", "[scanl]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+
+  auto f = []( auto& x, auto& y ){ return x + y; };
+
+  REQUIRE( scanl( f, 0, a ) == Vec<Int>{ 0,1,3,6,10,15,21,28,36,45 } );
+
+  Vec<Int> b{};
+
+  REQUIRE( scanl( f, 0, b ) == Vec<Int>{ 0 } );
+}
