@@ -710,6 +710,30 @@ namespace fct
     return out;
   }
 
+  // zip3 :: [S] -> [T] -> [U] -> [(S, T, U)]
+  template <typename S, typename T, typename U, template <typename> typename Cont>
+  auto zip3( Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<Tup<S,T,U>>
+  {
+    Cont<Tup<S,T,U>> out{};
+    Size_t min = minimum( Vec<Size_t>{ xs.size(), ys.size(), zs.size() } ).value();
+
+    out.reserve( min );
+
+    auto x = begin( xs );
+    auto y = begin( ys );
+    auto z = begin( zs );
+
+    while ( x < end( xs ) && y < end( ys ) && z < end( zs ) )
+    {
+      out.push_back( Tup<S,T,U>{ *x, *y, *z } );
+      advance( x, 1 );
+      advance( y, 1 );
+      advance( z, 1 );
+    }
+
+    return out;
+  }
+
   // zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]
   template <typename U, typename S, typename T, typename F, template <typename> typename Cont>
   auto zipWith( F func, Cont<S> const& xs, Cont<T> const& ys ) -> Cont<U>
