@@ -157,6 +157,15 @@ TEST_CASE( "odd :: Num -> bool", "[odd]" )
   REQUIRE( odd( 0 ) == false );
 }
 
+TEST_CASE( "negate :: Num -> Num", "[negate]" )
+{
+  REQUIRE( negate( 1 ) == -1 );
+
+  REQUIRE( negate( -1 ) == 1 );
+
+  REQUIRE( negate( 0 ) == 0 );
+}
+
 TEST_CASE( "abs :: Num -> Num", "[abs]" )
 {
   Int a = 1;
