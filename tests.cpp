@@ -190,7 +190,7 @@ TEST_CASE( "quotRem :: (Integral a) => T -> T -> ( a, a )", "[quotRem]" )
   REQUIRE( quotRem( c, a ) == Tup<Int, Int>( 0, 0 ) );
 }
 
-TEST_CASE( "gcd :: T -> T -> T", "[gcd]" )
+TEST_CASE( "gcd :: Num -> Num -> Num", "[gcd]" )
 {
   REQUIRE( gcd( 0, 0 ) == 0 );
 
@@ -245,7 +245,7 @@ TEST_CASE( "minimum :: [T] -> Opt<T>", "[minimum]" )
   REQUIRE( minimum( b ).has_value() == false );
 }
 
-TEST_CASE( "sum :: [T] -> T", "[sum]" )
+TEST_CASE( "sum :: [Num] -> Num", "[sum]" )
 {
   Vec<Int> a = { 1,2,3 };
 
@@ -256,7 +256,7 @@ TEST_CASE( "sum :: [T] -> T", "[sum]" )
   REQUIRE( sum( b ) == 0 );
 }
 
-TEST_CASE( "product :: [T] -> T", "[product]" )
+TEST_CASE( "product :: [Num] -> Num", "[product]" )
 {
   Vec<Int> a = { 1,2,3 };
 
@@ -306,7 +306,7 @@ TEST_CASE( "null :: [T] -> bool", "[null]" )
   REQUIRE( null( b ) == true );
 }
 
-TEST_CASE( "length :: [T] -> Num", "[length]" )
+TEST_CASE( "length :: [T] -> size_t", "[length]" )
 {
   Vec<Int> a = { 1,2,3 };
 

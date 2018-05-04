@@ -195,15 +195,15 @@ namespace fct
   }
 
   // abs :: Num -> Num
-  template <typename T>
-  auto abs( T const& x ) -> T
+  template <typename Num>
+  auto abs( Num const& x ) -> Num
   {
     return x < 0 ? -x : x;
   }
 
-  // abs :: Num -> Int
-  template <typename T>
-  auto signum( T const& x ) -> Int
+  // signum :: Num -> Int
+  template <typename Num>
+  auto signum( Num const& x ) -> Int
   {
     if ( x < 0 )
       return -1;
@@ -224,54 +224,54 @@ namespace fct
   }
 
   // exp :: Num -> Double
-  template <typename T>
-  auto exp( T const& x ) -> Double
+  template <typename Num>
+  auto exp( Num const& x ) -> Double
   {
     return std::pow( e, x );
   }
 
   // log :: Num -> Double
-  template <typename T>
-  auto log( T const& x ) -> Double
+  template <typename Num>
+  auto log( Num const& x ) -> Double
   {
     return std::log( x );
   }
 
-  // logBase :: T -> T -> T
-  template <typename T>
-  auto logBase( T const& base, T const& x ) -> Double
+  // logBase :: Num -> Num -> Double
+  template <typename Num>
+  auto logBase( Num const& base, Num const& x ) -> Double
   {
     return std::log( x ) / std::log( base );
   }
 
   // sqrt :: Num -> Double
-  template <typename T>
-  auto sqrt( T const& x ) -> Double
+  template <typename Num>
+  auto sqrt( Num const& x ) -> Double
   {
     return std::sqrt( x );
   }
 
-  // gcd :: T -> T -> T
-  template <typename T>
-  auto gcd( T const& x, T const& y ) -> T
+  // gcd :: Num -> Num -> Num
+  template <typename Num>
+  auto gcd( Num const& x, Num const& y ) -> Num
   {
-    T end = x <= y ? x : y;
+    Num end = x <= y ? x : y;
 
-    T j = 0;
-    for ( T i = 1 ; i <= end; i++ )
+    Num j = 0;
+    for ( Num i = 1 ; i <= end; i++ )
       if ( abs( x ) % i == 0 && abs( y ) % i == 0 )
         j = i;
 
     return j;
   }
 
-  // lcm :: T -> T -> T
-  template <typename T>
-  auto lcm( T const& x, T const& y ) -> T
+  // lcm :: Num -> Num -> Num
+  template <typename Num>
+  auto lcm( Num const& x, Num const& y ) -> Num
   {
-    T end = x <= y ? x : y;
+    Num end = x <= y ? x : y;
 
-    for ( T i = 2 ; i <= end; i++ )
+    for ( Num i = 2 ; i <= end; i++ )
       if ( x % i == 0 && y % i == 0 )
         return i;
 
@@ -324,28 +324,28 @@ namespace fct
     return Opt<T>{ out };
   }
 
-  // sum :: [T] -> T
-  template <typename T, template <typename> typename Cont>
-  auto sum( Cont<T> const& xs ) -> T
+  // sum :: [Num] -> Num
+  template <typename Num, template <typename> typename Cont>
+  auto sum( Cont<Num> const& xs ) -> Num
   {
     if ( xs.empty() )
       return 0;
 
-    T out = xs.at( 0 );
+    Num out = xs.at( 0 );
     for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out += *i;
 
     return out;
   }
 
-  // product :: [T] -> T
-  template <typename T, template <typename> typename Cont>
-  auto product( Cont<T> const& xs ) -> T
+  // product :: [Num] -> Num
+  template <typename Num, template <typename> typename Cont>
+  auto product( Cont<Num> const& xs ) -> Num
   {
     if ( xs.empty() )
       return 1;
 
-    T out = xs.at( 0 );
+    Num out = xs.at( 0 );
     for ( auto i = begin( xs ) + 1; i < end( xs ); advance( i, 1 ) )
       out *= *i;
 
@@ -395,9 +395,9 @@ namespace fct
     return xs.empty();
   }
 
-  // length :: [T] -> Num
-  template <typename S, typename T = size_t, template <typename> typename Cont>
-  auto length( Cont<S> const& xs ) -> T
+  // length :: [T] -> size_t
+  template <typename S, template <typename> typename Cont>
+  auto length( Cont<S> const& xs ) -> size_t
   {
     return xs.size();
   }
