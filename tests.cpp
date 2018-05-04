@@ -882,6 +882,28 @@ TEST_CASE( "zipWith3 :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith3]" )
   REQUIRE( zipWith3<String>( f, a, b, d ) == Vec<String>{} );
 }
 
+TEST_CASE( "unzip :: [(S,T)] -> ([S],[T])", "[unzip]" )
+{
+  Vec<Tup<Int,Char>> a = { {1,'a'},{2,'b'},{3,'c'} };
+
+  REQUIRE( unzip( a ) == Tup<Vec<Int>,Vec<Char>>{ {1,2,3},{'a','b','c'} } );
+
+  Vec<Tup<Int,Char>> b{};
+
+  REQUIRE( unzip( b ) == Tup<Vec<Int>,Vec<Char>>{} );
+}
+
+TEST_CASE( "unzip3 :: [(S,T)] -> ([S],[T])", "[unzip3]" )
+{
+  Vec<Tup<Int,Char,String>> a = { {1,'a',"d"},{2,'b',"e"},{3,'c',"f"} };
+
+  REQUIRE( unzip3( a ) == Tup<Vec<Int>,Vec<Char>,Vec<String>>{ {1,2,3},{'a','b','c'},{"d","e","f"} } );
+
+  Vec<Tup<Int,Char,String>> b{};
+
+  REQUIRE( unzip3( b ) == Tup<Vec<Int>,Vec<Char>,Vec<String>>{} );
+}
+
 TEST_CASE( "foldl :: (T -> S -> T) -> T -> [S] -> T", "[foldl]" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
