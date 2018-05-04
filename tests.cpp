@@ -820,7 +820,7 @@ TEST_CASE( "sort :: [T] -> [T]", "[sort]" )
   REQUIRE( sort( c ) == Vec<Int>{} );
 }
 
-TEST_CASE( "zip :: [S] -> [T] -> [(S, T)]", "zip" )
+TEST_CASE( "zip :: [S] -> [T] -> [(S, T)]", "[zip]" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
   Vec<Char> b = { 'a','b','c','d' };

@@ -29,14 +29,14 @@ set (
 
 set( CATCH_INCLUDE_DIR /usr/include/catch )
 add_library( Catch INTERFACE )
-target_include_directories(Catch INTERFACE ${CATCH_INCLUDE_DIR})
+target_include_directories( Catch INTERFACE ${CATCH_INCLUDE_DIR} )
 
 add_library( fct STATIC ${LIBRARY_FILES} )
 set_target_properties( fct PROPERTIES LINKER_LANGUAGE CXX )
 
-set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}" )
+set( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}" )
 
-add_executable(fct_test ${TEST_FILES})
+add_executable( fct_test ${TEST_FILES} )
 target_link_libraries( fct_test fct Catch )
 
 add_executable( fct_main ${MAIN_FILES} )
