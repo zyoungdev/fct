@@ -187,6 +187,13 @@ namespace fct
     return ! odd( val );
   }
 
+  // negate :: Num -> Num
+  template <typename Num>
+  auto negate( Num const& x ) -> Num
+  {
+    return -x;
+  }
+
   // abs :: Num -> Num
   template <typename T>
   auto abs( T const& x ) -> T
