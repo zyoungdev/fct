@@ -834,6 +834,21 @@ TEST_CASE( "zip :: [S] -> [T] -> [(S, T)]", "zip" )
   REQUIRE( zip( c, c ) == Vec<Tup<Int,Int>>{} );
 }
 
+TEST_CASE( "zip3 :: [S] -> [T] -> [U] -> [(S,T,U)]", "[zip3]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<Char> b = { 'a','b','c','d' };
+  Vec<String> c = { "e","f","g","h","i" };
+
+  REQUIRE( zip3( a, b, c ) == Vec<Tup<Int,Char,String>>{ {1,'a',"e"},{2,'b',"f"},{3,'c',"g"},{4,'d',"h"} } );
+
+  Vec<Int> d{};
+
+  REQUIRE( zip3( a, b, d ) == Vec<Tup<Int,Char,Int>>{} );
+
+  REQUIRE( zip3( d, d, d ) == Vec<Tup<Int,Int,Int>>{} );
+}
+
 TEST_CASE( "zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith]" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
