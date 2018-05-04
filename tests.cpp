@@ -865,6 +865,23 @@ TEST_CASE( "zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith]" )
   REQUIRE( zipWith<String>( f, c, b ) == Vec<String>{} );
 }
 
+TEST_CASE( "zipWith3 :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith3]" )
+{
+  Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
+  Vec<String> b = { "1.1","2.2","3.3","4.4" };
+  Vec<Char> c = { 'a','b','c','d','e' };
+
+  auto f = []( auto& x, auto& y, auto& z ) -> String{
+    return show( x ) + " + " + y + " = " + String{ z };
+  };
+
+  REQUIRE( zipWith3<String>( f, a, b, c ) == Vec<String>{ "1 + 1.1 = a","2 + 2.2 = b","3 + 3.3 = c","4 + 4.4 = d" } );
+
+  Vec<Char> d{};
+
+  REQUIRE( zipWith3<String>( f, a, b, d ) == Vec<String>{} );
+}
+
 TEST_CASE( "foldl :: (T -> S -> T) -> T -> [S] -> T", "[foldl]" )
 {
   Vec<Int> a = { 1,2,3,4,5,6,7,8,9 };
