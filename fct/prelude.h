@@ -778,6 +778,45 @@ namespace fct
     return out;
   }
 
+  // unzip :: [(S,T)] -> ([S],[T])
+  template <typename S, typename T, template <typename> typename Cont>
+  auto unzip( Cont<Tup<S,T>> const& xs )
+  {
+    Cont<S> ss;
+    Cont<T> ts;
+    ss.reserve( xs.size() );
+    ts.reserve( xs.size() );
+
+    for ( auto const& x : xs )
+    {
+      ss.push_back( std::get<0>( x ) );
+      ts.push_back( std::get<1>( x ) );
+    }
+
+    return Tup<Vec<S>,Vec<T>>{ ss, ts };
+  }
+
+  // unzip3 :: [(S,T)] -> ([S],[T])
+  template <typename S, typename T, typename U, template <typename> typename Cont>
+  auto unzip3( Cont<Tup<S,T,U>> const& xs )
+  {
+    Cont<S> ss;
+    Cont<T> ts;
+    Cont<U> us;
+    ss.reserve( xs.size() );
+    ts.reserve( xs.size() );
+    us.reserve( xs.size() );
+
+    for ( auto const& x : xs )
+    {
+      ss.push_back( std::get<0>( x ) );
+      ts.push_back( std::get<1>( x ) );
+      us.push_back( std::get<2>( x ) );
+    }
+
+    return Tup<Vec<S>,Vec<T>,Vec<U>>{ ss, ts, us };
+  }
+
   // foldl :: (T -> S -> T) -> T -> [S] -> T
   template <typename S, typename T, typename F, template <typename> typename Cont>
   auto foldl( F func, T const& y, Cont<S> const& xs ) -> T
