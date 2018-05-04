@@ -118,15 +118,15 @@ TEST_CASE( "dropWhile :: ( T -> bool ) -> [T] -> [T]", "[dropWhile]" )
   REQUIRE( b_dw == Vec<Int>{} );
 }
 
-TEST_CASE( "subsets :: [T] -> [[T]]", "[subsets]" )
+TEST_CASE( "subsequences :: [T] -> [[T]]", "[subsequences]" )
 {
   Vec<Int> a = { 1,2,3 };
-  auto a_ss = subsets( a );
+  auto a_ss = subsequences( a );
 
   REQUIRE( a_ss == Vec<Vec<Int>>{ {},{1},{2},{1,2},{3},{1,3},{2,3},{1,2,3} } );
 
   Vec<Int> b{};
-  auto b_ss = subsets( b );
+  auto b_ss = subsequences( b );
 
   REQUIRE( b_ss == Vec<Vec<Int>>{ Vec<Int>{} } );
 }

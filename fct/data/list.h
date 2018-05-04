@@ -29,9 +29,9 @@ namespace fct
     return out;
   }
 
-  // subsets :: [T] -> [[T]]
+  // subsequences :: [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto subsets( Cont<T> const& xs ) -> Cont<Cont<T>>
+  auto subsequences( Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
     out.reserve( std::pow( 2, xs.size() ) );
@@ -268,7 +268,6 @@ namespace fct
     std::sort( begin( out ), end( out ) );
     return out;
   }
-
 }
 
 #endif
