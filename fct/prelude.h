@@ -175,6 +175,20 @@ namespace fct
     return Opt<T>{ *( end( xs ) - 1 ) };
   }
 
+  // fst :: (S,T) -> S
+  template <typename S, typename T>
+  auto fst( Tup<S,T> const& tup )
+  {
+    return std::get<0>( tup );
+  }
+
+  // snd :: (S,T) -> T
+  template <typename S, typename T>
+  auto snd( Tup<S,T> const& tup )
+  {
+    return std::get<1>( tup );
+  }
+
   // odd :: Int -> Bool
   auto odd( Int const& val ) -> Bool
   {
