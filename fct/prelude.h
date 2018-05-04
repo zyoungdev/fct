@@ -781,6 +781,17 @@ namespace fct
   {
     return std::round( x );
   }
+
+  // lookup :: S -> [(S,T)] -> Opt<T>
+  template <typename S, typename T, template <typename> typename Cont>
+  auto lookup( S const& needle, Cont<Tup<S,T>> const& xs ) -> Opt<T>
+  {
+    for ( auto const& x : xs )
+      if ( needle == std::get<0>( x ) )
+        return Opt<T>{ std::get<1>( x ) };
+
+    return Opt<T>{};
+  }
 }
 
 #endif
