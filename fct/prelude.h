@@ -28,11 +28,30 @@ namespace fct
   constexpr Double pi = 3.141592653589793238462643383279502884;
   constexpr Double e  = 2.718281828459045235360287471352662497;
 
+  // show :: T -> String
+  template <typename T>
+  auto show( T const& x ) -> String
+  {
+    return std::to_string( x );
+  }
+
+  // show :: Char -> Char
+  auto show( Char const& x ) -> Char
+  {
+    return x;
+  }
+
+  // show :: Bool -> String
+  auto show( Bool const& x ) -> String
+  {
+    return x ? "True" : "False";
+  }
+
   // print :: T -> void
   template <typename T>
   auto print( T const& val, Char lastChar = '\n' ) -> void
   {
-    std::cout << val << lastChar;
+    std::cout << show( val ) << lastChar;
   }
 
   // print :: String -> void
@@ -45,7 +64,7 @@ namespace fct
   auto print( Opt<T> const& val, Char lastChar = '\n' ) -> void
   {
     if ( val )
-      std::cout << val.value() << lastChar;
+      print( val.value(), lastChar );
     else
       std::cout << "Nothing" << lastChar;
   }
@@ -60,9 +79,9 @@ namespace fct
   auto print_tuple( T const& val, Ts... args ) -> void
   {
     if ( sizeof...(Ts) == 0 )
-      std::cout << val;
+      print( val, '\0' );
     else
-      std::cout << val << ',';
+      print( val, ',' );
 
     print_tuple(args...);
   }
@@ -709,13 +728,6 @@ namespace fct
   {
     std::ofstream file( filePath, std::ios_base::app );
     file << str;
-  }
-
-  // show :: T -> String
-  template <typename T>
-  auto show( T const& x ) -> String
-  {
-    return std::to_string( x );
   }
 
   // iterate :: (T -> T) -> T -> [T]
