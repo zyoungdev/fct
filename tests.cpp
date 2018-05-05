@@ -43,6 +43,28 @@ TEST_CASE( "FCT Composition", "[fct]" )
   REQUIRE( fmap<Char>( toUpper, ss ) == Vec<Char>{'T','H','I','S',' ','I','S',' ','L','O','W','E','R','C','A','S','E'} );
 }
 
+TEST_CASE( "toVec :: String -> Vec<Char>", "[toVec]" )
+{
+  String a = "String";
+
+  REQUIRE( toVec( a ) == Vec<Char>{ 'S','t','r','i','n','g' } );
+
+  String b{};
+
+  REQUIRE( toVec( b ) == Vec<Char>{} );
+}
+
+TEST_CASE( "toStr :: Vec<Char> -> String", "[toStr]" )
+{
+  Vec<Char> as = { 'S','t','r','i','n','g' };
+
+  REQUIRE( toStr( as ) == "String" );
+
+  Vec<Char> bs{};
+
+  REQUIRE( toStr( bs ) == String{} );
+}
+
 TEST_CASE( "head :: [T] -> Opt<T>", "[head]")
 {
   Vec<Int> a = { 1, 2, 3 };
