@@ -35,6 +35,12 @@ namespace fct
     std::cout << val << lastChar;
   }
 
+  // print :: String -> void
+  auto print( String const& val, Char lastChar = '\n' ) -> void
+  {
+    std::cout << val << lastChar;
+  }
+
   template <typename T>
   auto print( Opt<T> const& val, Char lastChar = '\n' ) -> void
   {
