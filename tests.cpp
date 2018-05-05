@@ -186,7 +186,7 @@ TEST_CASE( "subsequences :: [T] -> [[T]]", "[subsequences]" )
 TEST_CASE( "even :: Num -> Bool", "[even]" )
 {
   Int a = 2;
-  long b = 2;
+  Long b = 2;
 
   REQUIRE( even( a ) == true );
   REQUIRE( even( a + 1 ) == false );
@@ -199,7 +199,7 @@ TEST_CASE( "even :: Num -> Bool", "[even]" )
 TEST_CASE( "odd :: Num -> Bool", "[odd]" )
 {
   Int a = 1;
-  long b = 1;
+  Long b = 1;
 
   REQUIRE( odd( a ) == true );
   REQUIRE( odd( a + 1 ) == false );
