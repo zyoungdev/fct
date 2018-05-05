@@ -117,13 +117,13 @@ namespace fct
   // toUpper :: Char -> Char
   auto toUpper( Char const& x ) -> Char
   {
-    return x == 0x20 ? 0x20 : x - 0x20;
+    return x > 0x60 && x < 0x7B ? x - 0x20 : x;
   }
 
   // toLower :: Char -> Char
   auto toLower( Char const& x ) -> Char
   {
-    return x == 0x20 ? 0x20 : x + 0x20;
+    return x > 0x40 && x < 0x5B ? x + 0x20 : x;
   }
 
   // fmap :: ( S -> T ) -> [S] -> [T]
