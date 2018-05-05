@@ -942,6 +942,18 @@ namespace fct
 
     return Opt<T>{};
   }
+
+  // toVec :: String -> Vec<Char>
+  auto toVec( String const& x ) -> Vec<Char>
+  {
+    return Vec<Char>{ begin( x ), end( x ) };
+  }
+
+  // toStr :: Vec<Char> -> String
+  auto toStr( Vec<Char> const& xs ) -> String
+  {
+    return String{ begin( xs ), end( xs ) };
+  }
 }
 
 #endif
