@@ -710,9 +710,8 @@ TEST_CASE( "break_when :: (T -> Bool) -> [T] -> ([T], [T])", "[break_when]" )
 TEST_CASE( "group :: [T] -> [[T]]", "[group]" )
 {
   String a = "mississippi";
-  Vec<Char> aa{ begin( a ), end( a ) };
 
-  REQUIRE( group( aa ) == Vec<Vec<Char>>{ {'m'},{'i'},{'s','s'},{'i'},{'s','s'},{'i'},{'p','p'},{'i'} } );
+  REQUIRE( group( toVec( a ) ) == Vec<Vec<Char>>{ {'m'},{'i'},{'s','s'},{'i'},{'s','s'},{'i'},{'p','p'},{'i'} } );
 
   Vec<Char> b{};
   REQUIRE( group( b ) == Vec<Vec<Char>>{} );
@@ -743,23 +742,19 @@ TEST_CASE( "tails :: [T] -> [[T]]", "[tails]" )
 TEST_CASE( "isPrefixOf :: [T] -> [T] -> Bool", "[isPrefixOf]" )
 {
   String a = "This is a String";
-  Vec<Char> aa{ begin( a ), end( a ) };
-
   String b = "This";
-  Vec<Char> bb{ begin( b ), end( b ) };
 
-  REQUIRE( isPrefixOf( bb, aa ) == true );
+  REQUIRE( isPrefixOf( toVec( b ), toVec( a ) ) == true );
 
   String c = "is";
-  Vec<Char> cc{ begin( c ), end( c ) };
 
-  REQUIRE( isPrefixOf( cc, aa ) == false );
+  REQUIRE( isPrefixOf( toVec( c ), toVec( a ) ) == false );
 
   Vec<Char> dd{};
 
-  REQUIRE( isPrefixOf( dd, aa ) == true );
+  REQUIRE( isPrefixOf( dd, toVec( a ) ) == true );
 
-  REQUIRE( isPrefixOf( bb, dd ) == false );
+  REQUIRE( isPrefixOf( toVec( b ), dd ) == false );
 
   REQUIRE( isPrefixOf( dd, dd ) == true );
 }
@@ -767,23 +762,19 @@ TEST_CASE( "isPrefixOf :: [T] -> [T] -> Bool", "[isPrefixOf]" )
 TEST_CASE( "isSuffixOf :: [T] -> [T] -> Bool", "[isSuffixOf]" )
 {
   String a = "This is a String";
-  Vec<Char> aa{ begin( a ), end( a ) };
-
   String b = "String";
-  Vec<Char> bb{ begin( b ), end( b ) };
 
-  REQUIRE( isSuffixOf( bb, aa ) == true );
+  REQUIRE( isSuffixOf( toVec( b ), toVec( a ) ) == true );
 
   String c = "is";
-  Vec<Char> cc{ begin( c ), end( c ) };
 
-  REQUIRE( isSuffixOf( cc, aa ) == false );
+  REQUIRE( isSuffixOf( toVec( c ), toVec( a ) ) == false );
 
   Vec<Char> dd{};
 
-  REQUIRE( isSuffixOf( dd, aa ) == true );
+  REQUIRE( isSuffixOf( dd, toVec( a ) ) == true );
 
-  REQUIRE( isSuffixOf( bb, dd ) == false );
+  REQUIRE( isSuffixOf( toVec( b ), dd ) == false );
 
   REQUIRE( isSuffixOf( dd, dd ) == true );
 }
@@ -791,18 +782,15 @@ TEST_CASE( "isSuffixOf :: [T] -> [T] -> Bool", "[isSuffixOf]" )
 TEST_CASE( "isInfixOf :: [T] -> [T] -> Bool", "[isInfixOf]" )
 {
   String a = "This is a String";
-  Vec<Char> aa{ begin( a ), end( a ) };
-
   String b = "is";
-  Vec<Char> bb{ begin( b ), end( b ) };
 
-  REQUIRE( isInfixOf( bb, aa ) == true );
+  REQUIRE( isInfixOf( toVec( b ), toVec( a ) ) == true );
 
   Vec<Char> dd{};
 
-  REQUIRE( isInfixOf( dd, aa ) == true );
+  REQUIRE( isInfixOf( dd, toVec( a ) ) == true );
 
-  REQUIRE( isInfixOf( bb, dd ) == false );
+  REQUIRE( isInfixOf( toVec( b ), dd ) == false );
 
   REQUIRE( isInfixOf( dd, dd ) == true );
 }
