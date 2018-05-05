@@ -41,6 +41,12 @@ namespace fct
     return x;
   }
 
+  // show :: Char* -> String
+  auto show( char const* x ) -> String
+  {
+    return String{ x };
+  }
+
   // show :: Bool -> String
   auto show( Bool const& x ) -> String
   {
