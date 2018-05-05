@@ -276,7 +276,7 @@ namespace fct
     return 0;
   }
 
-  // quotRem :: (Integral a) => T -> T -> ( a, a )
+  // quotRem :: T -> T -> ( T, T )
   template <typename T>
   auto quotRem( T const& x, T const& y ) -> Tup<T, T>
   {

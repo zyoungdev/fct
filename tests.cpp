@@ -209,7 +209,7 @@ TEST_CASE( "abs :: Num -> Num", "[abs]" )
   REQUIRE( abs( d ) == 0 );
 }
 
-TEST_CASE( "quotRem :: (Integral a) => T -> T -> ( a, a )", "[quotRem]" )
+TEST_CASE( "quotRem :: T -> T -> ( T, T )", "[quotRem]" )
 {
   Int a = 3;
   Int b = 2;
