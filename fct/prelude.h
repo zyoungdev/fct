@@ -469,12 +469,8 @@ namespace fct
 
   // constant :: S -> T -> S
   template <typename S, typename T>
-  auto constant( S const& x, T const& y ) -> S
+  auto constant( S const& x, [[maybe_unused]] T const& y ) -> S
   {
-    // Do some gymnastics to
-    // get around unused variable warning
-    T out = y;
-    out = out;
     return x;
   }
 
