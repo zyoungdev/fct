@@ -28,6 +28,13 @@ namespace fct
   constexpr Double pi = 3.141592653589793238462643383279502884;
   constexpr Double e  = 2.718281828459045235360287471352662497;
 
+  // print :: T -> void
+  template <typename T>
+  auto print( T const& val, Char lastChar = '\n' ) -> void
+  {
+    std::cout << val << lastChar;
+  }
+
   template <typename T>
   auto print( Opt<T> const& val, Char lastChar = '\n' ) -> void
   {
@@ -37,11 +44,30 @@ namespace fct
       std::cout << "Nothing" << lastChar;
   }
 
-  // print :: T -> void
-  template <typename T>
-  auto print( T const& val, Char lastChar = '\n' ) -> void
+  // Base case
+  // print_tuple :: void
+  auto print_tuple() -> void {}
+
+  // Recursive case
+  // print_tuple :: (Ts...) -> void
+  template <typename T, typename ...Ts>
+  auto print_tuple( T const& val, Ts... args ) -> void
   {
-    std::cout << val << lastChar;
+    if ( sizeof...(Ts) == 0 )
+      std::cout << val;
+    else
+      std::cout << val << ',';
+
+    print_tuple(args...);
+  }
+
+  // print :: (Ts...) -> void
+  template <typename ...Ts>
+  auto print( Tup<Ts...> const& val, Char lastChar = '\n' ) -> void
+  {
+    std::cout << '(';
+    std::apply( print_tuple<Ts...>, val );
+    std::cout << ")" << lastChar;
   }
 
   // print :: [T] -> void
@@ -55,10 +81,11 @@ namespace fct
     }
 
     std::cout << "[";
-    auto i = begin( xs );
-    for ( ; i < end( xs ) - 1; advance( i, 1 ) )
-      std::cout << *i << ',';
-    std::cout << *i << "]" << lastChar;
+    auto x = begin( xs );
+    for ( ; x < end( xs ) - 1; advance( x, 1 ) )
+      print( *x, ',' );
+    print( *x, ']' );
+    std::cout << lastChar;
   }
 
   // print :: [[T]] -> void
@@ -71,7 +98,7 @@ namespace fct
       std::cout << "[ ";
       for ( auto const& x : xs )
       {
-        std::cout << x << ' ';
+        print( x, ' ' );
       }
       std::cout << "] ";
     }
