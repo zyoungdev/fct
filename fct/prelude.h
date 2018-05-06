@@ -75,21 +75,10 @@ namespace fct
       std::cout << "Nothing" << lastChar;
   }
 
-  // Base case
-  // print_tuple :: void
-  auto print_tuple() -> void {}
-
-  // Recursive case
-  // print_tuple :: (Ts...) -> void
-  template <typename T, typename ...Ts>
-  auto print_tuple( T const& val, Ts... args ) -> void
+  template<class ...Ts, std::size_t... Is>
+  void print_tuple( Tup<Ts...> const& tup, std::index_sequence<Is...> )
   {
-    if ( sizeof...(Ts) == 0 )
-      print( val, '\0' );
-    else
-      print( val, ',' );
-
-    print_tuple(args...);
+    ( ( print( Is == 0 ? "" : ",", '\0' ) , print( std::get<Is>( tup ), '\0' ) ) , ... );
   }
 
   // print :: (Ts...) -> void
@@ -97,7 +86,7 @@ namespace fct
   auto print( Tup<Ts...> const& val, Char lastChar = '\n' ) -> void
   {
     std::cout << '(';
-    std::apply( print_tuple<Ts...>, val );
+    print_tuple( val, std::index_sequence_for<Ts...>{} );
     std::cout << ")" << lastChar;
   }
 
