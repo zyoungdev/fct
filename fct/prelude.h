@@ -167,7 +167,7 @@ namespace fct
   }
 
   // fmap :: ( S -> T ) -> [S] -> [T]
-  template <typename T, typename S, typename F, template <typename> typename Cont>
+  template <typename T, typename S, template <typename> typename Cont, typename F>
   auto fmap( F fct, Cont<S> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
@@ -193,7 +193,7 @@ namespace fct
   }
 
   // filter :: ( T -> Bool ) -> [T]
-  template <typename T, typename F, template <typename> typename Cont>
+  template <typename T, template <typename> typename Cont, typename F>
   auto filter( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
@@ -207,7 +207,7 @@ namespace fct
   }
 
   // takeWhile :: ( T -> Bool ) -> [T] -> [T]
-  template <typename T, typename F, template <typename> typename Cont>
+  template <typename T, template <typename> typename Cont, typename F>
   auto takeWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
@@ -223,7 +223,7 @@ namespace fct
   }
 
   // dropWhile :: ( T -> Bool ) -> [T] -> [T]
-  template <typename T, typename F, template <typename> typename Cont>
+  template <typename T, template <typename> typename Cont, typename F>
   auto dropWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
     Int i = 0;
@@ -558,14 +558,14 @@ namespace fct
   }
 
   // any :: ( T -> Bool ) -> [T] -> Bool
-  template <typename T, typename F, template <typename> typename Cont>
+  template <typename T, template <typename> typename Cont, typename F>
   auto any( F predicate, Cont<T> const& xs ) -> Bool
   {
     return std::any_of( begin( xs ), end( xs ), predicate );
   }
 
   // all :: ( T -> Bool ) -> [T] -> Bool
-  template <typename T, typename F, template <typename> typename Cont>
+  template <typename T, template <typename> typename Cont, typename F>
   auto all( F predicate, Cont<T> const& xs ) -> Bool
   {
     return std::all_of( begin( xs ), end( xs ), predicate );
@@ -769,7 +769,7 @@ namespace fct
   }
 
   // span :: (T -> Bool) -> [T] -> ([T], [T])
-  template <typename T, typename F, template <typename> typename Cont>
+  template <typename T, template <typename> typename Cont, typename F>
   auto span( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
   {
     Int i = 0;
@@ -783,7 +783,7 @@ namespace fct
   }
 
   // break_when :: (T -> Bool) -> [T] -> ([T], [T])
-  template <typename T, typename F, template <typename> typename Cont>
+  template <typename T, template <typename> typename Cont, typename F>
   auto break_when( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
   {
     Int i = 0;
@@ -841,7 +841,7 @@ namespace fct
   }
 
   // zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]
-  template <typename U, typename S, typename T, typename F, template <typename> typename Cont>
+  template <typename U, typename S, typename T, template <typename> typename Cont, typename F>
   auto zipWith( F func, Cont<S> const& xs, Cont<T> const& ys ) -> Cont<U>
   {
     Cont<U> out{};
@@ -861,7 +861,7 @@ namespace fct
   }
 
   // zipWith3 :: ( S -> T -> U -> V ) -> [S] -> [T] -> [U] -> [V]
-  template <typename V, typename U, typename S, typename T, typename F, template <typename> typename Cont>
+  template <typename V, typename U, typename S, typename T, template <typename> typename Cont, typename F>
   auto zipWith3( F func, Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<V>
   {
     Cont<V> out{};
@@ -924,7 +924,7 @@ namespace fct
   }
 
   // foldl :: (T -> S -> T) -> T -> [S] -> T
-  template <typename S, typename T, typename F, template <typename> typename Cont>
+  template <typename S, typename T, template <typename> typename Cont, typename F>
   auto foldl( F func, T const& y, Cont<S> const& xs ) -> T
   {
     T out = y;
@@ -936,7 +936,7 @@ namespace fct
   }
 
   // scanl :: (T -> S -> T) -> T -> [S] -> T
-  template <typename S, typename T, typename F, template <typename> typename Cont>
+  template <typename S, typename T, template <typename> typename Cont, typename F>
   auto scanl( F func, T const& y, Cont<S> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
