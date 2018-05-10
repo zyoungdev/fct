@@ -4,9 +4,9 @@ Try your hand at functional programming in C++ by harnessing the power of mirror
 
 ## Prerequisites
 
-* C++17 compatible compiler
-* CMake
-* Catch2 (for tests)
+* [http://en.cppreference.com/w/cpp/compiler_support](C++17 compatible compiler) (need std::optional)
+* [https://gitlab.kitware.com/cmake/cmake](CMake)
+* [https://github.com/catchorg/Catch2](Catch2) (for tests)
 
 ## Why?
 
@@ -66,12 +66,12 @@ print( cs );
 
 ## Installation
 
-* (Optional) Install Catch2 using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
-* `$ cd ~`
-* `git clone https://github.com/zyisrad/fct`
-* `$ mkdir fct_build; cd fct_build`
-* `$ cmake -DCMAKE_BUILD_TYPE=debug ~/fct`
-* `make fct_test && ./fct_test`
+* (Optional) Install [https://github.com/catchorg/Catch2](Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
+* `> cd ~`
+* `> git clone https://github.com/zyisrad/fct`
+* `> mkdir fct_build; cd fct_build`
+* `> cmake ~/fct`
+* `> make fct_test && ./fct_test`
 
 ## Caveats
 
@@ -84,4 +84,4 @@ print( cs );
 
 ## Troubleshooting
 * If you get a compilation error that contains `<unresolved overloaded function type>`, you need to specify either the output or the input type as a template argument. In the previous example `max<Int>` is specifying `Int` as a template argument for the input type and `fmap<Int>` is specifying `Int` as a template argument for the output type.
-* If you can't get Catch2 working, copy and paste code snippets from `tests.cpp` into `main()`
+* If you can't get [https://github.com/catchorg/Catch2](Catch2) working, copy and paste code snippets from `tests.cpp` into `main()`
