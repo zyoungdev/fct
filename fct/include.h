@@ -20,14 +20,15 @@
 #ifndef functional_algorithms_include_header
 #define functional_algorithms_include_header
 
-#include <vector>
-#include <iostream>
-#include <cmath>
-#include <tuple>
 #include <algorithm>
-#include <sstream>
+#include <cmath>
+#include <cstring>
 #include <fstream>
-#include <optional>
+#include <iostream>
 #include <iterator>
+#include <optional>
+#include <sstream>
+#include <tuple>
+#include <vector>
 
 #endif

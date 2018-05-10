@@ -34,35 +34,35 @@ TEST_CASE( "FCT Composition", "[fct]" )
 
   REQUIRE( c == Vec<Int>{ 4 } );
 
-  auto s = String{ "this is lowercase" };
+  auto s = Str( "this is lowercase" );
 
-  REQUIRE( fmap( toUpper, s ) == String{ "THIS IS LOWERCASE" } );
+  REQUIRE( fmap<Char>( toUpper, s ) == Str( "THIS IS LOWERCASE" ) );
 
-  auto ss = Vec<Char>{'t','h','i','s',' ','i','s',' ','l','o','w','e','r','c','a','s','e'};
+  auto ss = Str( "this is lowercase" );
 
   REQUIRE( fmap<Char>( toUpper, ss ) == Vec<Char>{'T','H','I','S',' ','I','S',' ','L','O','W','E','R','C','A','S','E'} );
 }
 
-TEST_CASE( "toVec :: String -> Vec<Char>", "[toVec]" )
+TEST_CASE( "toStr :: StdString -> String", "[toStr]" )
 {
-  String a = "String";
+  StdString a = "String";
 
-  REQUIRE( toVec( a ) == Vec<Char>{ 'S','t','r','i','n','g' } );
+  REQUIRE( toStr( a ) == Vec<Char>{ 'S','t','r','i','n','g' } );
 
-  String b{};
+  StdString b{};
 
-  REQUIRE( toVec( b ) == Vec<Char>{} );
+  REQUIRE( toStr( b ) == Vec<Char>{} );
 }
 
-TEST_CASE( "toStr :: Vec<Char> -> String", "[toStr]" )
+TEST_CASE( "toStdStr :: String -> StdString", "[toStdStr]" )
 {
-  Vec<Char> as = { 'S','t','r','i','n','g' };
+  String as = { 'S','t','r','i','n','g' };
 
-  REQUIRE( toStr( as ) == "String" );
+  REQUIRE( toStdStr( as ) == "String" );
 
-  Vec<Char> bs{};
+  String bs{};
 
-  REQUIRE( toStr( bs ) == String{} );
+  REQUIRE( toStdStr( bs ) == StdString{} );
 }
 
 TEST_CASE( "head :: [T] -> Opt<T>", "[head]")
@@ -531,46 +531,46 @@ TEST_CASE( "splitAt :: UInt -> [T] -> ( [T], [T] )", "[splitAt]" )
 
 TEST_CASE( "lines :: String -> [String]", "[lines]" )
 {
-  String a = "This\nis\na\nString\n";
+  auto a = Str( "This\nis\na\nStdString\n" );
 
-  REQUIRE( lines( a ) == Vec<String>{ "This", "is", "a", "String" } );
+  REQUIRE( lines( a ) == Vec<String>{ Str( "This" ), Str( "is" ), Str( "a" ), Str( "StdString" ) } );
 
-  String b = "";
+  auto b = Str( "" );
 
   REQUIRE( lines( b ) == Vec<String>{} );
 
-  String c = "This\n\nis\n\na\n\nString\n\n";
+  auto c = Str( "This\n\nis\n\na\n\nStdString\n\n" );
 
-  REQUIRE( lines( c ) == Vec<String>{ "This", "", "is", "", "a", "", "String", "" } );
+  REQUIRE( lines( c ) == Vec<String>{ Str( "This" ), Str(""), Str( "is" ), Str(""), Str( "a" ), Str(""), Str( "StdString" ), Str("") } );
 }
 
 TEST_CASE( "words :: String -> [String]", "[words]" )
 {
-  String a = "This is a String";
+  auto a = Str( "This is a String" );
 
-  REQUIRE( words( a ) == Vec<String>{ "This", "is", "a", "String" } );
+  REQUIRE( words( a ) == Vec<String>{ Str( "This" ), Str( "is" ), Str( "a" ), Str( "String" ) } );
 
-  String b = "";
+  auto b = Str( "" );
 
   REQUIRE( words( b ) == Vec<String>{} );
 }
 
-TEST_CASE( "unlines :: [String] -> String", "[unlines]" )
+TEST_CASE( "unlines :: [StdString] -> StdString", "[unlines]" )
 {
-  Vec<String> as = { "This", "is", "a", "String" };
+  Vec<String> as = { Str( "This" ), Str( "is" ), Str( "a" ), Str( "String" ) };
 
-  REQUIRE( unlines( as ) == String{ "This\nis\na\nString\n" } );
+  REQUIRE( unlines( as ) == Str( "This\nis\na\nString\n" ) );
 
   Vec<String> bs{};
 
   REQUIRE( unlines( bs ) == String{} );
 }
 
-TEST_CASE( "unwords :: [String] -> String", "[unwords]" )
+TEST_CASE( "unwords :: [StdString] -> StdString", "[unwords]" )
 {
-  Vec<String> as = { "This","is","a","String" };
+  Vec<String> as = { Str( "This" ),Str( "is" ),Str( "a" ),Str( "String" ) };
 
-  REQUIRE( unwords( as ) == String{ "This is a String" } );
+  REQUIRE( unwords( as ) == Str( "This is a String" ) );
 
   Vec<String> bs{};
 
@@ -586,17 +586,17 @@ TEST_CASE( "putChar :: Char -> void", "[putChar]" )
   print("");
 }
 
-TEST_CASE( "putStr :: String -> void", "[putStr]" )
+TEST_CASE( "putStr :: StdString -> void", "[putStr]" )
 {
-  String a = "magic";
+  StdString a = "magic";
   print( "# Should print magic: " );
   putStr( a );
   print("");
 }
 
-TEST_CASE( "putStrLn :: String -> void", "[putStrLn]" )
+TEST_CASE( "putStrLn :: StdString -> void", "[putStrLn]" )
 {
-  String a = "magic";
+  StdString a = "magic";
   print( "# Should print magic: " );
   putStr( a );
   print("");
@@ -606,22 +606,22 @@ TEST_CASE( "getChar :: Char", "[getChar]" )
 {
   print( "Please type a character: ", ' ' );
   auto a = getChar();
-  print( "You typed: " + String{ a } );
+  print( "You typed: " + StdString{ a } );
 }
 
-TEST_CASE( "getLine :: String", "[getLine]" )
+TEST_CASE( "getLine :: StdString", "[getLine]" )
 {
   print( "Please type a line: ", ' ' );
   auto a = getLine();
   print( "You typed: " + a );
 }
 
-TEST_CASE( "readFile :: String -> String, writeFile :: String -> String -> void", "[readFile][writeFile]" )
+TEST_CASE( "readFile :: StdString -> StdString, writeFile :: StdString -> StdString -> void", "[readFile][writeFile]" )
 {
   print( "Please name file to read/write in /tmp/: ", ' ' );
   auto a = getLine();
   print( a );
-  a = String{ "/tmp/" + a };
+  a = StdString{ "/tmp/" + a };
 
   writeFile( a, "DATA" );
   print( "wrote DATA to " + a );
@@ -639,10 +639,10 @@ TEST_CASE( "readFile :: String -> String, writeFile :: String -> String -> void"
 }
 #endif
 
-TEST_CASE( "show :: T -> String", "[show]" )
+TEST_CASE( "show :: T -> StdString", "[show]" )
 {
-  REQUIRE( show( 1 ) == String{ '1' } );
-  REQUIRE( show( 1.999999 ) == String{ "1.999999" } );
+  REQUIRE( show( 1 ) == StdString{ '1' } );
+  REQUIRE( show( 1.999999 ) == StdString{ "1.999999" } );
 }
 
 TEST_CASE( "union :: [T] -> [T] -> [T]", "[union]" )
@@ -731,11 +731,11 @@ TEST_CASE( "break_when :: (T -> Bool) -> [T] -> ([T], [T])", "[break_when]" )
 
 TEST_CASE( "group :: [T] -> [[T]]", "[group]" )
 {
-  String a = "mississippi";
+  String a = Str( "mississippi" );
 
-  REQUIRE( group( toVec( a ) ) == Vec<Vec<Char>>{ {'m'},{'i'},{'s','s'},{'i'},{'s','s'},{'i'},{'p','p'},{'i'} } );
+  REQUIRE( group( a ) == Vec<Vec<Char>>{ {'m'},{'i'},{'s','s'},{'i'},{'s','s'},{'i'},{'p','p'},{'i'} } );
 
-  Vec<Char> bs{};
+  String bs{};
   REQUIRE( group( bs ) == Vec<Vec<Char>>{} );
 }
 
@@ -763,56 +763,56 @@ TEST_CASE( "tails :: [T] -> [[T]]", "[tails]" )
 
 TEST_CASE( "isPrefixOf :: [T] -> [T] -> Bool", "[isPrefixOf]" )
 {
-  String a = "This is a String";
-  String b = "This";
+  auto a = Str( "This is a String" );
+  auto b = Str( "This" );
 
-  REQUIRE( isPrefixOf( toVec( b ), toVec( a ) ) == true );
+  REQUIRE( isPrefixOf( b, a ) == true );
 
-  String c = "is";
+  auto c = Str( "is" );
 
-  REQUIRE( isPrefixOf( toVec( c ), toVec( a ) ) == false );
+  REQUIRE( isPrefixOf( c, a ) == false );
 
-  Vec<Char> ds{};
+  String ds{};
 
-  REQUIRE( isPrefixOf( ds, toVec( a ) ) == true );
+  REQUIRE( isPrefixOf( ds, a ) == true );
 
-  REQUIRE( isPrefixOf( toVec( b ), ds ) == false );
+  REQUIRE( isPrefixOf( a, ds ) == false );
 
   REQUIRE( isPrefixOf( ds, ds ) == true );
 }
 
 TEST_CASE( "isSuffixOf :: [T] -> [T] -> Bool", "[isSuffixOf]" )
 {
-  String a = "This is a String";
-  String b = "String";
+  auto a = Str( "This is a String" );
+  auto b = Str( "String" );
 
-  REQUIRE( isSuffixOf( toVec( b ), toVec( a ) ) == true );
+  REQUIRE( isSuffixOf( b, a ) == true );
 
-  String c = "is";
+  auto c = Str( "is" );
 
-  REQUIRE( isSuffixOf( toVec( c ), toVec( a ) ) == false );
+  REQUIRE( isSuffixOf( c, a ) == false );
 
-  Vec<Char> ds{};
+  String ds{};
 
-  REQUIRE( isSuffixOf( ds, toVec( a ) ) == true );
+  REQUIRE( isSuffixOf( ds, a ) == true );
 
-  REQUIRE( isSuffixOf( toVec( b ), ds ) == false );
+  REQUIRE( isSuffixOf( b, ds ) == false );
 
   REQUIRE( isSuffixOf( ds, ds ) == true );
 }
 
 TEST_CASE( "isInfixOf :: [T] -> [T] -> Bool", "[isInfixOf]" )
 {
-  String a = "This is a String";
-  String b = "is";
+  auto a = Str( "This is a String" );
+  auto b = Str( "is" );
 
-  REQUIRE( isInfixOf( toVec( b ), toVec( a ) ) == true );
+  REQUIRE( isInfixOf( b, a ) == true );
 
-  Vec<Char> ds{};
+  String ds{};
 
-  REQUIRE( isInfixOf( ds, toVec( a ) ) == true );
+  REQUIRE( isInfixOf( ds, a ) == true );
 
-  REQUIRE( isInfixOf( toVec( b ), ds ) == false );
+  REQUIRE( isInfixOf( b, ds ) == false );
 
   REQUIRE( isInfixOf( ds, ds ) == true );
 }
@@ -878,9 +878,9 @@ TEST_CASE( "zip3 :: [S] -> [T] -> [U] -> [(S,T,U)]", "[zip3]" )
 {
   Vec<Int> as = { 1,2,3,4,5,6,7,8,9 };
   Vec<Char> bs = { 'a','b','c','d' };
-  Vec<String> cs = { "e","f","g","h","i" };
+  Vec<StdString> cs = { "e","f","g","h","i" };
 
-  REQUIRE( zip3( as, bs, cs ) == Vec<Tup<Int,Char,String>>{ {1,'a',"e"},{2,'b',"f"},{3,'c',"g"},{4,'d',"h"} } );
+  REQUIRE( zip3( as, bs, cs ) == Vec<Tup<Int,Char,StdString>>{ {1,'a',"e"},{2,'b',"f"},{3,'c',"g"},{4,'d',"h"} } );
 
   Vec<Int> ds{};
 
@@ -895,31 +895,31 @@ TEST_CASE( "zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith]" )
   Vec<Char> bs = { 'a','b','c','d','e' };
 
   auto f = []( auto& x, auto& y ){
-    return String{ y } + show( x );
+    return StdString{ y } + show( x );
   };
 
-  REQUIRE( zipWith<String>( f, as, bs ) == Vec<String>{ "a1","b2","c3","d4","e5" } );
+  REQUIRE( zipWith<StdString>( f, as, bs ) == Vec<StdString>{ "a1","b2","c3","d4","e5" } );
 
   Vec<Int> cs{};
 
-  REQUIRE( zipWith<String>( f, cs, bs ) == Vec<String>{} );
+  REQUIRE( zipWith<StdString>( f, cs, bs ) == Vec<StdString>{} );
 }
 
 TEST_CASE( "zipWith3 :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith3]" )
 {
   Vec<Int> as = { 1,2,3,4,5,6,7,8,9 };
-  Vec<String> bs = { "1.1","2.2","3.3","4.4" };
+  Vec<StdString> bs = { "1.1","2.2","3.3","4.4" };
   Vec<Char> cs = { 'a','b','c','d','e' };
 
-  auto f = []( auto& x, auto& y, auto& z ) -> String{
-    return show( x ) + " + " + y + " = " + String{ z };
+  auto f = []( auto& x, auto& y, auto& z ) -> StdString{
+    return show( x ) + " + " + y + " = " + StdString{ z };
   };
 
-  REQUIRE( zipWith3<String>( f, as, bs, cs ) == Vec<String>{ "1 + 1.1 = a","2 + 2.2 = b","3 + 3.3 = c","4 + 4.4 = d" } );
+  REQUIRE( zipWith3<StdString>( f, as, bs, cs ) == Vec<StdString>{ "1 + 1.1 = a","2 + 2.2 = b","3 + 3.3 = c","4 + 4.4 = d" } );
 
   Vec<Char> ds{};
 
-  REQUIRE( zipWith3<String>( f, as, bs, ds ) == Vec<String>{} );
+  REQUIRE( zipWith3<StdString>( f, as, bs, ds ) == Vec<StdString>{} );
 }
 
 TEST_CASE( "unzip :: [(S,T)] -> ([S],[T])", "[unzip]" )
@@ -935,13 +935,13 @@ TEST_CASE( "unzip :: [(S,T)] -> ([S],[T])", "[unzip]" )
 
 TEST_CASE( "unzip3 :: [(S,T)] -> ([S],[T])", "[unzip3]" )
 {
-  Vec<Tup<Int,Char,String>> as = { {1,'a',"d"},{2,'b',"e"},{3,'c',"f"} };
+  Vec<Tup<Int,Char,StdString>> as = { {1,'a',"d"},{2,'b',"e"},{3,'c',"f"} };
 
-  REQUIRE( unzip3( as ) == Tup<Vec<Int>,Vec<Char>,Vec<String>>{ {1,2,3},{'a','b','c'},{"d","e","f"} } );
+  REQUIRE( unzip3( as ) == Tup<Vec<Int>,Vec<Char>,Vec<StdString>>{ {1,2,3},{'a','b','c'},{"d","e","f"} } );
 
-  Vec<Tup<Int,Char,String>> bs{};
+  Vec<Tup<Int,Char,StdString>> bs{};
 
-  REQUIRE( unzip3( bs ) == Tup<Vec<Int>,Vec<Char>,Vec<String>>{} );
+  REQUIRE( unzip3( bs ) == Tup<Vec<Int>,Vec<Char>,Vec<StdString>>{} );
 }
 
 TEST_CASE( "foldl :: (T -> S -> T) -> T -> [S] -> T", "[foldl]" )

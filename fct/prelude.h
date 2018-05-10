@@ -28,9 +28,9 @@ namespace fct
   constexpr Double pi = 3.141592653589793238462643383279502884;
   constexpr Double e  = 2.718281828459045235360287471352662497;
 
-  // show :: T -> String
+  // show :: T -> StdString
   template <typename T>
-  auto show( T const& x ) -> String
+  auto show( T const& x ) -> StdString
   {
     return std::to_string( x );
   }
@@ -41,14 +41,14 @@ namespace fct
     return x;
   }
 
-  // show :: Char* -> String
-  auto show( char const* x ) -> String
+  // show :: Char* -> StdString
+  auto show( char const* x ) -> StdString
   {
-    return String{ x };
+    return StdString{ x };
   }
 
-  // show :: Bool -> String
-  auto show( Bool const& x ) -> String
+  // show :: Bool -> StdString
+  auto show( Bool const& x ) -> StdString
   {
     return x ? "True" : "False";
   }
@@ -60,8 +60,8 @@ namespace fct
     std::cout << show( val ) << lastChar;
   }
 
-  // print :: String -> void
-  auto print( String const& val, Char lastChar = '\n' ) -> void
+  // print :: StdString -> void
+  auto print( StdString const& val, Char lastChar = '\n' ) -> void
   {
     std::cout << val << lastChar;
   }
@@ -108,6 +108,14 @@ namespace fct
     std::cout << lastChar;
   }
 
+  // print :: [Char] -> void
+  auto print( String const& xs, Char lastChar = '\n' ) -> void
+  {
+    for ( auto x = begin( xs ) ; x < end( xs ); advance( x, 1 ) )
+      print( *x, '\0' );
+    std::cout << lastChar;
+  }
+
   // print :: [[T]] -> void
   template <typename T, template <typename> typename Cont>
   auto print( Cont<Cont<T>> const& xxs, Char lastChar = '\n' ) -> void
@@ -126,6 +134,24 @@ namespace fct
     print( *xs, ']' );
 
     std::cout << lastChar;
+  }
+
+  // toStr :: StdString -> String
+  auto toStr( StdString const& x ) -> String
+  {
+    return Vec<Char>{ begin( x ), end( x ) };
+  }
+
+  // toStdStr :: Vec<Char> -> StdString
+  auto toStdStr( Vec<Char> const& xs ) -> StdString
+  {
+    return StdString{ begin( xs ), end( xs ) };
+  }
+
+  // Str :: const Char* -> String
+  auto Str( const Char* x ) -> String
+  {
+    return Vec<Char>{ x, x + std::strlen( x ) };
   }
 
   // toUpper :: Char -> Char
@@ -153,11 +179,11 @@ namespace fct
     return out;
   }
 
-  // fmap :: ( Char -> Char ) -> String -> String 
+  // fmap :: ( Char -> Char ) -> StdString -> StdString 
   template <typename F>
-  auto fmap( F fct, String const& xs ) -> String
+  auto fmap( F fct, StdString const& xs ) -> StdString
   {
-    String out{};
+    StdString out{};
     out.reserve( xs.size() );
 
     for ( auto const& x : xs )
@@ -607,22 +633,22 @@ namespace fct
     Vec<String> out{};
 
     SS ss;
-    ss.str( str );
-    for ( String line; std::getline( ss, line ); )
-      out.push_back( line );
+    ss.str( toStdStr( str ) );
+    for ( StdString line; std::getline( ss, line ); )
+      out.push_back( toStr( line ) );
 
     return out;
   }
 
   // words :: String -> [String]
-  auto words( String const& str ) -> Vec<String>
+  auto words( String const& x ) -> Vec<String>
   {
     Vec<String> out{};
 
     SS ss;
-    ss.str( str );
-    for ( String line; std::getline( ss, line, ' ' ); )
-      out.push_back( line );
+    ss.str( toStdStr( x ) );
+    for ( StdString line; std::getline( ss, line, ' ' ); )
+      out.push_back( toStr( line ) );
 
     return out;
   }
@@ -631,9 +657,13 @@ namespace fct
   template <template <typename> typename Cont>
   auto unlines( Cont<String> const& xs ) -> String
   {
-    String out = "";
+    String out{};
     for ( auto const& x : xs )
-      out += x + "\n";
+    {
+      out.insert( end( out ), begin( x ), end( x ) );
+      out.push_back( '\n' );
+    }
+      // out += x + "\n";
 
     return out;
   }
@@ -645,13 +675,14 @@ namespace fct
     if ( xs.empty() )
       return String{};
 
-    String out = "";
+    String out{};
     auto a = begin( xs );
-    auto last = end( xs ) - 1;
-
-    for ( ; a < last; advance( a, 1 ) )
-      out += *a + " ";
-    out += *last;
+    for ( ; a < end( xs ) - 1; advance( a, 1 ) )
+    {
+      out.insert( end( out ), begin( *a ), end( *a ) );
+      out.push_back( ' ' );
+    }
+    out.insert( end( out ), begin( *a ), end( *a ) );
 
     return out;
   }
@@ -663,15 +694,18 @@ namespace fct
   }
 
   // putStr :: String -> void
-  auto putStr( String const& str ) -> void
+  auto putStr( String const& xs ) -> void
   {
-    std::cout << str;
+    for ( auto const& x : xs )
+      std::cout << x;
   }
 
   // putStrLn :: String -> void
-  auto putStrLn( String const& str ) -> void
+  auto putStrLn( String const& xs ) -> void
   {
-    std::cout << str << '\n';
+    for ( auto const& x : xs )
+      std::cout << x;
+    std::cout << '\n';
   }
 
   // getChar :: Char
@@ -685,37 +719,37 @@ namespace fct
   // getLine :: String
   auto getLine() -> String
   {
-    String out = "";
+    StdString out{};
     std::getline( std::cin, out );
-    return out;
+    return toStr( out );
   }
 
-  // readFile :: String -> String
-  auto readFile( String const& filePath ) -> String
+  // readFile :: StdString -> StdString
+  auto readFile( StdString const& filePath ) -> StdString
   {
     std::ifstream file( filePath, std::ios_base::in );
 
-    return String{ std::istreambuf_iterator<Char>(file), std::istreambuf_iterator<Char>() };
+    return StdString{ std::istreambuf_iterator<Char>(file), std::istreambuf_iterator<Char>() };
   }
 
-  // readLn :: String -> String
-  auto readLn( String const& filePath ) -> String
+  // readLn :: StdString -> StdString
+  auto readLn( StdString const& filePath ) -> StdString
   {
     std::ifstream file( filePath, std::ios_base::in );
-    String out = "";
+    StdString out = "";
     std::getline( file, out );
     return out;
   }
 
-  // writeFile :: String -> String -> void
-  auto writeFile( String const& filePath, String const& str ) -> void
+  // writeFile :: StdString -> StdString -> void
+  auto writeFile( StdString const& filePath, StdString const& str ) -> void
   {
     std::ofstream file( filePath, std::ios_base::out );
     file << str;
   }
 
-  // appendFile :: String -> String -> void
-  auto appendFile( String const& filePath, String const& str ) -> void
+  // appendFile :: StdString -> StdString -> void
+  auto appendFile( StdString const& filePath, StdString const& str ) -> void
   {
     std::ofstream file( filePath, std::ios_base::app );
     file << str;
@@ -950,18 +984,6 @@ namespace fct
         return Opt<T>{ std::get<1>( x ) };
 
     return Opt<T>{};
-  }
-
-  // toVec :: String -> Vec<Char>
-  auto toVec( String const& x ) -> Vec<Char>
-  {
-    return Vec<Char>{ begin( x ), end( x ) };
-  }
-
-  // toStr :: Vec<Char> -> String
-  auto toStr( Vec<Char> const& xs ) -> String
-  {
-    return String{ begin( xs ), end( xs ) };
   }
 }
 
