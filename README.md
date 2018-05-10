@@ -4,9 +4,9 @@ Try your hand at functional programming in C++ by harnessing the power of mirror
 
 ## Prerequisites
 
-* [http://en.cppreference.com/w/cpp/compiler_support](C++17 compatible compiler) (need std::optional)
-* [https://gitlab.kitware.com/cmake/cmake](CMake)
-* [https://github.com/catchorg/Catch2](Catch2) (for tests)
+* [C++17 compatible compiler](http://en.cppreference.com/w/cpp/compiler_support) (need std::optional)
+* [CMake](https://gitlab.kitware.com/cmake/cmake)
+* [Catch2](https://github.com/catchorg/Catch2) (for tests)
 
 ## Why?
 
@@ -66,7 +66,7 @@ print( cs );
 
 ## Installation
 
-* (Optional) Install [https://github.com/catchorg/Catch2](Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
+* (Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
 * `> cd ~`
 * `> git clone https://github.com/zyisrad/fct`
 * `> mkdir fct_build; cd fct_build`
@@ -99,4 +99,4 @@ auto Str( const Char* x ) -> String
 
 ## Troubleshooting
 * If you get a compilation error that contains `<unresolved overloaded function type>`, you need to specify either the output or the input type as a template argument. In the previous example `max<Int>` is specifying `Int` as a template argument for the input type and `fmap<Int>` is specifying `Int` as a template argument for the output type.
-* If you can't get [https://github.com/catchorg/Catch2](Catch2) working, copy and paste code snippets from `tests.cpp` into `main()`
+* If you can't get [Catch2](https://github.com/catchorg/Catch2) working, copy and paste code snippets from `tests.cpp` into `main()`
