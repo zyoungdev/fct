@@ -73,6 +73,21 @@ print( cs );
 * `> cmake ~/fct`
 * `> make fct_test && ./fct_test`
 
+## Strings
+
+In Haskell `String` is equivalent to `[Char]` and they are both implicitly covertable to eachother. In order to make this library consistent without the need to overload every function with an equivalent `std::string` version, `std::string` has been type aliased as `StdString` and `std::vector<char>` has been type aliased as `String`. Convenience functions follow:
+
+```C++
+// toStr :: StdString -> String
+auto toStr( StdString const& x ) -> String
+
+// toStdStr :: String -> StdString
+auto toStdStr( String const& xs ) -> StdString
+
+// Str :: const Char* -> String
+auto Str( const Char* x ) -> String
+```
+
 ## Caveats
 
 * Heavily templated so compilation is slow and binary is large
