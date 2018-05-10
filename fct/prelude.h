@@ -139,11 +139,11 @@ namespace fct
   // toStr :: StdString -> String
   auto toStr( StdString const& x ) -> String
   {
-    return Vec<Char>{ begin( x ), end( x ) };
+    return String{ begin( x ), end( x ) };
   }
 
-  // toStdStr :: Vec<Char> -> StdString
-  auto toStdStr( Vec<Char> const& xs ) -> StdString
+  // toStdStr :: String -> StdString
+  auto toStdStr( String const& xs ) -> StdString
   {
     return StdString{ begin( xs ), end( xs ) };
   }
@@ -151,7 +151,7 @@ namespace fct
   // Str :: const Char* -> String
   auto Str( const Char* x ) -> String
   {
-    return Vec<Char>{ x, x + std::strlen( x ) };
+    return String{ x, x + std::strlen( x ) };
   }
 
   // toUpper :: Char -> Char
