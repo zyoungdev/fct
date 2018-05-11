@@ -86,6 +86,9 @@ auto toStdStr( String const& xs ) -> StdString
 
 // Str :: const Char* -> String
 auto Str( const Char* x ) -> String
+
+// operator "" _s :: const Char* -> std::size_t -> String
+auto operator "" _s( const Char* x, std::size_t s ) -> String
 ```
 
 ## Caveats
