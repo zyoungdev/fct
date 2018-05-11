@@ -22,6 +22,7 @@
 
 #include "fct/include.h"
 #include "fct/using.h"
+#include "fct/transition.h"
 
 namespace fct
 {
@@ -134,30 +135,6 @@ namespace fct
     print( *xs, ']' );
 
     std::cout << lastChar;
-  }
-
-  // toStr :: StdString -> String
-  auto toStr( StdString const& x ) -> String
-  {
-    return String{ begin( x ), end( x ) };
-  }
-
-  // toStdStr :: String -> StdString
-  auto toStdStr( String const& xs ) -> StdString
-  {
-    return StdString{ begin( xs ), end( xs ) };
-  }
-
-  // Str :: const Char* -> String
-  auto Str( const Char* x ) -> String
-  {
-    return String{ x, x + std::strlen( x ) };
-  }
-
-  // operator "" _s :: const Char* -> std::size_t -> String
-  auto operator "" _s( const Char* x, std::size_t s ) -> String
-  {
-    return String{ x, x + s };
   }
 
   // toUpper :: Char -> Char
