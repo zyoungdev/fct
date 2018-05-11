@@ -154,6 +154,12 @@ namespace fct
     return String{ x, x + std::strlen( x ) };
   }
 
+  // operator "" _s :: const Char* -> std::size_t -> String
+  auto operator "" _s( const Char* x, std::size_t s ) -> String
+  {
+    return String{ x, x + s };
+  }
+
   // toUpper :: Char -> Char
   auto toUpper( Char const& x ) -> Char
   {
