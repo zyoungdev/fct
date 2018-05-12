@@ -71,7 +71,7 @@ print( cs );
 * `> git clone https://github.com/zyisrad/fct`
 * `> mkdir fct_build; cd fct_build`
 * `> cmake ~/fct`
-* `> make fct_test && ./fct_test`
+* `> make tests && ./tests`
 
 ## Strings
 
