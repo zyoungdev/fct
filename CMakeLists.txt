@@ -58,8 +58,8 @@ set_target_properties( fct PROPERTIES LINKER_LANGUAGE CXX )
 
 set( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}" )
 
-add_executable( test ${TEST_FILES} )
-target_link_libraries( test fct Catch )
+add_executable( tests ${TEST_FILES} )
+target_link_libraries( tests fct Catch )
 
 add_executable( main ${MAIN_FILES} )
 target_link_libraries( main fct )
