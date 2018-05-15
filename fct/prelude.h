@@ -968,6 +968,14 @@ namespace fct
 
     return Opt<T>{};
   }
+
+  // mapM_ :: ( S -> void ) -> [S] -> void
+  template <typename S, typename F, template <typename> typename Cont>
+  auto mapM_( F func, Cont<S> const& xs ) -> void
+  {
+    for ( auto const& x : xs )
+      func( x );
+  }
 }
 
 #endif
