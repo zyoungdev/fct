@@ -50,6 +50,7 @@ namespace fct
   using std::rbegin;
   using std::rend;
   using std::advance;
+  using std::next;
 }
 
 #endif
