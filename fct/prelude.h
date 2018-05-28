@@ -117,26 +117,6 @@ namespace fct
     std::cout << lastChar;
   }
 
-  // print :: [[T]] -> void
-  template <typename T, template <typename> typename Cont>
-  auto print( Cont<Cont<T>> const& xxs, Char lastChar = '\n' ) -> void
-  {
-    if ( xxs.empty() )
-    {
-      std::cout << "[]" << lastChar;
-      return;
-    }
-
-    std::cout << "[";
-
-    auto xs = begin( xxs );
-    for ( ; xs < end( xxs ) - 1; advance( xs, 1 ) )
-      print( *xs, ',' );
-    print( *xs, ']' );
-
-    std::cout << lastChar;
-  }
-
   // toUpper :: Char -> Char
   auto toUpper( Char const& x ) -> Char
   {
