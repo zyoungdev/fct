@@ -20,7 +20,8 @@
 #ifndef functional_algorithms_transition_header
 #define functional_algorithms_transition_header
 
-#include "using.h"
+#include "fct/include.h"
+#include "fct/using.h"
 
 namespace fct
 {

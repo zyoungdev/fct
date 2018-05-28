@@ -36,6 +36,8 @@ set(
     fct/include.h
     fct/using.h
     fct/transition.h
+    fct/show.h
+    fct/print.h
     fct/prelude.h
     fct/data/list.h
     fct.h

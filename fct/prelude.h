@@ -23,99 +23,13 @@
 #include "fct/include.h"
 #include "fct/using.h"
 #include "fct/transition.h"
+#include "fct/show.h"
+#include "fct/print.h"
 
 namespace fct
 {
   constexpr Double pi = 3.141592653589793238462643383279502884;
   constexpr Double e  = 2.718281828459045235360287471352662497;
-
-  // show :: T -> StdString
-  template <typename T>
-  auto show( T const& x ) -> StdString
-  {
-    return std::to_string( x );
-  }
-
-  // show :: Char -> Char
-  auto show( Char const& x ) -> Char
-  {
-    return x;
-  }
-
-  // show :: Char* -> StdString
-  auto show( char const* x ) -> StdString
-  {
-    return StdString{ x };
-  }
-
-  // show :: Bool -> StdString
-  auto show( Bool const& x ) -> StdString
-  {
-    return x ? "True" : "False";
-  }
-
-  // print :: T -> void
-  template <typename T>
-  auto print( T const& val, Char lastChar = '\n' ) -> void
-  {
-    std::cout << show( val ) << lastChar;
-  }
-
-  // print :: StdString -> void
-  auto print( StdString const& val, Char lastChar = '\n' ) -> void
-  {
-    std::cout << val << lastChar;
-  }
-
-  template <typename T>
-  auto print( Opt<T> const& val, Char lastChar = '\n' ) -> void
-  {
-    if ( val )
-      print( val.value(), lastChar );
-    else
-      std::cout << "Nothing" << lastChar;
-  }
-
-  template<class ...Ts, std::size_t... Is>
-  void print_tuple( Tup<Ts...> const& tup, std::index_sequence<Is...> )
-  {
-    ( ( print( Is == 0 ? "" : ",", '\0' ) , print( std::get<Is>( tup ), '\0' ) ) , ... );
-  }
-
-  // print :: (Ts...) -> void
-  template <typename ...Ts>
-  auto print( Tup<Ts...> const& val, Char lastChar = '\n' ) -> void
-  {
-    std::cout << '(';
-    print_tuple( val, std::index_sequence_for<Ts...>{} );
-    std::cout << ")" << lastChar;
-  }
-
-  // print :: [T] -> void
-  template <typename T, template <typename> typename Cont>
-  auto print( Cont<T> const& xs, Char lastChar = '\n' ) -> void
-  {
-    if ( xs.empty() )
-    {
-      std::cout << "[]" << lastChar;
-      return;
-    }
-
-    std::cout << "[";
-    auto x = begin( xs );
-    for ( ; x < end( xs ) - 1; advance( x, 1 ) )
-      print( *x, ',' );
-    print( *x, ']' );
-    std::cout << lastChar;
-  }
-
-  // print :: [Char] -> void
-  auto print( String const& xs, Char lastChar = '\n' ) -> void
-  {
-    for ( auto x = begin( xs ) ; x < end( xs ); advance( x, 1 ) )
-      print( *x, '\0' );
-    std::cout << lastChar;
-  }
 
   // toUpper :: Char -> Char
   auto toUpper( Char const& x ) -> Char
