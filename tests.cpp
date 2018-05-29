@@ -1136,3 +1136,14 @@ TEST_CASE( "divvy :: UInt -> UInt -> [T] -> [[T]]", "[divvy]" )
   auto cs = Vec<Int>{ 1,2,3,4,5,6,7,8,9,10,11 };
   REQUIRE( divvy( 5, 5, cs ) == Vec<Vec<Int>>{ {1,2,3,4,5},{6,7,8,9,10} } );
 }
+
+TEST_CASE( "maybe :: T -> ( S -> T ) -> Opt<S> -> T", "[maybe]" )
+{
+  auto f = []( auto& x ){ return x * x; };
+  REQUIRE( maybe( 99, f, Opt<Int>{ 3 } ) == 9 );
+  REQUIRE( maybe( 99, f, Opt<Int>{} ) == 99 );
+
+  auto g = []( auto& x ){ return StdString{ x }; };
+  REQUIRE( maybe<StdString>( "", g, Opt<Char>{ 'x' } ) == StdString{ 'x' } );
+  REQUIRE( maybe<StdString>( "", g, Opt<Char>{} ) == StdString{} );
+}

@@ -17,12 +17,20 @@
   Copyright 2018 Zachary Young
   */
 
-#ifndef functional_algorithms_header
-#define functional_algorithms_header
+#ifndef functional_algorithms_data_maybe_header
+#define functional_algorithms_data_maybe_header
 
-#include "fct/prelude.h"
-#include "fct/data/maybe.h"
-#include "fct/data/list.h"
-#include "fct/data/list.split.h"
+#include "fct/internal/include.h"
+#include "fct/internal/using.h"
+
+namespace fct
+{
+  // maybe :: T -> ( S -> T ) -> Opt<S> -> T
+  template <typename T, typename S, typename F>
+  auto maybe( T const& def, F func, Opt<S> const& x ) -> T
+  {
+    return x.has_value() ? func( x.value() ) : def;
+  }
+}
 
 #endif
