@@ -163,7 +163,7 @@ namespace fct
       {
         auto word = Cont<T>{ a, it };
         if ( ! word.empty() )
-          out.push_back( Cont<T>{ a, it } );
+          out.push_back( word );
 
         a = it + 1;
       }
