@@ -1147,3 +1147,9 @@ TEST_CASE( "maybe :: T -> ( S -> T ) -> Opt<S> -> T", "[maybe]" )
   REQUIRE( maybe<StdString>( "", g, Opt<Char>{ 'x' } ) == StdString{ 'x' } );
   REQUIRE( maybe<StdString>( "", g, Opt<Char>{} ) == StdString{} );
 }
+
+TEST_CASE( "isJust :: Opt<T> -> Bool", "[isJust]" )
+{
+  REQUIRE( isJust( Opt<Int>{ 3 } ) == true );
+  REQUIRE( isJust( Opt<Int>{} ) == false );
+}
