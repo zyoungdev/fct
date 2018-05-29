@@ -1026,3 +1026,12 @@ TEST_CASE( "splitOn :: [T] -> [T] -> [[T]]", "[splitOn]" )
   auto bs = "a..b...c....d.."_s;
   REQUIRE( splitOn( ".."_s, bs ) == Vec<Vec<Char>>{ "a"_s,"b"_s,".c"_s,""_s,"d"_s,""_s } );
 }
+
+TEST_CASE( "splitOneOf :: [T] -> [T] -> [[T]]", "[splitOneOf]" )
+{
+  auto as = "foo,bar;baz.glurk"_s;
+  REQUIRE( splitOneOf( ";.,"_s, as ) == Vec<Vec<Char>>{ "foo"_s,"bar"_s,"baz"_s,"glurk"_s } );
+
+  auto bs = "abc,.def;;ghi.jkl,"_s;
+  REQUIRE( splitOneOf( ",.;"_s, bs ) == Vec<Vec<Char>>{ "abc"_s,""_s,"def"_s,""_s,"ghi"_s,"jkl"_s,""_s } );
+}
