@@ -1153,3 +1153,9 @@ TEST_CASE( "isJust :: Opt<T> -> Bool", "[isJust]" )
   REQUIRE( isJust( Opt<Int>{ 3 } ) == true );
   REQUIRE( isJust( Opt<Int>{} ) == false );
 }
+
+TEST_CASE( "isNothing :: Opt<T> -> Bool", "[isNothing]" )
+{
+  REQUIRE( isNothing( Opt<Int>{ 3 } ) == false );
+  REQUIRE( isNothing( Opt<Int>{} ) == true );
+}
