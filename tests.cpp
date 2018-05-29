@@ -1083,3 +1083,14 @@ TEST_CASE( "linesBy :: ( T -> Bool ) -> [T] -> [[T]]", "[linesBy]" )
 
   REQUIRE( linesBy( pred, as ) == Vec<String>{ "dog"_s,""_s,""_s,"cat"_s,"bird"_s,""_s } );
 }
+
+TEST_CASE( "chunksOf :: UInt -> [T] -> [[T]]", "[chunksOf]" )
+{
+  auto as = "abcdefg"_s;
+
+  REQUIRE( chunksOf( 1, as ) == Vec<String>{ "a"_s,"b"_s,"c"_s,"d"_s,"e"_s,"f"_s,"g"_s } );
+  REQUIRE( chunksOf( 2, as ) == Vec<String>{ "ab"_s,"cd"_s,"ef"_s,"g"_s } );
+  REQUIRE( chunksOf( 3, as ) == Vec<String>{ "abc"_s,"def"_s,"g"_s } );
+
+  // REQUIRE( chunksOf( 0, as ) == INFINITE_LOOP );
+}
