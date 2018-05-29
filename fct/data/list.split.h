@@ -201,6 +201,27 @@ namespace fct
 
     return out;
   }
+
+  // chunksOf :: UInt -> [T] -> [[T]]
+  template <typename T, template <typename> typename Cont>
+  auto chunksOf( UInt n, Cont<T> const& xs ) -> Cont<Cont<T>>
+  {
+    Cont<Cont<T>> out{};
+
+    auto a = begin( xs );
+    auto b = end( xs );
+    auto it = a + n;
+
+    for ( ; it < b ;  )
+    {
+      out.push_back( Cont<T>{ a, it } );
+      a = it;
+      it = a + n;
+    }
+    out.push_back( Cont<T>{ a, b } );
+
+    return out;
+  }
 }
 
 #endif
