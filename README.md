@@ -66,12 +66,15 @@ print( cs );
 
 ## Installation
 
-* (Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
-* `> cd ~`
-* `> git clone https://github.com/zyisrad/fct`
-* `> mkdir fct_build; cd fct_build`
-* `> cmake ~/fct`
-* `> make tests && ./tests`
+(Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
+
+```Bash
+> cd ~
+> git clone https://gitlab.com/zerovectorspace/fct
+> mkdir fct_build; cd fct_build
+> cmake ~/fct
+> make tests && ./tests
+```
 
 ## Strings
 
