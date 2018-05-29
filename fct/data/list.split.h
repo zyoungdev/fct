@@ -119,6 +119,33 @@ namespace fct
 
     return out;
   }
+
+  // endByOneOf :: [T] -> [T] -> [[T]]
+  template <typename T, template <typename> typename Cont>
+  auto endByOneOf( Cont<T> const& needles, Cont<T> const& haystack ) -> Cont<Cont<T>>
+  {
+    Cont<Cont<T>> out{};
+
+    auto a = begin( haystack );
+    auto it = a;
+    auto b = end( haystack );
+
+    for ( ; it != b; advance( it, 1 ) )
+    {
+      auto pred = [&it]( auto const& x ){ return *it == x; };
+      if ( std::any_of( begin( needles ), end( needles ), pred ) )
+      {
+        out.push_back( Cont<T>{ a, it } );
+        a = it + 1;
+      }
+    }
+
+    auto last = Cont<T>{ a, b };
+    if ( ! last.empty() )
+      out.push_back( Cont<T>{ a, b } );
+
+    return out;
+  }
 }
 
 #endif
