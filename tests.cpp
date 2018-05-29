@@ -1067,3 +1067,11 @@ TEST_CASE( "endByOneOf :: [T] -> [T] -> [[T]]", "[endByOneOf]" )
   auto bs = "abc,.def;;ghi.jkl,"_s;
   REQUIRE( endByOneOf( ",.;"_s, bs ) == Vec<Vec<Char>>{ "abc"_s,""_s,"def"_s,""_s,"ghi"_s,"jkl"_s } );
 }
+
+TEST_CASE( "wordsBy :: ( T -> Bool ) -> [T] -> [[T]]", "[wordsBy]" )
+{
+  auto as = "dogxxxcatxbirdxx"_s;
+  auto pred = []( auto& x ){ return x == 'x'; };
+
+  REQUIRE( wordsBy( pred, as ) == Vec<String>{ "dog"_s,"cat"_s,"bird"_s } );
+}
