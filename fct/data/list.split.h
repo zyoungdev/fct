@@ -175,6 +175,32 @@ namespace fct
 
     return out;
   }
+
+  // linesBy :: ( T -> Bool ) -> [T] -> [[T]]
+  template <typename T, typename F, template <typename> typename Cont>
+  auto linesBy( F pred, Cont<T> const& xs ) -> Cont<Cont<T>>
+  {
+    Cont<Cont<T>> out{};
+
+    auto a = begin( xs );
+    auto b = end( xs );
+    auto it = a;
+
+    for ( ; it != b; advance( it, 1 ) )
+    {
+      if ( pred( *it ) )
+      {
+        out.push_back( Cont<T>{ a, it } );
+        a = it + 1;
+      }
+    }
+
+    auto word = Cont<T>{ a, it };
+    if ( ! word.empty() )
+      out.push_back( Cont<T>{ a, b } );
+
+    return out;
+  }
 }
 
 #endif
