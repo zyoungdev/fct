@@ -1058,3 +1058,12 @@ TEST_CASE( "endBy :: [T] -> [T] -> [[T]]", "[endBy]" )
   auto ds = "a..b...c....d"_s;
   REQUIRE( endBy( ".."_s, ds ) == Vec<Vec<Char>>{ "a"_s,"b"_s,".c"_s,""_s,"d"_s } );
 }
+
+TEST_CASE( "endByOneOf :: [T] -> [T] -> [[T]]", "[endByOneOf]" )
+{
+  auto as = "foo,bar;baz.glurk;"_s;
+  REQUIRE( endByOneOf( ";.,"_s, as ) == Vec<Vec<Char>>{ "foo"_s,"bar"_s,"baz"_s,"glurk"_s } );
+
+  auto bs = "abc,.def;;ghi.jkl,"_s;
+  REQUIRE( endByOneOf( ",.;"_s, bs ) == Vec<Vec<Char>>{ "abc"_s,""_s,"def"_s,""_s,"ghi"_s,"jkl"_s } );
+}
