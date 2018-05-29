@@ -1159,3 +1159,9 @@ TEST_CASE( "isNothing :: Opt<T> -> Bool", "[isNothing]" )
   REQUIRE( isNothing( Opt<Int>{ 3 } ) == false );
   REQUIRE( isNothing( Opt<Int>{} ) == true );
 }
+
+TEST_CASE( "fromMaybe :: T -> Opt<T> -> T", "[fromMaybe]" )
+{
+  REQUIRE( fromMaybe( 9, Opt<Int>{ 3 } ) == 3 );
+  REQUIRE( fromMaybe( 9, Opt<Int>{} ) == 9 );
+}
