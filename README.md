@@ -14,7 +14,7 @@ Maybe you've been reading about functional programming but don't want to dive in
 
 ## What Can I Do?
 
-```C++
+```c++
 // a :: [Double]
 auto as = Vec<Double>{ 1.1,7.7,3.3,9.9,5.5 };
 // b :: [Int]
@@ -40,7 +40,7 @@ As this code snippet demonstrates, you can compose functions without affecting t
 
 Here is the the same thing hand written in C++ without the `<algorithm>` library.
 
-```C++
+```c++
 auto as = std::vector<double>{ 1.1,7.7,3.3,9.9,5.5 };
 auto bs = std::vector<int>{ 6,2,8,4,10 };
 
@@ -68,7 +68,7 @@ print( cs );
 
 (Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
 
-```Bash
+```bash
 > cd ~
 > git clone https://gitlab.com/zerovectorspace/fct
 > mkdir fct_build; cd fct_build
@@ -80,7 +80,7 @@ print( cs );
 
 In Haskell `String` is equivalent to `[Char]` and they are both implicitly covertable to eachother. In order to make this library consistent without the need to overload every function with an equivalent `std::string` version, `std::string` has been type aliased as `StdString` and `std::vector<char>` has been type aliased as `String`. Convenience functions follow:
 
-```C++
+```c++
 // toStr :: StdString -> String
 auto toStr( StdString const& x ) -> String
 
