@@ -31,6 +31,13 @@ namespace fct
   {
     return x.has_value() ? func( x.value() ) : def;
   }
+
+  // isJust :: Opt<T> -> Bool
+  template <typename T>
+  auto isJust( Opt<T> const& x ) -> Bool
+  {
+    return x.has_value();
+  }
 }
 
 #endif
