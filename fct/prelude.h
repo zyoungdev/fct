@@ -113,14 +113,11 @@ namespace fct
     return Cont<T>{ begin( xs ) + i, end( xs ) };
   }
 
-  // head :: [T] -> Opt<T>
-  template <typename T>
-  auto head( Vec<T> const& xs ) -> Opt<T>
+  // head :: [T] -> T
+  template <typename T, template <typename> typename Cont>
+  auto head( Cont<T> const& xs ) -> T
   {
-    if ( xs.empty() )
-      return Opt<T>{};
-
-    return Opt<T>{ xs.at( 0 ) };
+    return *( begin( xs ) );
   }
 
   // tail :: [T] -> [T]
@@ -137,14 +134,11 @@ namespace fct
     return Cont<T>{ begin( xs ), end( xs ) - 1 };
   }
 
-  // last :: [T] -> Opt<T>
+  // last :: [T] -> T
   template <typename T, template <typename> typename Cont>
-  auto last( Cont<T> const& xs ) -> Opt<T>
+  auto last( Cont<T> const& xs ) -> T
   {
-    if ( xs.empty() )
-      return Opt<T>{};
-
-    return Opt<T>{ *( end( xs ) - 1 ) };
+    return *( end( xs ) - 1 );
   }
 
   // fst :: (S,T) -> S
@@ -292,36 +286,38 @@ namespace fct
     return x <= y ? x : y;
   }
 
-  // maximum :: [T] -> Opt<T>
+  // maximum :: [T] -> T
   template <typename T, template <typename> typename Cont>
-  auto maximum( Cont<T> const& xs ) -> Opt<T>
+  auto maximum( Cont<T> const& xs ) -> T
   {
-    if ( xs.empty() )
-      return Opt<T>{};
+    auto a = begin( xs );
+    auto b = end( xs );
+    auto it = a + 1;
 
-    T out = xs.at( 0 );
+    for ( ; it < b ; advance( it, 1 ) )
+    {
+      if ( *it > *a )
+        a = it;
+    }
 
-    for ( auto const& x : xs )
-      if ( x > out )
-        out = x;
-
-    return Opt<T>{ out };
+    return *a;
   }
 
-  // minimum :: [T] -> Opt<T>
+  // minimum :: [T] -> T
   template <typename T, template <typename> typename Cont>
-  auto minimum( Cont<T> const& xs ) -> Opt<T>
+  auto minimum( Cont<T> const& xs ) -> T
   {
-    if ( xs.empty() )
-      return Opt<T>{};
+    auto a = begin( xs );
+    auto b = end( xs );
+    auto it = a + 1;
 
-    T out = xs.at( 0 );
+    for ( ; it < b ; advance( it, 1 ) )
+    {
+      if ( *it < *a )
+        a = it;
+    }
 
-    for ( auto const& x : xs )
-      if ( x < out )
-        out = x;
-
-    return Opt<T>{ out };
+    return *a;
   }
 
   // sum :: [Num] -> Num
@@ -699,7 +695,7 @@ namespace fct
   {
     Cont<Tup<S,T,U>> out{};
 
-    Size_t min = minimum( Cont<Size_t>{ xs.size(), ys.size(), zs.size() } ).value();
+    Size_t min = minimum( Cont<Size_t>{ xs.size(), ys.size(), zs.size() } );
     out.reserve( min );
 
     auto x = begin( xs );
@@ -743,7 +739,7 @@ namespace fct
   {
     Cont<V> out{};
 
-    Size_t min = minimum( Cont<Size_t>{ xs.size(), ys.size(), zs.size() } ).value();
+    Size_t min = minimum( Cont<Size_t>{ xs.size(), ys.size(), zs.size() } );
     out.reserve( min );
 
     auto x = begin( xs );

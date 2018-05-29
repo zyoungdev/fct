@@ -65,22 +65,24 @@ TEST_CASE( "toStdStr :: String -> StdString", "[toStdStr]" )
   REQUIRE( toStdStr( bs ) == StdString{} );
 }
 
-TEST_CASE( "head :: [T] -> Opt<T>", "[head]")
+TEST_CASE( "head :: [T] -> T", "[head]")
 {
   Vec<Int> as = { 1, 2, 3 };
-  REQUIRE( head( as ).value() == 1 );
+  REQUIRE( head( as ) == 1 );
 
-  Vec<Int> bs{};
-  REQUIRE( head( bs ).has_value() == false );
+  // Segmentation Fault
+  // Vec<Int> bs{};
+  // head( bs );
 }
 
-TEST_CASE( "last :: [T] -> Opt<T>", "[last]")
+TEST_CASE( "last :: [T] -> T", "[last]")
 {
   Vec<Int> as = { 1, 2, 3 };
-  REQUIRE( last( as ).value() == 3 );
+  REQUIRE( last( as ) == 3 );
 
-  Vec<Int> bs{};
-  REQUIRE( last( bs ).has_value() == false );
+  // Segmentation Fault
+  // Vec<Int> bs{};
+  // last( bs );
 }
 
 TEST_CASE( "fst :: (S,T) -> S", "[fst]" )
@@ -291,24 +293,26 @@ TEST_CASE( "min :: T -> T -> T", "[min]" )
   REQUIRE( min( 2, 1 ) == 1 );
 }
 
-TEST_CASE( "maximum :: [T] -> Opt<T>", "[maximum]" )
+TEST_CASE( "maximum :: [T] -> T", "[maximum]" )
 {
   Vec<Int> as = { 1,2,3 };
 
-  REQUIRE( maximum( as ).value() == 3 );
+  REQUIRE( maximum( as ) == 3 );
 
-  Vec<Int> bs{};
-  REQUIRE( maximum( bs ).has_value() == false );
+  // Segmentation Fault
+  // Vec<Int> bs{};
+  // maximum( bs );
 }
 
-TEST_CASE( "minimum :: [T] -> Opt<T>", "[minimum]" )
+TEST_CASE( "minimum :: [T] -> T", "[minimum]" )
 {
   Vec<Int> as = { 1,2,3 };
 
-  REQUIRE( minimum( as ).value() == 1 );
+  REQUIRE( minimum( as ) == 1 );
 
-  Vec<Int> bs{};
-  REQUIRE( minimum( bs ).has_value() == false );
+  // Segmentation Fault
+  // Vec<Int> bs{};
+  // minimum( bs );
 }
 
 TEST_CASE( "sum :: [Num] -> Num", "[sum]" )
