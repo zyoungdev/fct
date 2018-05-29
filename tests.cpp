@@ -1186,3 +1186,14 @@ TEST_CASE( "catMaybes :: [Opt<T>] -> [T]", "[catMaybes]" )
   auto bs = Vec<Opt<Int>>{ 1,2,Opt<Int>{},3 };
   REQUIRE( catMaybes( bs ) == Vec<Int>{ 1,2,3 } );
 }
+
+TEST_CASE( "mapMaybe :: ( S -> Opt<T> ) -> [S] -> [T]", "[mapMaybe]" )
+{
+  auto as = Vec<Int>{ 0,1,2,3,4 };
+  auto af = []( auto& x ){ return x == 0 ? Opt<Int>{} : Opt<Int>{ x*x }; };
+  REQUIRE( mapMaybe<Int>( af, as ) == Vec<Int>{ 1,4,9,16 } );
+
+  auto bs = Vec<Opt<Int>>{ 0,1,Opt<Int>{},2,3,4 };
+  auto bf = []( auto& x ){ return x; };
+  REQUIRE( mapMaybe<Int>( bf, bs ) == Vec<Int>{ 0,1,2,3,4 } );
+}
