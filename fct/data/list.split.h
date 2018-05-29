@@ -222,6 +222,33 @@ namespace fct
 
     return out;
   }
+
+  // splitPlaces:: [UInt] -> [T] -> [[T]]
+  template <typename T, template <typename> typename Cont>
+  auto splitPlaces( Cont<UInt> const& ns, Cont<T> const& xs ) -> Cont<Cont<T>>
+  {
+    Cont<Cont<T>> out{};
+
+    auto a = begin( xs );
+    auto b = end( xs );
+
+    for ( auto const& n : ns )
+    {
+      auto it = a + n;
+
+      if ( it < b )
+        out.push_back( Cont<T>{ a, it } );
+      else
+      {
+        out.push_back( Cont<T>{ a, b } );
+        break;
+      }
+
+      a = it;
+    }
+
+    return out;
+  }
 }
 
 #endif
