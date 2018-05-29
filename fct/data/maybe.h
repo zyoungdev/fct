@@ -59,6 +59,13 @@ namespace fct
   {
     return xs.empty() ? Opt<T>{} : *( begin( xs ) );
   }
+
+  // maybeToList :: Opt<T> -> [T]
+  template <template <typename> typename Cont, typename T>
+  auto maybeToList( Opt<T> const& x ) -> Cont<T>
+  {
+    return x.has_value() ? Cont<T>{ x.value() } : Cont<T>{};
+  }
 }
 
 #endif
