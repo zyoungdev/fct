@@ -1075,3 +1075,11 @@ TEST_CASE( "wordsBy :: ( T -> Bool ) -> [T] -> [[T]]", "[wordsBy]" )
 
   REQUIRE( wordsBy( pred, as ) == Vec<String>{ "dog"_s,"cat"_s,"bird"_s } );
 }
+
+TEST_CASE( "linesBy :: ( T -> Bool ) -> [T] -> [[T]]", "[linesBy]" )
+{
+  auto as = "dogxxxcatxbirdxx"_s;
+  auto pred = []( auto& x ){ return x == 'x'; };
+
+  REQUIRE( linesBy( pred, as ) == Vec<String>{ "dog"_s,""_s,""_s,"cat"_s,"bird"_s,""_s } );
+}
