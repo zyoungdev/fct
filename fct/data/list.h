@@ -17,8 +17,8 @@
 #ifndef functional_algorithms_data_list_header
 #define functional_algorithms_data_list_header
 
-#include "fct/include.h"
-#include "fct/using.h"
+#include "fct/internal/include.h"
+#include "fct/internal/using.h"
 
 namespace fct
 {

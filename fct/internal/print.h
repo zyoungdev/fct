@@ -20,9 +20,9 @@
 #ifndef functional_algorithms_print_header
 #define functional_algorithms_print_header
 
-#include "fct/include.h"
-#include "fct/using.h"
-#include "fct/show.h"
+#include "fct/internal/include.h"
+#include "fct/internal/using.h"
+#include "fct/internal/show.h"
 
 namespace fct
 {

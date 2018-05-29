@@ -20,11 +20,11 @@
 #ifndef functional_algorithms_prelude_header
 #define functional_algorithms_prelude_header
 
-#include "fct/include.h"
-#include "fct/using.h"
-#include "fct/transition.h"
-#include "fct/show.h"
-#include "fct/print.h"
+#include "fct/internal/include.h"
+#include "fct/internal/using.h"
+#include "fct/internal/transition.h"
+#include "fct/internal/show.h"
+#include "fct/internal/print.h"
 
 namespace fct
 {
