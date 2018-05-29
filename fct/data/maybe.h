@@ -45,6 +45,13 @@ namespace fct
   {
     return ! x.has_value();
   }
+
+  // fromMaybe :: T -> Opt<T> -> T
+  template <typename T>
+  auto fromMaybe( T const& def, Opt<T> const& x )
+  {
+    return x.value_or( def );
+  }
 }
 
 #endif
