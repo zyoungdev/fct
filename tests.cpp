@@ -1177,3 +1177,12 @@ TEST_CASE( "maybeToList :: Opt<T> -> [T]", "[maybeToList]" )
   REQUIRE( maybeToList<Vec>( Opt<Int>{ 1 } ) == Vec<Int>{ 1 } );
   REQUIRE( maybeToList<Vec>( Opt<Int>{} ) == Vec<Int>{} );
 }
+
+TEST_CASE( "catMaybes :: [Opt<T>] -> [T]", "[catMaybes]" )
+{
+  auto as = Vec<Opt<Int>>{ 1,2,3 };
+  REQUIRE( catMaybes( as ) == Vec<Int>{ 1,2,3 } );
+
+  auto bs = Vec<Opt<Int>>{ 1,2,Opt<Int>{},3 };
+  REQUIRE( catMaybes( bs ) == Vec<Int>{ 1,2,3 } );
+}
