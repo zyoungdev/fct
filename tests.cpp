@@ -1120,3 +1120,15 @@ TEST_CASE( "splitPlacesBlanks:: [UInt] -> [T] -> [[T]]", "[splitPlacesBlanks]" )
 
   REQUIRE( splitPlacesBlanks( Vec<UInt>{ 1,2,3,4,5,6,7,8,9 }, as ) == Vec<Vec<Int>>{ {1},{2,3},{4,5,6},{7,8,9,10},{},{},{},{},{} } );
 }
+
+TEST_CASE( "divvy :: UInt -> UInt -> [T] -> [[T]]", "[divvy]" )
+{
+  auto as = Vec<Int>{ 1,2,3,4,5,6,7,8,9,10 };
+  REQUIRE( divvy( 5, 5, as ) == Vec<Vec<Int>>{ {1,2,3,4,5},{6,7,8,9,10} } );
+
+  auto bs = Vec<Int>{ 1,2,3,4,5,6,7,8,9};
+  REQUIRE( divvy( 5, 5, bs ) == Vec<Vec<Int>>{ {1,2,3,4,5} } );
+
+  auto cs = Vec<Int>{ 1,2,3,4,5,6,7,8,9,10,11 };
+  REQUIRE( divvy( 5, 5, cs ) == Vec<Vec<Int>>{ {1,2,3,4,5},{6,7,8,9,10} } );
+}
