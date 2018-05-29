@@ -280,6 +280,29 @@ namespace fct
 
     return out;
   }
+
+  // divvy :: UInt -> UInt -> [T] -> [[T]]
+  template <typename T, template <typename> typename Cont>
+  auto divvy( UInt n, UInt m, Cont<T> const& xs ) -> Cont<Cont<T>>
+  {
+    Cont<Cont<T>> out{};
+
+    auto a = begin( xs );
+    auto b = end( xs );
+
+    while ( a < b )
+    {
+      auto it = a + n;
+      if ( it > b )
+        break;
+
+      out.push_back( Cont<T>{ a, it } );
+
+      a += m;
+    }
+
+    return out;
+  }
 }
 
 #endif
