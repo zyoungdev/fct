@@ -15,9 +15,9 @@ Maybe you've been reading about functional programming but don't want to dive in
 ## What Can I Do?
 
 ```c++
-// a :: [Double]
+// as :: [Double]
 auto as = Vec<Double>{ 1.1,7.7,3.3,9.9,5.5 };
-// b :: [Int]
+// bs :: [Int]
 auto bs = Vec<Int>{ 6,2,8,4,10 };
 
 // square :: Int -> Int
@@ -32,8 +32,8 @@ auto round_p2 = []( auto& x ){ return round( x ) + 2; };
 // 4. Print
 
 print( fmap<Int>( square, zipWith<Int>( max<Int>, fmap<Int>( round_p2, as ), bs ) ) );
-print( a );
-print( b );
+print( as );
+print( bs );
 ```
 
 As this code snippet demonstrates, you can compose functions without affecting the original objects as every function defines its inputs as constant.
