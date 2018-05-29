@@ -72,6 +72,7 @@ namespace fct
   auto catMaybes( Cont<Opt<T>> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
+    out.reserve( xs.size() );
 
     for ( auto const& x : xs )
       if ( x.has_value() )
