@@ -66,6 +66,19 @@ namespace fct
   {
     return x.has_value() ? Cont<T>{ x.value() } : Cont<T>{};
   }
+
+  // catMaybes :: [Opt<T>] -> [T]
+  template <typename T, template <typename> typename Cont>
+  auto catMaybes( Cont<Opt<T>> const& xs ) -> Cont<T>
+  {
+    Cont<T> out{};
+
+    for ( auto const& x : xs )
+      if ( x.has_value() )
+        out.push_back( x.value() );
+
+    return out;
+  }
 }
 
 #endif
