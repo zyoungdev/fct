@@ -1017,3 +1017,12 @@ TEST_CASE( "lookup :: S -> [(S,T)] -> Opt<T>", "[lookup]" )
 
   REQUIRE( lookup( 'a', bs ) == Opt<Int>{} );
 }
+
+TEST_CASE( "splitOn :: [T] -> [T] -> [[T]]", "[splitOn]" )
+{
+  auto as = "This is a string "_s;
+  REQUIRE( splitOn( " "_s, as ) == Vec<Vec<Char>>{ "This"_s,"is"_s,"a"_s,"string"_s,""_s } );
+
+  auto bs = "a..b...c....d.."_s;
+  REQUIRE( splitOn( ".."_s, bs ) == Vec<Vec<Char>>{ "a"_s,"b"_s,".c"_s,""_s,"d"_s,""_s } );
+}
