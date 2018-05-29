@@ -52,6 +52,13 @@ namespace fct
   {
     return x.value_or( def );
   }
+
+  // listToMaybe :: [T] -> Opt<T>
+  template <typename T, template <typename> typename Cont>
+  auto listToMaybe( Cont<T> const& xs ) -> Opt<T>
+  {
+    return xs.empty() ? Opt<T>{} : *( begin( xs ) );
+  }
 }
 
 #endif
