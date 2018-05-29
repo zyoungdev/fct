@@ -79,6 +79,23 @@ namespace fct
 
     return out;
   }
+
+  // mapMaybe :: ( S -> Opt<T> ) -> [S] -> [T]
+  template <typename T, typename S, template <typename> typename Cont, typename F>
+  auto mapMaybe( F fct, Cont<S> const& xs ) -> Cont<T>
+  {
+    Cont<T> out{};
+    out.reserve( xs.size() );
+
+    for ( auto const& x : xs )
+    {
+      auto tmp = fct( x );
+      if ( tmp.has_value() )
+        out.push_back( tmp.value() );
+    }
+
+    return out;
+  }
 }
 
 #endif
