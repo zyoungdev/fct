@@ -223,7 +223,7 @@ namespace fct
     return out;
   }
 
-  // splitPlaces:: [UInt] -> [T] -> [[T]]
+  // splitPlaces :: [UInt] -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
   auto splitPlaces( Cont<UInt> const& ns, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
