@@ -51,6 +51,8 @@ namespace fct
   using std::rend;
   using std::advance;
   using std::next;
+
+  using std::search;
 }
 
 #endif

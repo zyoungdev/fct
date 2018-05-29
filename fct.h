@@ -22,5 +22,6 @@
 
 #include "fct/prelude.h"
 #include "fct/data/list.h"
+#include "fct/data/list.split.h"
 
 #endif

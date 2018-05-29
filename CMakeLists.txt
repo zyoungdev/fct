@@ -40,6 +40,7 @@ set(
     fct/internal/print.h
     fct/prelude.h
     fct/data/list.h
+    fct/data/list.split.h
     fct.h
 )
 set (
