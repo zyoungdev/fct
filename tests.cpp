@@ -1035,3 +1035,11 @@ TEST_CASE( "splitOneOf :: [T] -> [T] -> [[T]]", "[splitOneOf]" )
   auto bs = "abc,.def;;ghi.jkl,"_s;
   REQUIRE( splitOneOf( ",.;"_s, bs ) == Vec<Vec<Char>>{ "abc"_s,""_s,"def"_s,""_s,"ghi"_s,"jkl"_s,""_s } );
 }
+
+TEST_CASE( "splitWhen :: ( T -> Bool ) -> [T] -> [[T]]", "[splitWhen]" )
+{
+  auto as = Vec<Int>{ 1,3,-4,5,7,-9,0,2 };
+  auto pred = []( auto& x ){ return x < 0; };
+
+  REQUIRE( splitWhen( pred, as ) == Vec<Vec<Int>>{ {1,3},{5,7},{0,2} } );
+}
