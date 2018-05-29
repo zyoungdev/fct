@@ -27,6 +27,7 @@ namespace fct
   auto splitOn( Cont<T> const& needle, Cont<T> const& haystack ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
+
     auto a = begin( haystack );
     auto b = end( haystack );
     auto c = begin( needle );
@@ -88,6 +89,33 @@ namespace fct
       }
     }
     out.push_back( Cont<T>{ a, b } );
+
+    return out;
+  }
+
+  // endBy :: [T] -> [T] -> [[T]]
+  template <typename T, template <typename> typename Cont>
+  auto endBy( Cont<T> const& needle, Cont<T> const& haystack ) -> Cont<Cont<T>>
+  {
+    Cont<Cont<T>> out{};
+
+    auto a = begin( haystack );
+    auto b = end( haystack );
+    auto c = begin( needle );
+    auto d = end( needle );
+
+    auto it = search( a, b, c, d );
+    while ( it != b )
+    {
+      out.push_back( Cont<T>{ a, it } );
+
+      a = it + needle.size();
+      it = search( a, b, c, d );
+    }
+
+    auto last = Cont<T>{ a, it };
+    if ( ! last.empty() )
+      out.push_back( last );
 
     return out;
   }
