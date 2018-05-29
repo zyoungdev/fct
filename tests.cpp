@@ -1043,3 +1043,18 @@ TEST_CASE( "splitWhen :: ( T -> Bool ) -> [T] -> [[T]]", "[splitWhen]" )
 
   REQUIRE( splitWhen( pred, as ) == Vec<Vec<Int>>{ {1,3},{5,7},{0,2} } );
 }
+
+TEST_CASE( "endBy :: [T] -> [T] -> [[T]]", "[endBy]" )
+{
+  auto as = "This is a string "_s;
+  REQUIRE( endBy( " "_s, as ) == Vec<Vec<Char>>{ "This"_s,"is"_s,"a"_s,"string"_s } );
+
+  auto bs = "This is a string"_s;
+  REQUIRE( endBy( " "_s, bs ) == Vec<Vec<Char>>{ "This"_s,"is"_s,"a"_s,"string"_s } );
+
+  auto cs = "a..b...c....d.."_s;
+  REQUIRE( endBy( ".."_s, cs ) == Vec<Vec<Char>>{ "a"_s,"b"_s,".c"_s,""_s,"d"_s } );
+
+  auto ds = "a..b...c....d"_s;
+  REQUIRE( endBy( ".."_s, ds ) == Vec<Vec<Char>>{ "a"_s,"b"_s,".c"_s,""_s,"d"_s } );
+}
