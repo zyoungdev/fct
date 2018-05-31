@@ -20,7 +20,10 @@
 cmake_minimum_required( VERSION 3.10.3 )
 project( fct )
 
-set( GCC_FLAGS "-std=c++1z -fmax-errors=1 -Wall -Weffc++ -Wextra -Werror" )
+SET( CMAKE_CXX_STANDARD 17 )
+SET( CMAKE_CXX_STANDARD_REQUIRED ON )
+
+set( GCC_FLAGS "-fmax-errors=1 -Wall -Weffc++ -Wextra -Werror" )
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g ${GCC_FLAGS}" )
 set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g ${GCC_FLAGS}" )
 set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 ${GCC_FLAGS}" )
