@@ -645,8 +645,8 @@ TEST_CASE( "readFile :: StdString -> StdString, writeFile :: StdString -> StdStr
 
 TEST_CASE( "show :: T -> StdString", "[show]" )
 {
-  REQUIRE( show( 1 ) == StdString{ '1' } );
-  REQUIRE( show( 1.999999 ) == StdString{ "1.999999" } );
+  REQUIRE( show( 1 ) == "1"_s );
+  REQUIRE( show( 1.999999 ) == "1.999999"_s );
 }
 
 TEST_CASE( "union :: [T] -> [T] -> [T]", "[union]" )
@@ -899,31 +899,32 @@ TEST_CASE( "zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith]" )
   Vec<Char> bs = { 'a','b','c','d','e' };
 
   auto f = []( auto& x, auto& y ){
-    return StdString{ y } + show( x );
+    return String{ y } + show( x );
   };
 
-  REQUIRE( zipWith<StdString>( f, as, bs ) == Vec<StdString>{ "a1","b2","c3","d4","e5" } );
+  REQUIRE( zipWith<String>( f, as, bs ) == Vec<String>{ "a1"_s,"b2"_s,"c3"_s,"d4"_s,"e5"_s } );
 
   Vec<Int> cs{};
 
-  REQUIRE( zipWith<StdString>( f, cs, bs ) == Vec<StdString>{} );
+  REQUIRE( zipWith<String>( f, cs, bs ) == Vec<String>{} );
 }
 
 TEST_CASE( "zipWith3 :: ( S -> T -> U ) -> [S] -> [T] -> [U]", "[zipWith3]" )
 {
   Vec<Int> as = { 1,2,3,4,5,6,7,8,9 };
-  Vec<StdString> bs = { "1.1","2.2","3.3","4.4" };
-  Vec<Char> cs = { 'a','b','c','d','e' };
+  Vec<String> bs = { "1.1"_s,"2.2"_s,"3.3"_s,"4.4"_s };
+  auto cs = "abcde"_s;
 
-  auto f = []( auto& x, auto& y, auto& z ) -> StdString{
-    return show( x ) + " + " + y + " = " + StdString{ z };
+  auto f = []( auto& x, auto& y, auto& z ) -> String
+  {
+    return show( x ) + " + "_s + y + " = "_s + String{ z };
   };
 
-  REQUIRE( zipWith3<StdString>( f, as, bs, cs ) == Vec<StdString>{ "1 + 1.1 = a","2 + 2.2 = b","3 + 3.3 = c","4 + 4.4 = d" } );
+  REQUIRE( zipWith3<String>( f, as, bs, cs ) == Vec<String>{ "1 + 1.1 = a"_s,"2 + 2.2 = b"_s,"3 + 3.3 = c"_s,"4 + 4.4 = d"_s } );
 
   Vec<Char> ds{};
 
-  REQUIRE( zipWith3<StdString>( f, as, bs, ds ) == Vec<StdString>{} );
+  REQUIRE( zipWith3<String>( f, as, bs, ds ) == Vec<String>{} );
 }
 
 TEST_CASE( "unzip :: [(S,T)] -> ([S],[T])", "[unzip]" )
