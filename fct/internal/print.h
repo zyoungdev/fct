@@ -22,6 +22,7 @@
 
 #include "fct/internal/include.h"
 #include "fct/internal/using.h"
+#include "fct/internal/transition.h"
 #include "fct/internal/show.h"
 
 namespace fct
@@ -30,56 +31,7 @@ namespace fct
   template <typename T>
   auto print( T const& val, Char lastChar = '\n' ) -> void
   {
-    std::cout << show( val ) << lastChar;
-  }
-
-  // print :: [Char] -> void
-  auto print( String const& xs, Char lastChar = '\n' ) -> void
-  {
-    auto str = StdString{ begin( xs ), end( xs ) };
-    std::cout << str << lastChar;
-  }
-
-  template <typename T>
-  auto print( Opt<T> const& val, Char lastChar = '\n' ) -> void
-  {
-    if ( val )
-      print( val.value(), lastChar );
-    else
-      std::cout << "Nothing" << lastChar;
-  }
-
-  template<class ...Ts, std::size_t... Is>
-  void print_tuple( Tup<Ts...> const& tup, std::index_sequence<Is...> )
-  {
-    ( ( print( Is == 0 ? "" : ",", '\0' ) , print( std::get<Is>( tup ), '\0' ) ) , ... );
-  }
-
-  // print :: (Ts...) -> void
-  template <typename ...Ts>
-  auto print( Tup<Ts...> const& val, Char lastChar = '\n' ) -> void
-  {
-    std::cout << '(';
-    print_tuple( val, std::index_sequence_for<Ts...>{} );
-    std::cout << ")" << lastChar;
-  }
-
-  // print :: [T] -> void
-  template <typename T, template <typename> typename Cont>
-  auto print( Cont<T> const& xs, Char lastChar = '\n' ) -> void
-  {
-    if ( xs.empty() )
-    {
-      std::cout << "[]" << lastChar;
-      return;
-    }
-
-    std::cout << "[";
-    auto x = begin( xs );
-    for ( ; x < end( xs ) - 1; advance( x, 1 ) )
-      print( *x, ',' );
-    print( *x, ']' );
-    std::cout << lastChar;
+    std::cout << toStdStr( show( val ) ) << lastChar;
   }
 }
 
