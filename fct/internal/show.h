@@ -32,6 +32,24 @@ namespace fct
     return toStr( std::to_string( x ) );
   }
 
+  // show :: Float -> UInt -> String
+  auto show( Float const& x, UInt n = 2 ) -> String
+  {
+    auto s = std::to_string( x );
+    auto i = s.find( '.' );
+
+    return String{ begin( s ), begin( s ) + i + n + 1 };
+  }
+
+  // show :: Double -> UInt -> String
+  auto show( Double const& x, UInt n = 2 ) -> String
+  {
+    auto s = std::to_string( x );
+    auto i = s.find( '.' );
+
+    return String{ begin( s ), begin( s ) + i + n + 1 };
+  }
+
   // show :: Char -> String
   auto show( Char const& x ) -> String
   {
