@@ -24,7 +24,6 @@ namespace fct
 {
   using String = std::vector<char>;
   using StdString = std::string;
-  using SS = std::stringstream;
   using Bool = bool;
   using Float = float;
   using Double = long double;

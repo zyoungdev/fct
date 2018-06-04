@@ -535,24 +535,24 @@ TEST_CASE( "splitAt :: UInt -> [T] -> ( [T], [T] )", "[splitAt]" )
 
 TEST_CASE( "lines :: String -> [String]", "[lines]" )
 {
-  auto a = Str( "This\nis\na\nStdString\n" );
+  auto a = Str( "This\nis\na\nString\n" );
 
-  REQUIRE( lines( a ) == Vec<String>{ Str( "This" ), Str( "is" ), Str( "a" ), Str( "StdString" ) } );
+  REQUIRE( lines( a ) == Vec<String>{ "This"_s, "is"_s, "a"_s, "String"_s } );
 
   auto b = Str( "" );
 
   REQUIRE( lines( b ) == Vec<String>{} );
 
-  auto c = Str( "This\n\nis\n\na\n\nStdString\n\n" );
+  auto c = Str( "This\n\nis\n\na\n\nString\n\n" );
 
-  REQUIRE( lines( c ) == Vec<String>{ Str( "This" ), Str(""), Str( "is" ), Str(""), Str( "a" ), Str(""), Str( "StdString" ), Str("") } );
+  REQUIRE( lines( c ) == Vec<String>{ "This"_s, ""_s, "is"_s, ""_s, "a"_s, ""_s, "String"_s, ""_s } );
 }
 
 TEST_CASE( "words :: String -> [String]", "[words]" )
 {
   auto a = Str( "This is a String" );
 
-  REQUIRE( words( a ) == Vec<String>{ Str( "This" ), Str( "is" ), Str( "a" ), Str( "String" ) } );
+  REQUIRE( words( a ) == Vec<String>{ "This"_s, "is"_s, "a"_s, "String"_s } );
 
   auto b = Str( "" );
 

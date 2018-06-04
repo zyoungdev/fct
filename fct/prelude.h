@@ -505,23 +505,47 @@ namespace fct
   {
     Vec<String> out{};
 
-    SS ss;
-    ss.str( toStdStr( str ) );
-    for ( StdString line; std::getline( ss, line ); )
-      out.push_back( toStr( line ) );
+    auto a = begin( str );
+    auto b = end( str );
+    auto it = a;
+
+    for ( ; it != b ; advance( it, 1 ) )
+    {
+      if ( *it == '\n' )
+      {
+        out.push_back( String{ a, it } );
+        a = it + 1;
+      }
+    }
+
+    auto last = String{ a, b };
+    if ( ! last.empty() )
+      out.push_back( String{ a, b } );
 
     return out;
   }
 
   // words :: String -> [String]
-  auto words( String const& x ) -> Vec<String>
+  auto words( String const& xs ) -> Vec<String>
   {
     Vec<String> out{};
 
-    SS ss;
-    ss.str( toStdStr( x ) );
-    for ( StdString line; std::getline( ss, line, ' ' ); )
-      out.push_back( toStr( line ) );
+    auto a = begin( xs );
+    auto b = end( xs );
+    auto it = a;
+
+    for ( ; it != b ; advance( it, 1 ) )
+    {
+      if ( *it == ' ' )
+      {
+        out.push_back( String{ a, it } );
+        a = it + 1;
+      }
+    }
+
+    auto last = String{ a, b };
+    if ( ! last.empty() )
+      out.push_back( String{ a, b } );
 
     return out;
   }
