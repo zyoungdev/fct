@@ -56,7 +56,7 @@ set (
     main.cpp
 )
 
-set( CATCH_INCLUDE_DIR /usr/include/catch )
+set( CATCH_INCLUDE_DIR /usr/include/catch2 )
 add_library( Catch INTERFACE )
 target_include_directories( Catch INTERFACE ${CATCH_INCLUDE_DIR} )
 
