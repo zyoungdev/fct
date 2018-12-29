@@ -64,9 +64,39 @@ for ( auto& c : cs )
 print( cs );
 ```
 
+### Function Composition
+
+Unfortunately, C++ does not allow you to change the language so overriding `operator |` for two non-lambda functions is impossible. Though, we are still able to override `operator |` for two lambdas which means we can wrap non-lambda functions in lambdas or wrap them with `std::function`. A helper function `toFct` is also available to wrap functions with `std::function`.
+
+```C++
+template <typename S, typename T>
+auto f1( S x ) -> T
+{
+  return x + 1;
+}
+
+int main()
+{
+  auto as = Vec<Int>{ 1, 2, 3, 4 };
+
+  // Lambda
+  auto f2 = [](Int x){ return x * x; };
+
+  // Function wrapped with function
+  auto f3 = [](Int x){ return f1<Int,Int>( x ); };
+
+  // Function wrapped with std::function
+  auto f4 = Function<Int(Int)>{ f1<Int,Int> };
+
+  auto bs = fmap<Bool>( toFct( even ) | f4 | f3 | f2 | toFct( f1<Int,Int> ), as );
+
+  REQUIRE( bs == Vec<Bool>{ True, False, True, False } );
+}
+```
+
 ## Installation
 
-(Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch`
+(Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch2`
 
 ```bash
 > cd ~

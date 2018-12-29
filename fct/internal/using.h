@@ -44,6 +44,9 @@ namespace fct
   template <typename ...Ts>
   using Tup = std::tuple<Ts...>;
 
+  template <typename ...Ts>
+  using Function = std::function<Ts...>;
+
   using std::begin;
   using std::end;
   using std::rbegin;

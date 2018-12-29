@@ -23,24 +23,29 @@ using namespace fct;
 
 // #define DEBUG_IO
 
+template <typename S, typename T>
+auto f1( S x ) -> T
+{
+  return x + 1;
+}
+
 TEST_CASE( "FCT Composition", "[fct]" )
 {
-  Vec<Int> as = { 1,2,3,4 };
-  auto b = fmap<Bool>( even, as );
+  auto as = Vec<Int>{ 1, 2, 3, 4 };
 
-  REQUIRE( b == Vec<Bool>{ false, true, false, true } );
+  // Lambda
+  auto f2 = [](Int x){ return x * x; };
 
-  auto c = filter<Int>( []( auto& x ){ return x > 3; }, as );
+  // Function wrapped with function
+  auto f3 = [](Int x){ return f1<Int,Int>( x ); };
 
-  REQUIRE( c == Vec<Int>{ 4 } );
+  // Function wrapped with std::function
+  // Function<Int(Int)> f4 = f1<Int,Int>;
+  auto f4 = Function<Int(Int)>{ f1<Int,Int> };
 
-  auto s = Str( "this is lowercase" );
+  auto bs = fmap<Bool>( toFct( even ) | f4 | f3 | f2 | toFct( f1<Int,Int> ), as );
 
-  REQUIRE( fmap<Char>( toUpper, s ) == Str( "THIS IS LOWERCASE" ) );
-
-  auto ss = Str( "this is lowercase" );
-
-  REQUIRE( fmap<Char>( toUpper, ss ) == Vec<Char>{'T','H','I','S',' ','I','S',' ','L','O','W','E','R','C','A','S','E'} );
+  REQUIRE( bs == Vec<Bool>{ true, false, true, false } );
 }
 
 TEST_CASE( "toStr :: StdString -> String", "[toStr]" )
