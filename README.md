@@ -66,7 +66,7 @@ print( cs );
 
 ### Function Composition
 
-Unfortunately, C++ does not allow you to change the language so overriding `operator |` for two non-lambda functions is impossible. Though, we are still able to override `operator |` for two lambdas which means we can wrap non-lambda functions in lambdas or wrap them with `std::function`. A helper function `toFct` is also available to wrap functions with `std::function`.
+Unfortunately, C++ does not allow you to change the language so overloading `operator |` for two non-lambda functions is impossible. Though, we are still able to overload `operator |` for two lambdas which means we can wrap non-lambda functions in lambdas or wrap them with `std::function`. A helper function `toFct` is also available to wrap functions with `std::function`.
 
 ```C++
 template <typename S, typename T>
