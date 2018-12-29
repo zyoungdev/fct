@@ -82,7 +82,7 @@ int main()
   // Lambda
   auto f2 = [](Int x){ return x * x; };
 
-  // Function wrapped with function
+  // Function wrapped with lambda
   auto f3 = [](Int x){ return f1<Int,Int>( x ); };
 
   // Function wrapped with std::function
