@@ -66,7 +66,7 @@ print( cs );
 
 ### Function Composition
 
-Unfortunately, C++ does not allow you to change the language so overloading `operator |` for two non-lambda functions is impossible. Though, we are still able to overload `operator |` for two lambdas which means we can wrap non-lambda functions in lambdas or wrap them with `std::function`. A helper function `toFct` is also available to wrap functions with `std::function`.
+Unfortunately, C++ does not allow you to change the language so overloading `operator |` for two non-lambda functions is impossible. Though, we are still able to overload `operator |` for two lambdas which means we can wrap non-lambda functions in lambdas or wrap them with `std::function`. A helper function `toFct` is also available to wrap functions with `Function_W` and `toStdFct` to wrap functions with `std::function`.
 
 ```C++
 template <typename S, typename T>
@@ -88,7 +88,7 @@ int main()
   // Function wrapped with std::function
   auto f4 = Function<Int(Int)>{ f1<Int,Int> };
 
-  auto bs = fmap<Bool>( toFct( even ) | f4 | f3 | f2 | toFct( f1<Int,Int> ), as );
+  auto bs = fmap<Bool>( toStdFct( even ) | f4 | f3 | f2 | toFct( f1<Int,Int> ), as );
 
   REQUIRE( bs == Vec<Bool>{ True, False, True, False } );
 }
