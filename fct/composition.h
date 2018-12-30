@@ -74,7 +74,7 @@ namespace fct
    * Convert a non-lambda function to an Function_W
    */
   template <typename F_ret, typename... F_args>
-  auto toFct( F_ret ( *f )( F_args... ) ) -> Function_W<F_ret,F_args...>
+  auto toFct( F_ret ( *const f )( F_args... ) ) -> Function_W<F_ret,F_args...>
   {
     return Function_W<F_ret,F_args...>{f};
   }
@@ -83,7 +83,7 @@ namespace fct
    * Convert a Function_W to an std::function
    */
   template <typename F_ret, typename... F_args>
-  auto toStdFct( Function_W<F_ret,F_args...> f ) -> Function<F_ret(F_args...)>
+  auto toStdFct( Function_W<F_ret,F_args...> const& f ) -> Function<F_ret(F_args...)>
   {
     return f;
   }
@@ -110,7 +110,7 @@ namespace fct
    * Convert a non-lambda function to an std::function
    */
   template <typename F_ret, typename... F_args>
-  auto toStdFct( F_ret ( *f )( F_args... ) ) -> Function<F_ret(F_args...)>
+  auto toStdFct( F_ret ( *const f )( F_args... ) ) -> Function<F_ret(F_args...)>
   {
     return Function<F_ret(F_args...)>{f};
   }
