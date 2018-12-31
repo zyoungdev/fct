@@ -38,6 +38,7 @@ set(
     LIBRARY_FILES
     fct/internal/include.h
     fct/internal/using.h
+    fct/internal/composition.h
     fct/internal/transition.h
     fct/internal/show.h
     fct/internal/print.h

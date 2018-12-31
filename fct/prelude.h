@@ -22,6 +22,7 @@
 
 #include "fct/internal/include.h"
 #include "fct/internal/using.h"
+#include "fct/internal/composition.h"
 #include "fct/internal/transition.h"
 #include "fct/internal/show.h"
 #include "fct/internal/print.h"
