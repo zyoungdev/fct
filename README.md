@@ -1,6 +1,6 @@
 # Functional Programming Library for C++
 
-Try your hand at functional programming in C++ by harnessing the power of mirrored Haskell functions.
+Try your hand at pure functional programming in C++ by harnessing the power of the various Haskell libraries.
 
 ## Prerequisites
 
