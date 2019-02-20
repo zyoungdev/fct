@@ -540,7 +540,11 @@ namespace fct
       if ( *it == ' ' )
       {
         out.push_back( String{ a, it } );
-        a = it + 1;
+
+        while ( *it == ' ' )
+          it++;
+
+        a = it;
       }
     }
 

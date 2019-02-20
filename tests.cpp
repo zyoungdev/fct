@@ -555,7 +555,7 @@ TEST_CASE( "lines :: String -> [String]", "[lines]" )
 
 TEST_CASE( "words :: String -> [String]", "[words]" )
 {
-  auto a = Str( "This is a String" );
+  auto a = Str( "This is a     String" );
 
   REQUIRE( words( a ) == Vec<String>{ "This"_s, "is"_s, "a"_s, "String"_s } );
 
