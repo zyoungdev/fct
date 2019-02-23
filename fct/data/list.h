@@ -24,7 +24,7 @@ namespace fct
 {
   // transpose :: [[T]] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto transpose( Cont<Cont<T>> const& xxs ) -> Cont<Cont<T>>
+  constexpr auto transpose( Cont<Cont<T>> const& xxs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -47,7 +47,7 @@ namespace fct
 
   // subsequences :: [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto subsequences( Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto subsequences( Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
     out.reserve( std::pow( 2, xs.size() ) );
@@ -70,9 +70,10 @@ namespace fct
 
     return out;
   }
+
   // intersect :: [T] -> [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto intersect( Cont<T> const& xs, Cont<T> const& ys ) -> Cont<T>
+  constexpr auto intersect( Cont<T> const& xs, Cont<T> const& ys ) -> Cont<T>
   {
     Cont<T> out{};
     auto const& smaller = xs.size() <= ys.size() ? xs : ys;
@@ -87,7 +88,7 @@ namespace fct
 
   // union :: [T] -> [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto union_of( Cont<T> const& xs, Cont<T> const& ys ) -> Cont<T>
+  constexpr auto union_of( Cont<T> const& xs, Cont<T> const& ys ) -> Cont<T>
   {
     Cont<T> out{};
     Cont<T> const* smaller = xs.size() <= ys.size() ? &xs : &ys;
@@ -105,7 +106,7 @@ namespace fct
 
   // intersperse :: T -> [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto intersperse( T const& y, Cont<T> const& xs ) -> Cont<T>
+  constexpr auto intersperse( T const& y, Cont<T> const& xs ) -> Cont<T>
   {
     if ( xs.empty() )
       return Cont<T>{};
@@ -125,14 +126,14 @@ namespace fct
 
   // intercalate :: [T] -> [[T]] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto intercalate( Cont<T> const& xs, Cont<Cont<T>> const& xxs ) -> Cont<T>
+  constexpr auto intercalate( Cont<T> const& xs, Cont<Cont<T>> const& xxs ) -> Cont<T>
   {
     return concat( intersperse( xs, xxs ) );
   }
 
   // permutations :: [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto permutations( Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto permutations( Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
     Cont<T> mut_xs = xs;
@@ -153,9 +154,10 @@ namespace fct
 
     return out;
   }
+
   // group :: [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto group( Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto group( Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     if ( xs.empty() )
       return Cont<Cont<T>>{};
@@ -184,7 +186,7 @@ namespace fct
 
   // inits :: [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto inits( Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto inits( Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -199,7 +201,7 @@ namespace fct
 
   // tails :: [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto tails( Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto tails( Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -214,7 +216,7 @@ namespace fct
 
   // isPrefixOf :: [T] -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto isPrefixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
+  constexpr auto isPrefixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
   {
     auto ys_inits = inits( ys );
     return elem( xs, ys_inits );
@@ -222,7 +224,7 @@ namespace fct
 
   // isSuffixOf :: [T] -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto isSuffixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
+  constexpr auto isSuffixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
   {
     auto ys_tails = tails( ys );
     return elem( xs, ys_tails );
@@ -230,7 +232,7 @@ namespace fct
 
   // isInfixOf :: [T] -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto isInfixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
+  constexpr auto isInfixOf( Cont<T> const& xs, Cont<T> const& ys ) -> Bool
   {
     if ( xs.empty() )
       return true;
@@ -249,7 +251,7 @@ namespace fct
 
   // partition :: ( T -> Bool ) -> [T] -> ( [T], [T] )
   template <typename T, typename F, template <typename> typename Cont>
-  auto partition( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
+  constexpr auto partition( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
   {
     Cont<T> left{};
     Cont<T> right{};
@@ -265,7 +267,7 @@ namespace fct
 
   // nub :: [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto nub( Cont<T> const& xs ) -> Cont<T>
+  constexpr auto nub( Cont<T> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
 
@@ -278,7 +280,7 @@ namespace fct
 
   // sort :: [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto sort( Cont<T> const& xs ) -> Cont<T>
+  constexpr auto sort( Cont<T> const& xs ) -> Cont<T>
   {
     Cont<T> out{ begin( xs ), end( xs ) };
     std::sort( begin( out ), end( out ) );
