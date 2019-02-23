@@ -24,7 +24,7 @@ namespace fct
 {
   // splitOn :: [T] -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto splitOn( Cont<T> const& needle, Cont<T> const& haystack ) -> Cont<Cont<T>>
+  constexpr auto splitOn( Cont<T> const& needle, Cont<T> const& haystack ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -48,7 +48,7 @@ namespace fct
 
   // splitOneOf :: [T] -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto splitOneOf( Cont<T> const& needles, Cont<T> const& haystack ) -> Cont<Cont<T>>
+  constexpr auto splitOneOf( Cont<T> const& needles, Cont<T> const& haystack ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -72,7 +72,7 @@ namespace fct
 
   // splitWhen :: ( T -> Bool ) -> [T] -> [[T]]
   template <typename T, typename F, template <typename> typename Cont>
-  auto splitWhen( F pred, Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto splitWhen( F pred, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -95,7 +95,7 @@ namespace fct
 
   // endBy :: [T] -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto endBy( Cont<T> const& needle, Cont<T> const& haystack ) -> Cont<Cont<T>>
+  constexpr auto endBy( Cont<T> const& needle, Cont<T> const& haystack ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -122,7 +122,7 @@ namespace fct
 
   // endByOneOf :: [T] -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto endByOneOf( Cont<T> const& needles, Cont<T> const& haystack ) -> Cont<Cont<T>>
+  constexpr auto endByOneOf( Cont<T> const& needles, Cont<T> const& haystack ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -149,7 +149,7 @@ namespace fct
 
   // wordsBy :: ( T -> Bool ) -> [T] -> [[T]]
   template <typename T, typename F, template <typename> typename Cont>
-  auto wordsBy( F pred, Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto wordsBy( F pred, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -178,7 +178,7 @@ namespace fct
 
   // linesBy :: ( T -> Bool ) -> [T] -> [[T]]
   template <typename T, typename F, template <typename> typename Cont>
-  auto linesBy( F pred, Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto linesBy( F pred, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -204,7 +204,7 @@ namespace fct
 
   // chunksOf :: UInt -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto chunksOf( UInt n, Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto chunksOf( UInt n, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -225,7 +225,7 @@ namespace fct
 
   // splitPlaces :: [UInt] -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto splitPlaces( Cont<UInt> const& ns, Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto splitPlaces( Cont<UInt> const& ns, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -252,7 +252,7 @@ namespace fct
 
   // splitPlacesBlanks :: [UInt] -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto splitPlacesBlanks( Cont<UInt> const& ns, Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto splitPlacesBlanks( Cont<UInt> const& ns, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
@@ -283,7 +283,7 @@ namespace fct
 
   // divvy :: UInt -> UInt -> [T] -> [[T]]
   template <typename T, template <typename> typename Cont>
-  auto divvy( UInt n, UInt m, Cont<T> const& xs ) -> Cont<Cont<T>>
+  constexpr auto divvy( UInt n, UInt m, Cont<T> const& xs ) -> Cont<Cont<T>>
   {
     Cont<Cont<T>> out{};
 
