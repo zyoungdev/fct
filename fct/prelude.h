@@ -33,20 +33,20 @@ namespace fct
   constexpr Double e  = 2.718281828459045235360287471352662497;
 
   // toUpper :: Char -> Char
-  auto toUpper( Char const& x ) -> Char
+  constexpr auto toUpper( Char const& x ) -> Char
   {
     return x > 0x60 && x < 0x7B ? x - 0x20 : x;
   }
 
   // toLower :: Char -> Char
-  auto toLower( Char const& x ) -> Char
+  constexpr auto toLower( Char const& x ) -> Char
   {
     return x > 0x40 && x < 0x5B ? x + 0x20 : x;
   }
 
   // fmap :: ( S -> T ) -> [S] -> [T]
   template <typename T, typename S, template <typename> typename Cont, typename F>
-  auto fmap( F fct, Cont<S> const& xs ) -> Cont<T>
+  constexpr auto fmap( F fct, Cont<S> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
     out.reserve( xs.size() );
@@ -59,7 +59,7 @@ namespace fct
 
   // fmap :: ( Char -> Char ) -> StdString -> StdString 
   template <typename F>
-  auto fmap( F fct, StdString const& xs ) -> StdString
+  constexpr auto fmap( F fct, StdString const& xs ) -> StdString
   {
     StdString out{};
     out.reserve( xs.size() );
@@ -72,7 +72,7 @@ namespace fct
 
   // filter :: ( T -> Bool ) -> [T]
   template <typename T, template <typename> typename Cont, typename F>
-  auto filter( F predicate, Cont<T> const& xs ) -> Cont<T>
+  constexpr auto filter( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
     out.reserve( xs.size() );
@@ -86,7 +86,7 @@ namespace fct
 
   // takeWhile :: ( T -> Bool ) -> [T] -> [T]
   template <typename T, template <typename> typename Cont, typename F>
-  auto takeWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
+  constexpr auto takeWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
     out.reserve( xs.size() );
@@ -102,7 +102,7 @@ namespace fct
 
   // dropWhile :: ( T -> Bool ) -> [T] -> [T]
   template <typename T, template <typename> typename Cont, typename F>
-  auto dropWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
+  constexpr auto dropWhile( F predicate, Cont<T> const& xs ) -> Cont<T>
   {
     Int i = 0;
     for ( auto const& x : xs )
@@ -116,75 +116,75 @@ namespace fct
 
   // head :: [T] -> T
   template <typename T, template <typename> typename Cont>
-  auto head( Cont<T> const& xs ) -> T
+  constexpr auto head( Cont<T> const& xs ) -> T
   {
     return *( begin( xs ) );
   }
 
   // tail :: [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto tail( Cont<T> const& xs ) -> Cont<T>
+  constexpr auto tail( Cont<T> const& xs ) -> Cont<T>
   {
     return Cont<T>{ begin( xs ) + 1, end( xs ) };
   }
 
   // init :: [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto init( Cont<T> const& xs ) -> Cont<T>
+  constexpr auto init( Cont<T> const& xs ) -> Cont<T>
   {
     return Cont<T>{ begin( xs ), end( xs ) - 1 };
   }
 
   // last :: [T] -> T
   template <typename T, template <typename> typename Cont>
-  auto last( Cont<T> const& xs ) -> T
+  constexpr auto last( Cont<T> const& xs ) -> T
   {
     return *( end( xs ) - 1 );
   }
 
   // fst :: (S,T) -> S
   template <typename S, typename T>
-  auto fst( Tup<S,T> const& tup )
+  constexpr auto fst( Tup<S,T> const& tup )
   {
     return std::get<0>( tup );
   }
 
   // snd :: (S,T) -> T
   template <typename S, typename T>
-  auto snd( Tup<S,T> const& tup )
+  constexpr auto snd( Tup<S,T> const& tup )
   {
     return std::get<1>( tup );
   }
 
   // odd :: Int -> Bool
-  auto odd( Int const& val ) -> Bool
+  constexpr auto odd( Int const& val ) -> Bool
   {
     return val & 1;
   }
 
   // even :: Int -> Bool
-  auto even( Int const& val ) -> Bool
+  constexpr auto even( Int const& val ) -> Bool
   {
     return ! odd( val );
   }
 
   // negate :: Num -> Num
   template <typename Num>
-  auto negate( Num const& x ) -> Num
+  constexpr auto negate( Num const& x ) -> Num
   {
     return -x;
   }
 
   // abs :: Num -> Num
   template <typename Num>
-  auto abs( Num const& x ) -> Num
+  constexpr auto abs( Num const& x ) -> Num
   {
     return x < 0 ? -x : x;
   }
 
   // signum :: Num -> Int
   template <typename Num>
-  auto signum( Num const& x ) -> Int
+  constexpr auto signum( Num const& x ) -> Int
   {
     if ( x < 0 )
       return -1;
@@ -196,7 +196,7 @@ namespace fct
 
   // quotRem :: T -> T -> ( T, T )
   template <typename T>
-  auto quotRem( T const& x, T const& y ) -> Tup<T, T>
+  constexpr auto quotRem( T const& x, T const& y ) -> Tup<T, T>
   {
     T q = x / y;
     T r = x % y;
@@ -206,35 +206,35 @@ namespace fct
 
   // exp :: Num -> Double
   template <typename Num>
-  auto exp( Num const& x ) -> Double
+  constexpr auto exp( Num const& x ) -> Double
   {
     return std::pow( e, x );
   }
 
   // log :: Num -> Double
   template <typename Num>
-  auto log( Num const& x ) -> Double
+  constexpr auto log( Num const& x ) -> Double
   {
     return std::log( x );
   }
 
   // logBase :: Num -> Num -> Double
   template <typename Num>
-  auto logBase( Num const& base, Num const& x ) -> Double
+  constexpr auto logBase( Num const& base, Num const& x ) -> Double
   {
     return std::log( x ) / std::log( base );
   }
 
   // sqrt :: Num -> Double
   template <typename Num>
-  auto sqrt( Num const& x ) -> Double
+  constexpr auto sqrt( Num const& x ) -> Double
   {
     return std::sqrt( x );
   }
 
   // gcd :: Num -> Num -> Num
   template <typename Num>
-  auto gcd( Num const& x, Num const& y ) -> Num
+  constexpr auto gcd( Num const& x, Num const& y ) -> Num
   {
     Num end = x <= y ? x : y;
 
@@ -248,7 +248,7 @@ namespace fct
 
   // lcm :: Num -> Num -> Num
   template <typename Num>
-  auto lcm( Num const& x, Num const& y ) -> Num
+  constexpr auto lcm( Num const& x, Num const& y ) -> Num
   {
     Num end = x <= y ? x : y;
 
@@ -261,35 +261,35 @@ namespace fct
 
   // elem :: T -> [b] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto elem( T const& el, Cont<T> const& xs ) -> Bool
+  constexpr auto elem( T const& el, Cont<T> const& xs ) -> Bool
   {
     return any( [&el]( auto const& x ){ return el == x; }, xs );
   }
 
   // notElem :: T -> [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto notElem( T const& el, Cont<T> const& xs ) -> Bool
+  constexpr auto notElem( T const& el, Cont<T> const& xs ) -> Bool
   {
     return ! elem( el, xs );
   }
 
   // max :: T -> T -> T
   template <typename T>
-  auto max( T const& x, T const& y ) -> T
+  constexpr auto max( T const& x, T const& y ) -> T
   {
     return x >= y ? x : y;
   }
 
   // min :: T -> T -> T
   template <typename T>
-  auto min( T const& x, T const& y ) -> T
+  constexpr auto min( T const& x, T const& y ) -> T
   {
     return x <= y ? x : y;
   }
 
   // maximum :: [T] -> T
   template <typename T, template <typename> typename Cont>
-  auto maximum( Cont<T> const& xs ) -> T
+  constexpr auto maximum( Cont<T> const& xs ) -> T
   {
     auto a = begin( xs );
     auto b = end( xs );
@@ -306,7 +306,7 @@ namespace fct
 
   // minimum :: [T] -> T
   template <typename T, template <typename> typename Cont>
-  auto minimum( Cont<T> const& xs ) -> T
+  constexpr auto minimum( Cont<T> const& xs ) -> T
   {
     auto a = begin( xs );
     auto b = end( xs );
@@ -323,7 +323,7 @@ namespace fct
 
   // sum :: [Num] -> Num
   template <typename Num, template <typename> typename Cont>
-  auto sum( Cont<Num> const& xs ) -> Num
+  constexpr auto sum( Cont<Num> const& xs ) -> Num
   {
     if ( xs.empty() )
       return 0;
@@ -337,7 +337,7 @@ namespace fct
 
   // product :: [Num] -> Num
   template <typename Num, template <typename> typename Cont>
-  auto product( Cont<Num> const& xs ) -> Num
+  constexpr auto product( Cont<Num> const& xs ) -> Num
   {
     if ( xs.empty() )
       return 1;
@@ -351,28 +351,28 @@ namespace fct
 
   // id :: T -> T
   template <typename T>
-  auto id( T const& x ) -> T
+  constexpr auto id( T const& x ) -> T
   {
     return x;
   }
 
   // constant :: S -> T -> S
   template <typename S, typename T>
-  auto constant( S const& x, [[maybe_unused]] T const& y ) -> S
+  constexpr auto constant( S const& x, [[maybe_unused]] T const& y ) -> S
   {
     return x;
   }
 
   // flip :: ( S -> T -> U ) -> T -> S -> U
   template <typename U, typename S, typename T, typename F>
-  auto flip( F func, S const& x, T const& y ) -> U
+  constexpr auto flip( F func, S const& x, T const& y ) -> U
   {
     return func( y, x );
   }
 
   // until :: ( T -> Bool ) -> ( T -> T ) -> T -> T
   template <typename T, typename P, typename F>
-  auto until( P predicate, F func, T const& x ) -> T
+  constexpr auto until( P predicate, F func, T const& x ) -> T
   {
     T out = x;
     while ( ! predicate( out ) )
@@ -383,21 +383,21 @@ namespace fct
 
   // null :: [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto null( Cont<T> const& xs ) -> Bool
+  constexpr auto null( Cont<T> const& xs ) -> Bool
   {
     return xs.empty();
   }
 
   // length :: [T] -> Size_t
   template <typename S, template <typename> typename Cont>
-  auto length( Cont<S> const& xs ) -> size_t
+  constexpr auto length( Cont<S> const& xs ) -> size_t
   {
     return xs.size();
   }
 
   // reverse :: [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto reverse( Cont<T> const& xs ) -> Cont<T>
+  constexpr auto reverse( Cont<T> const& xs ) -> Cont<T>
   {
     return Cont<T>{ rbegin( xs ), rend( xs ) };
   }
@@ -405,7 +405,7 @@ namespace fct
   // Haskell and
   // conjunction :: [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto conjunction( Cont<T> const& xs ) -> Bool
+  constexpr auto conjunction( Cont<T> const& xs ) -> Bool
   {
     if ( xs.empty() )
       return true;
@@ -419,7 +419,7 @@ namespace fct
 
   // disjunction :: [T] -> Bool
   template <typename T, template <typename> typename Cont>
-  auto disjunction( Cont<T> const& xs ) -> Bool
+  constexpr auto disjunction( Cont<T> const& xs ) -> Bool
   {
     if ( xs.empty() )
       return false;
@@ -433,21 +433,21 @@ namespace fct
 
   // any :: ( T -> Bool ) -> [T] -> Bool
   template <typename T, template <typename> typename Cont, typename F>
-  auto any( F predicate, Cont<T> const& xs ) -> Bool
+  constexpr auto any( F predicate, Cont<T> const& xs ) -> Bool
   {
     return std::any_of( begin( xs ), end( xs ), predicate );
   }
 
   // all :: ( T -> Bool ) -> [T] -> Bool
   template <typename T, template <typename> typename Cont, typename F>
-  auto all( F predicate, Cont<T> const& xs ) -> Bool
+  constexpr auto all( F predicate, Cont<T> const& xs ) -> Bool
   {
     return std::all_of( begin( xs ), end( xs ), predicate );
   }
 
   // concat :: [[T]] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto concat( Cont<Cont<T>> const& xxs ) -> Cont<T>
+  constexpr auto concat( Cont<Cont<T>> const& xxs ) -> Cont<T>
   {
     // Count number of items;
     size_t i = 0;
@@ -465,14 +465,14 @@ namespace fct
 
   // replicate :: UInt -> T - [T]
   template <typename T>
-  auto replicate( UInt num, T const& val ) -> Vec<T>
+  constexpr auto replicate( UInt num, T const& val ) -> Vec<T>
   {
     return Vec<T>( num, val );
   }
 
   // take :: UInt -> [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto take( UInt num, Cont<T> const& xs ) -> Cont<T>
+  constexpr auto take( UInt num, Cont<T> const& xs ) -> Cont<T>
   {
     if ( xs.empty() )
       return Cont<T>{};
@@ -481,7 +481,7 @@ namespace fct
 
   // drop :: UInt -> [T] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto drop( UInt num, Cont<T> const& xs ) -> Cont<T>
+  constexpr auto drop( UInt num, Cont<T> const& xs ) -> Cont<T>
   {
     if ( xs.empty() )
       return Cont<T>{};
@@ -490,7 +490,7 @@ namespace fct
 
   // splitAt :: UInt -> [T] -> ( [T], [T] )
   template <typename T, template <typename> typename Cont>
-  auto splitAt( UInt index, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
+  constexpr auto splitAt( UInt index, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
   {
     if ( index >= xs.size() )
       return std::make_tuple( Cont<T>{ begin( xs ), end( xs ) }, Cont<T>{} );
@@ -557,7 +557,7 @@ namespace fct
 
   // unlines :: [String] -> String
   template <template <typename> typename Cont>
-  auto unlines( Cont<String> const& xs ) -> String
+  constexpr auto unlines( Cont<String> const& xs ) -> String
   {
     String out{};
     for ( auto const& x : xs )
@@ -572,7 +572,7 @@ namespace fct
 
   // unwords :: [String] -> String
   template <template <typename> typename Cont>
-  auto unwords( Cont<String> const& xs ) -> String
+  constexpr auto unwords( Cont<String> const& xs ) -> String
   {
     if ( xs.empty() )
       return String{};
@@ -659,7 +659,7 @@ namespace fct
 
   // iterate :: (T -> T) -> T -> [T]
   template <typename T, typename F>
-  auto iterate( UInt num, F func, T const& x ) -> Vec<T>
+  constexpr auto iterate( UInt num, F func, T const& x ) -> Vec<T>
   {
     Vec<T> out{};
     out.reserve( num );
@@ -672,7 +672,7 @@ namespace fct
 
   // span :: (T -> Bool) -> [T] -> ([T], [T])
   template <typename T, template <typename> typename Cont, typename F>
-  auto span( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
+  constexpr auto span( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
   {
     Int i = 0;
     for ( auto const& x : xs )
@@ -686,7 +686,7 @@ namespace fct
 
   // break_when :: (T -> Bool) -> [T] -> ([T], [T])
   template <typename T, template <typename> typename Cont, typename F>
-  auto break_when( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
+  constexpr auto break_when( F predicate, Cont<T> const& xs ) -> Tup<Cont<T>, Cont<T>>
   {
     Int i = 0;
     for ( auto const& x : xs )
@@ -700,7 +700,7 @@ namespace fct
 
   // zip :: [S] -> [T] -> [(S, T)]
   template <typename S, typename T, template <typename> typename Cont>
-  auto zip( Cont<S> const& xs, Cont<T> const& ys ) -> Cont<Tup<S,T>>
+  constexpr auto zip( Cont<S> const& xs, Cont<T> const& ys ) -> Cont<Tup<S,T>>
   {
     Cont<Tup<S,T>> out{};
     out.reserve( xs.size() <= ys.size() ? xs.size() : ys.size() );
@@ -720,7 +720,7 @@ namespace fct
 
   // zip3 :: [S] -> [T] -> [U] -> [(S, T, U)]
   template <typename S, typename T, typename U, template <typename> typename Cont>
-  auto zip3( Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<Tup<S,T,U>>
+  constexpr auto zip3( Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<Tup<S,T,U>>
   {
     Cont<Tup<S,T,U>> out{};
 
@@ -744,7 +744,7 @@ namespace fct
 
   // zipWith :: ( S -> T -> U ) -> [S] -> [T] -> [U]
   template <typename U, typename S, typename T, template <typename> typename Cont, typename F>
-  auto zipWith( F func, Cont<S> const& xs, Cont<T> const& ys ) -> Cont<U>
+  constexpr auto zipWith( F func, Cont<S> const& xs, Cont<T> const& ys ) -> Cont<U>
   {
     Cont<U> out{};
     out.reserve( xs.size() <= ys.size() ? xs.size() : ys.size() );
@@ -764,7 +764,7 @@ namespace fct
 
   // zipWith3 :: ( S -> T -> U -> V ) -> [S] -> [T] -> [U] -> [V]
   template <typename V, typename U, typename S, typename T, template <typename> typename Cont, typename F>
-  auto zipWith3( F func, Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<V>
+  constexpr auto zipWith3( F func, Cont<S> const& xs, Cont<T> const& ys, Cont<U> const& zs ) -> Cont<V>
   {
     Cont<V> out{};
 
@@ -788,7 +788,7 @@ namespace fct
 
   // unzip :: [(S,T)] -> ([S],[T])
   template <typename S, typename T, template <typename> typename Cont>
-  auto unzip( Cont<Tup<S,T>> const& xs )
+  constexpr auto unzip( Cont<Tup<S,T>> const& xs )
   {
     Cont<S> ss;
     Cont<T> ts;
@@ -806,7 +806,7 @@ namespace fct
 
   // unzip3 :: [(S,T)] -> ([S],[T])
   template <typename S, typename T, typename U, template <typename> typename Cont>
-  auto unzip3( Cont<Tup<S,T,U>> const& xs )
+  constexpr auto unzip3( Cont<Tup<S,T,U>> const& xs )
   {
     Cont<S> ss;
     Cont<T> ts;
@@ -827,7 +827,7 @@ namespace fct
 
   // foldl :: (T -> S -> T) -> T -> [S] -> T
   template <typename S, typename T, template <typename> typename Cont, typename F>
-  auto foldl( F func, T const& y, Cont<S> const& xs ) -> T
+  constexpr auto foldl( F func, T const& y, Cont<S> const& xs ) -> T
   {
     T out = y;
 
@@ -839,7 +839,7 @@ namespace fct
 
   // scanl :: (T -> S -> T) -> T -> [S] -> T
   template <typename S, typename T, template <typename> typename Cont, typename F>
-  auto scanl( F func, T const& y, Cont<S> const& xs ) -> Cont<T>
+  constexpr auto scanl( F func, T const& y, Cont<S> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
     out.reserve( xs.size() );
@@ -858,28 +858,28 @@ namespace fct
 
   // ceiling :: Num -> Int
   template <typename Num>
-  auto ceiling( Num const& x ) -> Int
+  constexpr auto ceiling( Num const& x ) -> Int
   {
     return std::ceil( x );
   }
 
   // floor :: Num -> Int
   template <typename Num>
-  auto floor( Num const& x ) -> Int
+  constexpr auto floor( Num const& x ) -> Int
   {
     return std::floor( x );
   }
 
   // round :: Num -> Int
   template <typename Num>
-  auto round( Num const& x ) -> Int
+  constexpr auto round( Num const& x ) -> Int
   {
     return std::round( x );
   }
 
   // lookup :: S -> [(S,T)] -> Opt<T>
   template <typename S, typename T, template <typename> typename Cont>
-  auto lookup( S const& needle, Cont<Tup<S,T>> const& xs ) -> Opt<T>
+  constexpr auto lookup( S const& needle, Cont<Tup<S,T>> const& xs ) -> Opt<T>
   {
     for ( auto const& x : xs )
       if ( needle == std::get<0>( x ) )
@@ -890,7 +890,7 @@ namespace fct
 
   // mapM_ :: ( S -> void ) -> [S] -> void
   template <typename S, typename F, template <typename> typename Cont>
-  auto mapM_( F func, Cont<S> const& xs ) -> void
+  constexpr auto mapM_( F func, Cont<S> const& xs ) -> void
   {
     for ( auto const& x : xs )
       func( x );
