@@ -27,49 +27,49 @@ namespace fct
 {
   // maybe :: T -> ( S -> T ) -> Opt<S> -> T
   template <typename T, typename S, typename F>
-  auto maybe( T const& def, F func, Opt<S> const& x ) -> T
+  constexpr auto maybe( T const& def, F func, Opt<S> const& x ) -> T
   {
     return x.has_value() ? func( x.value() ) : def;
   }
 
   // isJust :: Opt<T> -> Bool
   template <typename T>
-  auto isJust( Opt<T> const& x ) -> Bool
+  constexpr auto isJust( Opt<T> const& x ) -> Bool
   {
     return x.has_value();
   }
 
   // isNothing :: Opt<T> -> Bool
   template <typename T>
-  auto isNothing( Opt<T> const& x ) -> Bool
+  constexpr auto isNothing( Opt<T> const& x ) -> Bool
   {
     return ! x.has_value();
   }
 
   // fromMaybe :: T -> Opt<T> -> T
   template <typename T>
-  auto fromMaybe( T const& def, Opt<T> const& x )
+  constexpr auto fromMaybe( T const& def, Opt<T> const& x )
   {
     return x.value_or( def );
   }
 
   // listToMaybe :: [T] -> Opt<T>
   template <typename T, template <typename> typename Cont>
-  auto listToMaybe( Cont<T> const& xs ) -> Opt<T>
+  constexpr auto listToMaybe( Cont<T> const& xs ) -> Opt<T>
   {
     return xs.empty() ? Opt<T>{} : *( begin( xs ) );
   }
 
   // maybeToList :: Opt<T> -> [T]
   template <template <typename> typename Cont, typename T>
-  auto maybeToList( Opt<T> const& x ) -> Cont<T>
+  constexpr auto maybeToList( Opt<T> const& x ) -> Cont<T>
   {
     return x.has_value() ? Cont<T>{ x.value() } : Cont<T>{};
   }
 
   // catMaybes :: [Opt<T>] -> [T]
   template <typename T, template <typename> typename Cont>
-  auto catMaybes( Cont<Opt<T>> const& xs ) -> Cont<T>
+  constexpr auto catMaybes( Cont<Opt<T>> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
     out.reserve( xs.size() );
@@ -83,7 +83,7 @@ namespace fct
 
   // mapMaybe :: ( S -> Opt<T> ) -> [S] -> [T]
   template <typename T, typename S, template <typename> typename Cont, typename F>
-  auto mapMaybe( F fct, Cont<S> const& xs ) -> Cont<T>
+  constexpr auto mapMaybe( F fct, Cont<S> const& xs ) -> Cont<T>
   {
     Cont<T> out{};
     out.reserve( xs.size() );
