@@ -502,9 +502,11 @@ namespace fct
   }
 
   // lines :: String -> [String]
-  auto lines( String const& str ) -> Vec<String>
+  template <typename T, template <typename> typename Cont>
+  // auto lines( String const& str ) -> Vec<String>
+  constexpr auto lines( Cont<T> const& str ) -> Cont<Cont<T>>
   {
-    Vec<String> out{};
+    Cont<Cont<T>> out{};
 
     auto a = begin( str );
     auto b = end( str );
@@ -514,22 +516,23 @@ namespace fct
     {
       if ( *it == '\n' )
       {
-        out.push_back( String{ a, it } );
+        out.push_back( Cont<T>{ a, it } );
         a = it + 1;
       }
     }
 
-    auto last = String{ a, b };
+    auto last = Cont<T>{ a, b };
     if ( ! last.empty() )
-      out.push_back( String{ a, b } );
+      out.push_back( Cont<T>{ a, b } );
 
     return out;
   }
 
   // words :: String -> [String]
-  auto words( String const& xs ) -> Vec<String>
+  template <typename T, template <typename> typename Cont>
+  constexpr auto words( Cont<T> const& xs ) -> Cont<Cont<T>>
   {
-    Vec<String> out{};
+    Cont<Cont<T>> out{};
 
     auto a = begin( xs );
     auto b = end( xs );
@@ -539,7 +542,7 @@ namespace fct
     {
       if ( *it == ' ' )
       {
-        out.push_back( String{ a, it } );
+        out.push_back( Cont<T>{ a, it } );
 
         while ( *it == ' ' )
           it++;
@@ -548,9 +551,9 @@ namespace fct
       }
     }
 
-    auto last = String{ a, b };
+    auto last = Cont<T>{ a, b };
     if ( ! last.empty() )
-      out.push_back( String{ a, b } );
+      out.push_back( Cont<T>{ a, b } );
 
     return out;
   }
