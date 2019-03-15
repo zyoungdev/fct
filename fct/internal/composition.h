@@ -62,7 +62,7 @@ namespace fct
   }
 
   /*
-   * Convert a lambda function to an std::function
+   * Convert a lambda function to a Function_W
    */
   template <typename F>
   auto toFct( F const& f )
@@ -71,7 +71,7 @@ namespace fct
   }
 
   /*
-   * Convert a non-lambda function to an Function_W
+   * Convert a non-lambda function to a Function_W
    */
   template <typename F_ret, typename... F_args>
   auto toFct( F_ret ( *const f )( F_args... ) ) -> Function_W<F_ret,F_args...>
