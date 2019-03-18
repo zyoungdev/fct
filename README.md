@@ -68,7 +68,7 @@ print( cs );
 
 Unfortunately, C++ does not allow you to change the language so overloading `operator |` for two non-lambda functions is impossible. Though, we are still able to overload `operator |` for two lambdas which means we can wrap non-lambda functions in lambdas or wrap them with `std::function`. A helper function `toFct` is also available to wrap functions with `Function_W` and `toStdFct` to wrap functions with `std::function`.
 
-```C++
+```c++
 template <typename S, typename T>
 auto f1( S x ) -> T
 {
