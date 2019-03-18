@@ -1,3 +1,5 @@
+[![pipeline status](https://gitlab.com/zerovectorspace/fct/badges/master/pipeline.svg)](https://gitlab.com/zerovectorspace/fct/commits/master)
+
 # Functional Programming Library for C++
 
 Try your hand at pure functional programming in C++ by harnessing the power of the various Haskell libraries.
