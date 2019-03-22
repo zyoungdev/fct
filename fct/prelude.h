@@ -629,6 +629,21 @@ namespace fct
     return toStr( out );
   }
 
+  // read :: String -> T
+  template <typename T>
+  auto read( String const& xs ) -> T
+  {
+    StrStream ss{ toStdStr( xs ) };
+
+    T out;
+    ss >> out;
+
+    if ( ! ss )
+      throw std::runtime_error( "Prelude.read: no parse" );
+
+    return out;
+  }
+
   // readFile :: StdString -> StdString
   auto readFile( StdString const& filePath ) -> StdString
   {

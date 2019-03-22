@@ -1203,3 +1203,10 @@ TEST_CASE( "mapMaybe :: ( S -> Opt<T> ) -> [S] -> [T]", "[mapMaybe]" )
   auto bf = []( auto& x ){ return x; };
   REQUIRE( mapMaybe<Int>( bf, bs ) == Vec<Int>{ 0,1,2,3,4 } );
 }
+
+TEST_CASE( "read :: String -> T", "[read]" )
+{
+  REQUIRE( read<Int>( "1"_s ) == 1 );
+  REQUIRE_THROWS( read<Int>( "abc"_s ) == 0 );
+}
+
