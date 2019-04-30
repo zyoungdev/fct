@@ -57,6 +57,11 @@ set (
     main.cpp
 )
 
+set (
+    BENCH_FILES
+    bench.cpp
+)
+
 set( CATCH_INCLUDE_DIR /usr/include/catch2 )
 add_library( Catch INTERFACE )
 target_include_directories( Catch INTERFACE ${CATCH_INCLUDE_DIR} )
@@ -71,3 +76,6 @@ target_link_libraries( tests fct Catch )
 
 add_executable( main ${MAIN_FILES} )
 target_link_libraries( main fct )
+
+add_executable( bench ${BENCH_FILES} )
+target_link_libraries( bench fct )
