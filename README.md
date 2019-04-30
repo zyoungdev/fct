@@ -96,6 +96,46 @@ int main()
 }
 ```
 
+### Pretty Print `classes`, `structs`, and `enums`
+
+To utilize `fct::print()` for `classes`, `structs`, or `enums`, simply define an overloaded instance of `fct::show()` which takes the `class`, `struct`, or `enum` as a parameter and returns a `String`.
+
+```c++
+#include "fct.h"
+
+using namespace fct;
+
+enum class Color {
+  RED,
+  GREEN,
+  BLUE
+};
+
+// show :: Color -> String
+auto show( Color const& c ) -> String
+{
+  if ( c == Color::RED )
+    return "RED"_s;
+  if ( c == Color::GREEN )
+    return "GREEN"_s;
+  if ( c == Color::BLUE )
+    return "BLUE"_s;
+
+  return ""_s;
+}
+
+int main()
+{
+  Color r = Color::RED;
+  Color g = Color::GREEN;
+  Color b = Color::BLUE;
+
+  print( r );
+  print( g );
+  print( b );
+}
+```
+
 ## Installation
 
 (Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch2`
@@ -110,7 +150,7 @@ int main()
 
 ## Strings
 
-In Haskell `String` is equivalent to `[Char]` and they are both implicitly covertable to eachother. In order to make this library consistent without the need to overload every function with an equivalent `std::string` version, `std::string` has been type aliased as `StdString` and `std::vector<char>` has been type aliased as `String`. Convenience functions follow:
+In Haskell `String` is equivalent to `[Char]` and they are both implicitly convertable to eachother. In order to make this library consistent without the need to overload every function with an equivalent `std::string` version, `std::string` has been type aliased as `StdString` and `std::vector<char>` has been type aliased as `String`. Convenience functions follow:
 
 ```c++
 // toStr :: StdString -> String
