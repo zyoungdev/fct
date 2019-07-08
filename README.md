@@ -140,12 +140,31 @@ int main()
 
 (Optional) Install [Catch2](https://github.com/catchorg/Catch2) using your distribution's package manager or download it manually and install it to `/usr/lib/catch2`
 
+### Tests
+
 ```bash
 > cd ~
 > git clone https://gitlab.com/zerovectorspace/fct
 > mkdir fct_build; cd fct_build
 > cmake ~/fct
 > make tests && ./tests
+```
+
+### Library Include
+
+Add these lines to your `CMakeLists.txt`
+
+```cmake
+# Add the fct directory so the include directives
+#   in the fct source files reference the correct locations
+include_directories(
+    ...
+    ${CMAKE_SOURCE_DIR}/fct
+    ...
+)
+
+# Add the fct directory to the build so the linker can find the library
+add_subdirectory( ${CMAKE_SOURCE_DIR}/fct )
 ```
 
 ## Strings
