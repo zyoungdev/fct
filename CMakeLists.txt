@@ -74,8 +74,8 @@ set( CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS}" )
 add_executable( tests ${TEST_FILES} )
 target_link_libraries( tests fct Catch )
 
-add_executable( main ${MAIN_FILES} )
-target_link_libraries( main fct )
+add_executable( fct-main ${MAIN_FILES} )
+target_link_libraries( fct-main fct )
 
 add_executable( bench ${BENCH_FILES} )
 target_link_libraries( bench fct )
