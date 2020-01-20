@@ -562,6 +562,10 @@ TEST_CASE( "words :: String -> [String]", "[words]" )
   auto b = Str( "" );
 
   REQUIRE( words( b ) == Vec<String>{} );
+
+  auto c = Str( "string " );
+
+  REQUIRE( words( c ) == Vec<String>{ "string"_s } );
 }
 
 TEST_CASE( "unlines :: [StdString] -> StdString", "[unlines]" )

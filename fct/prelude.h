@@ -538,7 +538,7 @@ namespace fct
     auto b = end( xs );
     auto it = a;
 
-    for ( ; it != b ; advance( it, 1 ) )
+    for ( ; it != b ; )
     {
       if ( *it == ' ' )
       {
@@ -548,8 +548,15 @@ namespace fct
           it++;
 
         a = it;
+
       }
+
+      if ( it != b )
+        advance( it, 1 );
     }
+
+    if ( a == b )
+      return out;
 
     auto last = Cont<T>{ a, b };
     if ( ! last.empty() )
